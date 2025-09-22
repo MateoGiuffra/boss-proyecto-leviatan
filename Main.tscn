@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://daovg62hm8gdh"]
+
+[ext_resource type="PackedScene" uid="uid://deobkv1rsv7uo" path="res://entities/scenarios/scenery_1.tscn" id="1_glv2v"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Scenario_1" parent="." instance=ExtResource("1_glv2v")]
+position = Vector2(0, -5)

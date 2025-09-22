@@ -11,9 +11,16 @@ config_version=5
 [application]
 
 config/name="Boss Proyecto Leviatan"
-run/main_scene="uid://c2amel5tiu7hy"
+run/main_scene="uid://daovg62hm8gdh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=288
+window/size/viewport_height=216
+window/size/window_width_override=1360
+window/size/window_height_override=920
 
 [input]
 
