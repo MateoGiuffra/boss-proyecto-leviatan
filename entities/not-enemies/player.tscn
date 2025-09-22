@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1h4qfmv32x6t"]
+[gd_scene load_steps=17 format=3 uid="uid://1h4qfmv32x6t"]
 
 [ext_resource type="Texture2D" uid="uid://tubpjghmmc0l" path="res://assets/player/idle/0.png" id="3_h5ojx"]
 [ext_resource type="Texture2D" uid="uid://d1lbawu7ss1n" path="res://assets/player/idle/1.png" id="4_cretd"]
@@ -10,28 +10,31 @@
 [ext_resource type="Texture2D" uid="uid://b6qtf4yjdeq0e" path="res://assets/player/walk/14.png" id="8_7phyx"]
 [ext_resource type="Texture2D" uid="uid://bwnsdqhxrbsq7" path="res://assets/player/walk/15.png" id="9_7jgog"]
 [ext_resource type="Texture2D" uid="uid://d27y24pciiyk7" path="res://assets/player/walk/16.png" id="10_3d7ta"]
-[ext_resource type="Texture2D" uid="uid://csuj2wqo0nqn6" path="res://assets/player/walk/17.png" id="11_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://jc1ec5feq03i" path="res://assets/player/walk/18.png" id="12_753ju"]
 
 [sub_resource type="GDScript" id="GDScript_td2n2"]
 script/source = "extends CharacterBody2D
 
 @export var ACCELERATION: float = 3750.0 
-@export var H_SPEED_LIMIT: float = 600.0
-@export var jump_speed: int = 500
+@export var H_SPEED_LIMIT: float = 300.0
+@export var jump_speed: int = 600
 @export var FRICTION_WEIGHT: float = 6.25 
-@export var gravity: float = 625.0 
+@export var gravity: float = 725.0 
 @export var swim_boosts:int = 3 # cantidad de \"impulsos\" que puede hacer mientras flota
 @export var boost_decay: float = 0.7 # reducción por cada boost
 # variables privada que se van a modificar, las otra se usan como constantes
 var _swim_boosts = swim_boosts 
 var boost_speed = jump_speed 
+var lantern_colors = [\"FFFFFF\", \"#A52019\"]
+var lantern_index: int = 0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 var body_pivot: Node2D
 var h_movement_direction: int = 0
 var jump: bool = false
+var change_lantern_color: bool = false
 
 func _ready() -> void:
 	body_pivot = get_parent()
@@ -71,6 +74,9 @@ func _physics_process(delta: float) -> void:
 	# Jump
 	if jump: 
 		_jump()
+	
+	if change_lantern_color:
+		_change_light_to_next_color()
 	# Gravity
 	## Calculo en el eje y para la gravedad del jugador
 	velocity.y += gravity * delta
@@ -79,6 +85,10 @@ func _physics_process(delta: float) -> void:
 	## en el jugador. 
 	_update_view()
 	move_and_slide() 
+
+func _change_light_to_next_color():
+	lantern_index = (lantern_index + 1) % lantern_colors.size() 
+	point_light_2d.color = lantern_colors.get(lantern_index)
 
 func _jump()->void:
 	if is_on_floor():
@@ -93,7 +103,6 @@ func _restart_boost() -> void:
 
 func _swim_boost()->void:
 	if _can_boost():
-		print(\"entre\")
 		boost_speed *= boost_decay
 		velocity.y -= boost_speed
 		_swim_boosts -= 1
@@ -115,11 +124,26 @@ func _play_animation(animation_name: StringName)-> void:
 func _get_input() -> void:
 	# Jump Action
 	jump = Input.is_action_just_pressed(\"jump\") #Si salta es true
-
+	
+	change_lantern_color =  Input.is_action_just_pressed(\"change_lantern_color\")
 	#horizontal speed
 	# Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
 	h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\")) 
 "
+
+[sub_resource type="Gradient" id="Gradient_qadnp"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
+gradient = SubResource("Gradient_qadnp")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cd5ud"]
 animations = [{
@@ -160,9 +184,6 @@ animations = [{
 "texture": ExtResource("10_3d7ta")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_bnhqw")
-}, {
-"duration": 1.0,
 "texture": ExtResource("12_753ju")
 }],
 "loop": true,
@@ -182,10 +203,14 @@ collision_layer = 3
 collision_mask = 3
 script = SubResource("GDScript_td2n2")
 
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+texture = SubResource("GradientTexture2D_7phyx")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-20, -4)
+position = Vector2(-18, -10)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
 animation = &"walk"
+frame_progress = 0.9245588
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-2, 0)
