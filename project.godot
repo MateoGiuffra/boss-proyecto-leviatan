@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Nuevo Proyecto de Juego"
-run/main_scene="uid://fjdw5gqkbkxc"
+config/name="Boss Proyecto Leviatan"
+run/main_scene="uid://c2amel5tiu7hy"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [input]
 
-move_rigth={
+move_right={
 "deadzone": 0.2,
 "events": [null, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
 ]
