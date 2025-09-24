@@ -27,7 +27,7 @@ script/source = "extends CharacterBody2D
 var _swim_boosts = swim_boosts 
 var lantern_colors = [\"FFFFFF\", \"#A52019\"]
 var lantern_index: int = 0
-var _double_dash: int = 0
+
 var waiting_for_second_tap := false
 var is_dashing = false
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 		## Si el calculo es menor a -H_SPEED_LIMIT entonces velocity.x es -H_SPEED_LIMIT,
 		## Si el calculo no supera ninguno de los limites entonces velocity.x es velocity.x + (h_movement_direction * ACCELERATION * delta)
 		if is_dashing:
-			velocity += Vector2(-1,0).normalized() * 200
+			velocity += Vector2(h_movement_direction,0).normalized() * 200
 		else: 
 			velocity.x = clamp(
 				velocity.x + (h_movement_direction * ACCELERATION * delta),
@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	_update_view()
 	move_and_slide() 
 
-func _change_light_to_next_color():
+func _change_light_to_next_color()-> void:
 	lantern_index = (lantern_index + 1) % lantern_colors.size() 
 	point_light_2d.color = lantern_colors.get(lantern_index)
 
@@ -132,39 +132,35 @@ func _get_input() -> void:
 	#horizontal speed
 	# Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
 	h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
-	check_double_tap(Input.is_action_just_pressed(\"move_left\"), _dash_left)
-	check_double_tap(Input.is_action_just_pressed(\"move_right\"), _dash_right)
+	check_double_tap(Input.is_action_just_pressed(\"move_left\"))
+	check_double_tap(Input.is_action_just_pressed(\"move_right\"))
 
-func check_double_tap(is_moving: bool, callback: Callable):
+func check_double_tap(is_moving: bool)-> void:
 	if is_moving:
 		if waiting_for_second_tap:
-			callback.call()
+			_start_dash()
 			waiting_for_second_tap = false
 			double_tap_timer.stop()
 		else:
 			waiting_for_second_tap = true
 			double_tap_timer.start()
 
-func _start_dash():
+func _start_dash()-> void:
 	dash_timer.start()
 	is_dashing = true
 	
-func _finish_dash():
+func _finish_dash()-> void:
 	is_dashing = false
 	
 func _on_dash_timer_timeout() -> void:
 	_finish_dash()
 
-func _dash_left():
-	_start_dash()
-	print(\"DASH a la izquierda!\")
 
-func _dash_right():
-	velocity = Vector2(1,0).normalized() * 10000
-	print(\"DASH a la derecha!\")
+func _finish_waiting_for_second_tap() -> void:
+	waiting_for_second_tap = false
 
 func _on_double_tap_timer_timeout() -> void:
-	waiting_for_second_tap = false
+	_finish_waiting_for_second_tap()
 "
 
 [sub_resource type="Gradient" id="Gradient_qadnp"]
