@@ -1,0 +1,240 @@
+[gd_scene load_steps=17 format=3 uid="uid://1h4qfmv32x6t"]
+
+[ext_resource type="Texture2D" uid="uid://tubpjghmmc0l" path="res://assets/player/idle/0.png" id="3_h5ojx"]
+[ext_resource type="Texture2D" uid="uid://d1lbawu7ss1n" path="res://assets/player/idle/1.png" id="4_cretd"]
+[ext_resource type="Texture2D" uid="uid://kpie6onwb2s4" path="res://assets/player/idle/2.png" id="5_qadnp"]
+[ext_resource type="Texture2D" uid="uid://5pi7soqkyacv" path="res://assets/player/idle/3.png" id="6_7phyx"]
+[ext_resource type="Texture2D" uid="uid://dx6156eh0pfim" path="res://assets/player/idle/4.png" id="7_7jgog"]
+[ext_resource type="Texture2D" uid="uid://de8loalsx7qfc" path="res://assets/player/walk/13.png" id="7_qadnp"]
+[ext_resource type="Texture2D" uid="uid://b50kvnxr6ycqa" path="res://assets/player/idle/5.png" id="8_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://b6qtf4yjdeq0e" path="res://assets/player/walk/14.png" id="8_7phyx"]
+[ext_resource type="Texture2D" uid="uid://bwnsdqhxrbsq7" path="res://assets/player/walk/15.png" id="9_7jgog"]
+[ext_resource type="Texture2D" uid="uid://d27y24pciiyk7" path="res://assets/player/walk/16.png" id="10_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://jc1ec5feq03i" path="res://assets/player/walk/18.png" id="12_753ju"]
+
+[sub_resource type="GDScript" id="GDScript_td2n2"]
+script/source = "extends CharacterBody2D
+
+@export var ACCELERATION: float = 3750.0 
+@export var H_SPEED_LIMIT: float = 300.0
+@export var jump_speed: int = 450
+@export var dash_speed: int = 450
+@export var FRICTION_WEIGHT: float = 6.25 
+@export var gravity: float = 725.0 
+@export var swim_boosts:int = 3 # cantidad de \"impulsos\" que puede hacer mientras flota
+# variables privada que se van a modificar, las otra se usan como constantes
+var _swim_boosts = swim_boosts 
+var lantern_colors = [\"FFFFFF\", \"#A52019\"]
+var lantern_index: int = 0
+@onready var dash_timer: Timer = $DashTimer
+
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var point_light_2d: PointLight2D = $PointLight2D
+
+var body_pivot: Node2D
+var h_movement_direction: int = 0
+var jump: bool = false
+var change_lantern_color: bool = false
+
+func _ready() -> void:
+	body_pivot = get_parent()
+
+func _physics_process(delta: float) -> void:
+	#Hace la accion con algun input
+	_get_input()
+	
+	## Si se mueve a la izquierda (h_movement_direction == -1) o 
+	## a la derecha (h_movement_direction == 1) acelera, si no se mueve 
+	## a ninguna dirección desacelera.
+	if h_movement_direction != 0:
+		
+		## Si se mueve a alguna dirección se calcula la aceleración
+		## con respecto a su posicion horizontal (velocity.x + (h_movement_direction * ACCELERATION * delta))
+		## y con la funcion clamp se busca que no se pase del limite de velocidad minimo o maximo.
+		
+		## Si el calculo es mayor a H_SPEED_LIMIT entonces velocity.x es H_SPEED_LIMIT, 
+		## Si el calculo es menor a -H_SPEED_LIMIT entonces velocity.x es -H_SPEED_LIMIT,
+		## Si el calculo no supera ninguno de los limites entonces velocity.x es velocity.x + (h_movement_direction * ACCELERATION * delta)
+		
+		velocity.x = clamp(
+			velocity.x + (h_movement_direction * ACCELERATION * delta),
+			-H_SPEED_LIMIT,
+			H_SPEED_LIMIT
+		)
+		## Voltea el sprite 
+		animated_sprite_2d.flip_h = h_movement_direction < 0
+	else:
+		## Si no se mueve a ningun lado desacelera de forma suave gracias a la
+		## funcion lerp. 
+		
+		## Con la funcion lerp podemos reducir un valor \"velocity.x\" a 0.0. 
+		## La velocidad con la cual se reduce depende de \"FRICTION_WEIGHT * delta\"
+		velocity.x = lerp(velocity.x, 0.0, FRICTION_WEIGHT * delta) if abs(velocity.x) > 1 else 0
+	
+	# Jump
+	if jump: 
+		_jump()
+	
+	if change_lantern_color:
+		_change_light_to_next_color()
+	# Gravity
+	## Calculo en el eje y para la gravedad del jugador
+	velocity.y += gravity * delta
+	
+	## Cuando se tienen aplican todos los cambio, surte efecto 
+	## en el jugador. 
+	algo()
+	_update_view()
+	move_and_slide() 
+
+func _change_light_to_next_color():
+	lantern_index = (lantern_index + 1) % lantern_colors.size() 
+	point_light_2d.color = lantern_colors.get(lantern_index)
+
+
+func _jump()->void:
+	if is_on_floor():
+		velocity.y -= jump_speed # Velocidad de salto. 
+		_restart_boost()
+	else: 
+		_swim_boost()
+
+func _restart_boost() -> void:
+	_swim_boosts = swim_boosts # Si esta en el piso, se reinician los swim_booosts
+
+func _swim_boost()->void:
+	if _can_boost():
+		velocity.y = -jump_speed
+		_swim_boosts -= 1
+
+func _can_boost() -> bool:
+	return _swim_boosts > 0
+
+func _update_view()-> void: 
+	## Actualizar la animacion + detalles visuales del jugador frame a frame
+	if h_movement_direction != 0: 
+		_play_animation(\"walk\")
+	else: 
+		_play_animation(\"idle\")
+
+func _play_animation(animation_name: StringName)-> void:
+	if animated_sprite_2d.sprite_frames.has_animation(animation_name):
+		animated_sprite_2d.play(animation_name)
+
+func _get_input() -> void:
+	# Jump Action
+	jump = Input.is_action_just_pressed(\"jump\") #Si salta es true
+	change_lantern_color = Input.is_action_just_pressed(\"change_lantern_color\")
+	#horizontal speed
+	# Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
+	h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
+	
+func algo():
+	if Input.is_action_just_pressed(\"move_left\"):
+		dash_timer.start()
+		_dash_left().call_deferred()
+
+func _dash_left():
+	if !dash_timer.is_stopped() and Input.is_action_just_pressed(\"move_left\"):
+		velocity.x -= dash_speed
+		print(\"DASH a la izquierda!\")	
+	
+	
+	 
+"
+
+[sub_resource type="Gradient" id="Gradient_qadnp"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
+gradient = SubResource("Gradient_qadnp")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cd5ud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_h5ojx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cretd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qadnp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7phyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7jgog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_3d7ta")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qadnp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7phyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7jgog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3d7ta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_753ju")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87q2"]
+radius = 52.0
+height = 172.0
+
+[node name="BodyPivot" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = SubResource("GDScript_td2n2")
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+texture = SubResource("GradientTexture2D_7phyx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-18, -10)
+sprite_frames = SubResource("SpriteFrames_cd5ud")
+animation = &"walk"
+frame_progress = 0.9245588
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-2, 0)
+shape = SubResource("CapsuleShape2D_i87q2")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="DashTimer" type="Timer" parent="Player"]
+wait_time = 0.6
+one_shot = true

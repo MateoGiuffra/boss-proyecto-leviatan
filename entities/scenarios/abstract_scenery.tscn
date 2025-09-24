@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dcacmy4akx2yy"]
+
+[node name="AbstractScenery" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1403.0
+offset_bottom = 921.0
+
+[node name="BlackGradient" type="ColorRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
+offset_left = -443.0
+offset_top = -480.0
+offset_right = 1853.0
+offset_bottom = 126.0
+color = Color(0, 0, 0, 0.76862746)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.20871013, 0.20871016, 0.20871013, 1)
