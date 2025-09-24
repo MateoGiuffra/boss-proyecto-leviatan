@@ -21,17 +21,13 @@ script/source = "extends CharacterBody2D
 @export var dash_speed: int = 450
 @export var FRICTION_WEIGHT: float = 6.25 
 @export var gravity: float = 725.0 
-@export var double_tap_time: float = 0.25 # tiempo máximo para detectar doble tap
 @export var swim_boosts:int = 3 # cantidad de \"impulsos\" que puede hacer mientras flota
 # variables privada que se van a modificar, las otra se usan como constantes
 var _swim_boosts = swim_boosts 
 var lantern_colors = [\"FFFFFF\", \"#A52019\"]
 var lantern_index: int = 0
-var _double_dash: int = 0
-var waiting_for_second_tap := false
-var is_dashing = false
-@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
-@onready var dash_timer: Timer = $Timers/DashTimer
+@onready var dash_timer: Timer = $DashTimer
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
@@ -59,14 +55,12 @@ func _physics_process(delta: float) -> void:
 		## Si el calculo es mayor a H_SPEED_LIMIT entonces velocity.x es H_SPEED_LIMIT, 
 		## Si el calculo es menor a -H_SPEED_LIMIT entonces velocity.x es -H_SPEED_LIMIT,
 		## Si el calculo no supera ninguno de los limites entonces velocity.x es velocity.x + (h_movement_direction * ACCELERATION * delta)
-		if is_dashing:
-			velocity += Vector2(-1,0).normalized() * 200
-		else: 
-			velocity.x = clamp(
-				velocity.x + (h_movement_direction * ACCELERATION * delta),
-				-H_SPEED_LIMIT,
-				H_SPEED_LIMIT
-			)
+		
+		velocity.x = clamp(
+			velocity.x + (h_movement_direction * ACCELERATION * delta),
+			-H_SPEED_LIMIT,
+			H_SPEED_LIMIT
+		)
 		## Voltea el sprite 
 		animated_sprite_2d.flip_h = h_movement_direction < 0
 	else:
@@ -89,12 +83,14 @@ func _physics_process(delta: float) -> void:
 	
 	## Cuando se tienen aplican todos los cambio, surte efecto 
 	## en el jugador. 
+	algo()
 	_update_view()
 	move_and_slide() 
 
 func _change_light_to_next_color():
 	lantern_index = (lantern_index + 1) % lantern_colors.size() 
 	point_light_2d.color = lantern_colors.get(lantern_index)
+
 
 func _jump()->void:
 	if is_on_floor():
@@ -132,39 +128,19 @@ func _get_input() -> void:
 	#horizontal speed
 	# Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
 	h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
-	check_double_tap(Input.is_action_just_pressed(\"move_left\"), _dash_left)
-	check_double_tap(Input.is_action_just_pressed(\"move_right\"), _dash_right)
-
-func check_double_tap(is_moving: bool, callback: Callable):
-	if is_moving:
-		if waiting_for_second_tap:
-			callback.call()
-			waiting_for_second_tap = false
-			double_tap_timer.stop()
-		else:
-			waiting_for_second_tap = true
-			double_tap_timer.start()
-
-func _start_dash():
-	dash_timer.start()
-	is_dashing = true
 	
-func _finish_dash():
-	is_dashing = false
+func algo():
+	if Input.is_action_just_pressed(\"move_left\"):
+		dash_timer.start()
+		call_deferred()
+
+func 
+	if !dash_timer.is_stopped() and Input.is_action_just_pressed(\"move_left\"):
+		velocity.x -= dash_speed
+		print(\"DASH a la izquierda!\")	
 	
-func _on_dash_timer_timeout() -> void:
-	_finish_dash()
-
-func _dash_left():
-	_start_dash()
-	print(\"DASH a la izquierda!\")
-
-func _dash_right():
-	velocity = Vector2(1,0).normalized() * 10000
-	print(\"DASH a la derecha!\")
-
-func _on_double_tap_timer_timeout() -> void:
-	waiting_for_second_tap = false
+	
+	 
 "
 
 [sub_resource type="Gradient" id="Gradient_qadnp"]
@@ -238,6 +214,13 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 3
 collision_mask = 3
 script = SubResource("GDScript_td2n2")
+ACCELERATION = null
+H_SPEED_LIMIT = null
+jump_speed = null
+dash_speed = null
+FRICTION_WEIGHT = null
+gravity = null
+swim_boosts = null
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
 texture = SubResource("GradientTexture2D_7phyx")
@@ -259,15 +242,6 @@ process_callback = 0
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="Timers" type="Node" parent="Player"]
-
-[node name="DoubleTapTimer" type="Timer" parent="Player/Timers"]
-wait_time = 0.25
+[node name="DashTimer" type="Timer" parent="Player"]
+wait_time = 0.6
 one_shot = true
-
-[node name="DashTimer" type="Timer" parent="Player/Timers"]
-wait_time = 0.2
-
-[connection signal="timeout" from="Player/Timers/DoubleTapTimer" to="Player" method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="Player/Timers/DoubleTapTimer" to="Player" method="_on_double_tap_timer_timeout"]
-[connection signal="timeout" from="Player/Timers/DashTimer" to="Player" method="_on_dash_timer_timeout"]
