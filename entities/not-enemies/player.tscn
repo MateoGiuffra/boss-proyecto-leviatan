@@ -1,16 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://1h4qfmv32x6t"]
+[gd_scene load_steps=19 format=3 uid="uid://1h4qfmv32x6t"]
 
-[ext_resource type="Texture2D" uid="uid://tubpjghmmc0l" path="res://assets/player/idle/0.png" id="3_h5ojx"]
-[ext_resource type="Texture2D" uid="uid://d1lbawu7ss1n" path="res://assets/player/idle/1.png" id="4_cretd"]
-[ext_resource type="Texture2D" uid="uid://kpie6onwb2s4" path="res://assets/player/idle/2.png" id="5_qadnp"]
-[ext_resource type="Texture2D" uid="uid://5pi7soqkyacv" path="res://assets/player/idle/3.png" id="6_7phyx"]
-[ext_resource type="Texture2D" uid="uid://dx6156eh0pfim" path="res://assets/player/idle/4.png" id="7_7jgog"]
-[ext_resource type="Texture2D" uid="uid://de8loalsx7qfc" path="res://assets/player/walk/13.png" id="7_qadnp"]
-[ext_resource type="Texture2D" uid="uid://b50kvnxr6ycqa" path="res://assets/player/idle/5.png" id="8_3d7ta"]
-[ext_resource type="Texture2D" uid="uid://b6qtf4yjdeq0e" path="res://assets/player/walk/14.png" id="8_7phyx"]
-[ext_resource type="Texture2D" uid="uid://bwnsdqhxrbsq7" path="res://assets/player/walk/15.png" id="9_7jgog"]
-[ext_resource type="Texture2D" uid="uid://d27y24pciiyk7" path="res://assets/player/walk/16.png" id="10_3d7ta"]
-[ext_resource type="Texture2D" uid="uid://jc1ec5feq03i" path="res://assets/player/walk/18.png" id="12_753ju"]
+[ext_resource type="Texture2D" uid="uid://dqgtpen4orchg" path="res://assets/player/idle/walk_00.png" id="1_7jgog"]
+[ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/player/walk/walk_01.png" id="3_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/player/walk/walk_02.png" id="4_753ju"]
+[ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/player/walk/walk_03.png" id="5_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://bddlcd4jmo4w5" path="res://assets/player/walk/walk_04.png" id="6_obrgw"]
+[ext_resource type="Texture2D" uid="uid://c0u0hd43ofhrk" path="res://assets/player/walk/walk_05.png" id="7_3a8uq"]
+[ext_resource type="Texture2D" uid="uid://ckvtim08u6g61" path="res://assets/player/walk/walk_06.png" id="8_jis8g"]
+[ext_resource type="Texture2D" uid="uid://d08pdr3s8dsvi" path="res://assets/player/walk/walk_07.png" id="9_73mqe"]
+[ext_resource type="Texture2D" uid="uid://nchem3rjy05p" path="res://assets/player/walk/walk_08.png" id="10_4ohmj"]
+[ext_resource type="Texture2D" uid="uid://cyohupgn5f1i7" path="res://assets/player/walk/walk_09.png" id="11_vf103"]
+[ext_resource type="Texture2D" uid="uid://b2dabngvxsw0h" path="res://assets/player/walk/walk_10.png" id="12_2x24p"]
+[ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/player/walk/walk_11.png" id="13_f0kc4"]
 
 [sub_resource type="GDScript" id="GDScript_td2n2"]
 script/source = "extends CharacterBody2D
@@ -67,8 +69,10 @@ func _physics_process(delta: float) -> void:
 				-H_SPEED_LIMIT,
 				H_SPEED_LIMIT
 			)
-		## Voltea el sprite 
-		animated_sprite_2d.flip_h = h_movement_direction < 0
+			
+			## Voltea el sprite 
+			animated_sprite_2d.flip_h = h_movement_direction < 0
+		
 	else:
 		## Si no se mueve a ningun lado desacelera de forma suave gracias a la
 		## funcion lerp. 
@@ -181,22 +185,7 @@ fill_to = Vector2(0, 0.5)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_h5ojx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_cretd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_qadnp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_7phyx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_7jgog")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_3d7ta")
+"texture": ExtResource("1_7jgog")
 }],
 "loop": true,
 "name": &"idle",
@@ -204,28 +193,49 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_qadnp")
+"texture": ExtResource("2_3d7ta")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_7phyx")
+"texture": ExtResource("3_bnhqw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_7jgog")
+"texture": ExtResource("4_753ju")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_3d7ta")
+"texture": ExtResource("5_mwgf3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_753ju")
+"texture": ExtResource("6_obrgw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3a8uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jis8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_73mqe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4ohmj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vf103")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2x24p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f0kc4")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 8.0
+"speed": 20.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87q2"]
-radius = 52.0
-height = 172.0
+radius = 26.0
+height = 120.0
 
 [node name="BodyPivot" type="Node2D"]
 scale = Vector2(0.5, 0.5)
@@ -234,18 +244,25 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 3
 collision_mask = 3
 script = SubResource("GDScript_td2n2")
+ACCELERATION = 200.0
+H_SPEED_LIMIT = 200.0
+jump_speed = 350
+FRICTION_WEIGHT = 3.0
+gravity = 250.0
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
 texture = SubResource("GradientTexture2D_7phyx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-18, -10)
+texture_filter = 1
+position = Vector2(2, -62)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
 animation = &"walk"
-frame_progress = 0.9245588
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-2, 0)
+texture_filter = 1
+position = Vector2(-2, -60)
 shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -264,6 +281,6 @@ one_shot = true
 [node name="DashTimer" type="Timer" parent="Player/Timers"]
 wait_time = 0.2
 
-[connection signal="timeout" from="Player/Timers/DoubleTapTimer" to="Player" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Player/Timers/DoubleTapTimer" to="Player" method="_on_double_tap_timer_timeout"]
+[connection signal="timeout" from="Player/Timers/DoubleTapTimer" to="Player" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Player/Timers/DashTimer" to="Player" method="_on_dash_timer_timeout"]
