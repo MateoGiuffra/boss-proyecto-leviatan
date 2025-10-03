@@ -1,9 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://1h4qfmv32x6t"]
+[gd_scene load_steps=22 format=3 uid="uid://1h4qfmv32x6t"]
 
-[ext_resource type="Texture2D" uid="uid://dqgtpen4orchg" path="res://assets/player/idle/walk_00.png" id="1_7jgog"]
+[ext_resource type="Texture2D" uid="uid://dqgtpen4orchg" path="res://assets/player/idle/idle.png" id="1_7jgog"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/player/idle/idle_3.png" id="3_753ju"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/player/walk/walk_01.png" id="3_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/player/walk/walk_02.png" id="4_753ju"]
+[ext_resource type="Texture2D" uid="uid://dnt0xgelw65w2" path="res://assets/player/idle/idle_4.png" id="4_mwgf3"]
 [ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/player/walk/walk_03.png" id="5_mwgf3"]
 [ext_resource type="Texture2D" uid="uid://bddlcd4jmo4w5" path="res://assets/player/walk/walk_04.png" id="6_obrgw"]
 [ext_resource type="Texture2D" uid="uid://c0u0hd43ofhrk" path="res://assets/player/walk/walk_05.png" id="7_3a8uq"]
@@ -186,10 +189,19 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_7jgog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bnhqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_753ju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mwgf3")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 8.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -258,7 +270,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"walk"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 texture_filter = 1
