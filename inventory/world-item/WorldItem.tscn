@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://htsk5dw51nj6"]
+
+[ext_resource type="Script" uid="uid://c1tayd1u735m5" path="res://inventory/world-item/world_item.gd" id="1_xf8jy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g81d7"]
+radius = 32.01562
+
+[node name="WorldItem" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_xf8jy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g81d7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

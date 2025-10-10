@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://87uurcfd05u3"]
+
+[ext_resource type="Texture2D" uid="uid://dtryndsc88ovg" path="res://assets/inventory/capsule.png" id="1_emt8w"]
+[ext_resource type="Script" uid="uid://lba40nu1pwft" path="res://inventory/data/item-data.gd" id="2_1s4bx"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_1s4bx")
+id = "1"
+icon = ExtResource("1_emt8w")
+description = "El jugador va a recolectar este item el cual le permite hacer dashes o propulsiones. Cada vez que lo usa, se gasta."
+metadata/_custom_type_script = "uid://lba40nu1pwft"

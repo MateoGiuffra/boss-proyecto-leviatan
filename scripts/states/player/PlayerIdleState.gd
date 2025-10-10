@@ -22,4 +22,4 @@ func update(_delta: float) -> void:
 	
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	print(movement_direction)
+	#print(movement_direction)

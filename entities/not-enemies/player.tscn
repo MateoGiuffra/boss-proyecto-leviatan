@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=27 format=3 uid="uid://1h4qfmv32x6t"]
+
 
 [ext_resource type="Texture2D" uid="uid://dqgtpen4orchg" path="res://assets/player/idle/idle.png" id="1_7jgog"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
@@ -19,8 +21,12 @@
 [ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://entities/not-enemies/StateMachine.gd" id="17_753ju"]
 [ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://scripts/states/player/PlayerIdleState.gd" id="18_mwgf3"]
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://scripts/states/player/PlayerWalkState.gd" id="19_obrgw"]
+
+[ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://inventory/Inventory.tscn" id="20_3a8uq"]
+
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
+
 
 [sub_resource type="GDScript" id="GDScript_td2n2"]
 script/source = "extends CharacterBody2D
@@ -34,15 +40,34 @@ script/source = "extends CharacterBody2D
 @export var swim_boost: int = 3
 
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
+
+@onready var inventory: Inventory = $Inventory
+
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
+
 
 var movement_direction: int
 var jump: bool
 var is_dashing: bool
 var waiting_second_tap: bool
 
-func _physics_process(delta: float) -> void:
+func _on_item_detector_area_entered(area: Area2D):
+	if area.has_method(\"get_item_data\"):
+		var world_item_data: ItemData = area.get_item_data()
+		print(\"¡Detectado! Item: \" + world_item_data.id)
+		
+		if inventory.pick_up_item(world_item_data):
+			area.queue_free()
+			print(\"Recogido: \", world_item_data.id)
+
+# Función ejemplo que podrías usar para obtener el ID del ítem
+func get_item_id_in_slot(slot_index: int) -> String:
+	if slot_index >= 0 and slot_index < inventory.items.size():
+		return inventory.items[slot_index].id
+	return \"\"
+
+func _physics_process(_delta: float) -> void:
 	get_input()
 	
 	if want_moving():
@@ -332,9 +357,9 @@ radius = 26.0
 height = 120.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_mask = 2
 script = SubResource("GDScript_td2n2")
+metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_7phyx")
@@ -379,6 +404,17 @@ metadata/_custom_type_script = "uid://b8jgpxj1ccsss"
 script = ExtResource("18_mwgf3")
 metadata/_custom_type_script = "uid://bn1uk83fgflr8"
 
+
+[node name="Inventory" parent="." instance=ExtResource("20_3a8uq")]
+
+[node name="ItemDetector" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ItemDetector"]
+texture_filter = 1
+position = Vector2(-2, -60)
+shape = SubResource("CapsuleShape2D_i87q2")
+
 [node name="PlayerJumpState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("20_3a8uq")
 player = NodePath("../..")
@@ -389,5 +425,10 @@ script = ExtResource("21_jis8g")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://b2lscshlwxjx5"
 
+
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
+[connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
+[connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]
