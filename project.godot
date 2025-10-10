@@ -10,15 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Boss Proyecto Leviatan"
+config/name="Proyecto Leviatan"
 run/main_scene="uid://daovg62hm8gdh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=288
-window/size/viewport_height=216
 window/size/window_width_override=1360
 window/size/window_height_override=920
 
@@ -47,5 +45,6 @@ change_lantern_color={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

@@ -401,6 +401,7 @@ sources/0 = SubResource("TileSetAtlasSource_djglu")
 size = Vector2(2730, 23)
 
 [node name="Scenery_1" type="Node2D"]
+visible = false
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 repeat_size = Vector2(1360, 0)
@@ -447,7 +448,7 @@ scale = Vector2(1.5, -1)
 [node name="WallContainer" type="Node" parent="."]
 
 [node name="WallLeft" parent="WallContainer" instance=ExtResource("4_5xbop")]
-position = Vector2(35, 274)
+position = Vector2(12, 268)
 scale = Vector2(2, 1)
 
 [node name="WallRight" parent="WallContainer" instance=ExtResource("4_5xbop")]
