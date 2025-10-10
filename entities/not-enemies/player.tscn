@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dqgtpen4orchg"]
+[gd_scene load_steps=27 format=3 uid="uid://dqgtpen4orchg"]
 
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
@@ -369,6 +369,7 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(1e-05, 1e-05)
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
@@ -415,8 +416,8 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
