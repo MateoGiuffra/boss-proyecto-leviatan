@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dcacmy4akx2yy"]
+[gd_scene load_steps=0 format=3 uid="uid://dcacmy4akx2yy"]
 
 [node name="AbstractScenery" type="Node2D"]
 

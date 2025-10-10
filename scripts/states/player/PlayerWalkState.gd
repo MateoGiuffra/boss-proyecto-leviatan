@@ -15,7 +15,7 @@ func exit() -> void:
 	
 func physics_update(_delta: float) -> void:
 	if player: 
-		print(movement_direction)
+		#print(movement_direction)
 		if _want_moving():
 			_move_player(_delta)
 		else: 
