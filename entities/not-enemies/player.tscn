@@ -274,6 +274,7 @@ func stop_player(_delta: float):
 [sub_resource type="Gradient" id="Gradient_bnhqw"]
 interpolation_mode = 2
 interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.8434066)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
@@ -352,7 +353,15 @@ collision_mask = 3
 script = SubResource("GDScript_td2n2")
 metadata/_edit_group_ = true
 
+[node name="OutLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-0.5000286, -0.9999981)
+scale = Vector2(1.5097657, 0.84375)
+texture = SubResource("GradientTexture2D_7phyx")
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(5.000025, -20.500008)
+scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_7phyx")
 
 [node name="AnimatedPlayer" type="AnimatedSprite2D" parent="."]

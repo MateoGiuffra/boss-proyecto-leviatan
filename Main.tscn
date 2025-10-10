@@ -314,4 +314,4 @@ position = Vector2(-139, -23)
 item_data = SubResource("Resource_fos0i")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.09341172, 2.1658838e-05, 0.37478352, 1)
+color = Color(0.023283148, 4.337784e-06, 0.16440135, 1)
