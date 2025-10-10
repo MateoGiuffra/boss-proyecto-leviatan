@@ -16,6 +16,7 @@ func physics_update(_delta: float) -> void:
 
 func update(_delta: float) -> void:
 	get_input()
+	
 	if player && movement_direction != 0:
 		Transitioned.emit(self, "PlayerWalkState")
 	
