@@ -1,8 +1,5 @@
+[gd_scene load_steps=28 format=3 uid="uid://dqgtpen4orchg"]
 
-[gd_scene load_steps=27 format=3 uid="uid://1h4qfmv32x6t"]
-
-
-[ext_resource type="Texture2D" uid="uid://dqgtpen4orchg" path="res://assets/player/idle/idle.png" id="1_7jgog"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/player/idle/idle_3.png" id="3_753ju"]
@@ -21,12 +18,9 @@
 [ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://entities/not-enemies/StateMachine.gd" id="17_753ju"]
 [ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://scripts/states/player/PlayerIdleState.gd" id="18_mwgf3"]
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://scripts/states/player/PlayerWalkState.gd" id="19_obrgw"]
-
-[ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://inventory/Inventory.tscn" id="20_3a8uq"]
-
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
-
+[ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://inventory/Inventory.tscn" id="22_73mqe"]
 
 [sub_resource type="GDScript" id="GDScript_td2n2"]
 script/source = "extends CharacterBody2D
@@ -295,9 +289,6 @@ fill_to = Vector2(0, 0.5)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_7jgog")
-}, {
-"duration": 1.0,
 "texture": ExtResource("2_bnhqw")
 }, {
 "duration": 1.0,
@@ -357,7 +348,7 @@ radius = 26.0
 height = 120.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_mask = 3
 script = SubResource("GDScript_td2n2")
 metadata/_edit_group_ = true
 
@@ -404,17 +395,6 @@ metadata/_custom_type_script = "uid://b8jgpxj1ccsss"
 script = ExtResource("18_mwgf3")
 metadata/_custom_type_script = "uid://bn1uk83fgflr8"
 
-
-[node name="Inventory" parent="." instance=ExtResource("20_3a8uq")]
-
-[node name="ItemDetector" type="Area2D" parent="."]
-collision_mask = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ItemDetector"]
-texture_filter = 1
-position = Vector2(-2, -60)
-shape = SubResource("CapsuleShape2D_i87q2")
-
 [node name="PlayerJumpState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("20_3a8uq")
 player = NodePath("../..")
@@ -425,6 +405,15 @@ script = ExtResource("21_jis8g")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://b2lscshlwxjx5"
 
+[node name="ItemDetector" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ItemDetector"]
+texture_filter = 1
+position = Vector2(-2, -60)
+shape = SubResource("CapsuleShape2D_i87q2")
+
+[node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]

@@ -1,7 +1,7 @@
 extends Node
 
 @export var initial_state: State
-@onready var player: CharacterBody2D = $Player
+@onready var player: CharacterBody2D = $".."
 
 var current_state: State
 var states: Dictionary = {}

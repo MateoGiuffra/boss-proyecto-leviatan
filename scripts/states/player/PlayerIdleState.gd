@@ -1,7 +1,7 @@
 class_name PlayerIdleState extends State
 
-@onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
-@onready var player: CharacterBody2D = $Player
+@onready var player: CharacterBody2D = $"../.."
+@onready var animated_player: AnimatedSprite2D = $"../../AnimatedPlayer"
 
 var movement_direction: int
 
