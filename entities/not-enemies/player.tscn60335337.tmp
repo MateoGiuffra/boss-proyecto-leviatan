@@ -36,8 +36,6 @@ script/source = "extends CharacterBody2D
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
 
 @onready var inventory: Inventory = $Inventory
-@export var inventory_ui: InventoryUI
-
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
@@ -47,17 +45,6 @@ var movement_direction: int
 var jump: bool
 var is_dashing: bool
 var waiting_second_tap: bool
-
-
-func _ready() -> void:
-	if inventory_ui == null:
-		var ui_nodes: Array = get_tree().get_nodes_in_group(\"ui_layer\")
-		if !ui_nodes.is_empty():
-			inventory_ui = ui_nodes.get(0)
-				
-	if inventory_ui != null:
-		inventory_ui.initialize(inventory)
-
 
 func _on_item_detector_area_entered(area: Area2D):
 	if area.has_method(\"get_item_data\"):
@@ -440,8 +427,8 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
