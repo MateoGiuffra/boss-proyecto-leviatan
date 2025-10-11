@@ -4,7 +4,7 @@ var items: Dictionary[String, ItemData] = {} # Key: Item ID (String)
 @export var inventory_size: int = 10
 
 signal inventory_changed
-
+# un cambio
 func pick_up_item(world_item_data: ItemData) -> bool:
 	var item_id: String = world_item_data.id
 	if items.has(item_id):
