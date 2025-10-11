@@ -358,6 +358,11 @@ height = 120.0
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 3
 script = SubResource("GDScript_td2n2")
+acceleration = 300.0
+movement_speed_limit = 100.0
+dash_speed = 600.0
+gravity = 100.0
+jump_speed = 200
 metadata/_edit_group_ = true
 
 [node name="OutLight" type="PointLight2D" parent="."]
@@ -374,7 +379,7 @@ scale = Vector2(3, 3)
 color = Color(0.31272963, 0.52217776, 0.99998647, 1)
 energy = 1.4
 shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.67058825)
+shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1
 shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_7phyx")
@@ -440,8 +445,8 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
