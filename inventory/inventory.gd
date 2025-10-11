@@ -1,30 +1,29 @@
 class_name Inventory extends Node
 
-var items: Array[ItemData] = [] 
-@export var inventory_size: int = 10 
+var items: Dictionary[String, ItemData] = {} # Key: Item ID (String)
+@export var inventory_size: int = 10
 
 signal inventory_changed
 
-func pick_up_item(item_data: ItemData) -> bool:
-	var new_item_copy = item_data.duplicate() as ItemData 
-	
-	for item in items:
-		if new_item_copy.add_to_inventory(self, item.id):
-			return true
-	
-	if self._can_pick_up_item(item_data):
-		if new_item_copy.add_to_inventory(self):
-			return true
+func pick_up_item(world_item_data: ItemData) -> bool:
+	var item_id: String = world_item_data.id
+	if items.has(item_id):
+		var existing_item = items[item_id]
+		existing_item.collect_item()
+		inventory_changed.emit()
+		return true 
+
+	if self._can_add_new_type():
+		var new_item_copy = world_item_data.duplicate() as ItemData
+		new_item_copy.collect_item() 
+		items[item_id] = new_item_copy
+		inventory_changed.emit()
+		return true
+		
 	return false
 
-func add(item_data: ItemData) -> void:
-	items.append(item_data)
-	inventory_changed.emit()
-	print("items: \n")
-	for idx in items.size():
-		var item: ItemData = items[idx]
-		print("Índice: " + str(idx) + ", Item ID: " + item.id)
+func _can_add_new_type() -> bool:
+	return items.size() < inventory_size
 
-
-func _can_pick_up_item(_item_data: ItemData) -> bool:
-	return (items.size() < inventory_size)
+func get_items() -> Array[ItemData]:
+	return items.values()

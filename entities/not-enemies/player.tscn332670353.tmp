@@ -62,9 +62,13 @@ func _on_item_detector_area_entered(area: Area2D):
 		
 		if inventory.pick_up_item(world_item_data):
 			area.queue_free()
-			#swim_boost = inventory.size()
+			swim_boost = inventory.size()
 			print(\"Recogido: \", world_item_data.id)
 
+#func get_item_id_in_slot(slot_index: int) -> String:
+	#if slot_index >= 0 and slot_index < inventory.items.size():
+		#return inventory.items[slot_index].id
+	#return \"\"
 
 func _physics_process(_delta: float) -> void:
 	get_input()

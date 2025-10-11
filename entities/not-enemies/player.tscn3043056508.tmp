@@ -65,6 +65,10 @@ func _on_item_detector_area_entered(area: Area2D):
 			#swim_boost = inventory.size()
 			print(\"Recogido: \", world_item_data.id)
 
+func get_item_id_in_slot(slot_index: int) -> String:
+	if slot_index >= 0 and slot_index < inventory.items.size():
+		return inventory.items[slot_index].id
+	return \"\"
 
 func _physics_process(_delta: float) -> void:
 	get_input()
@@ -430,8 +434,8 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
