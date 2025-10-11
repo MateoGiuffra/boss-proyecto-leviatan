@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://dogaewk7x4u0q"]
-
-[node name="SlotTemplate" type="HBoxContainer"]
-
-[node name="Icon" type="TextureRect" parent="."]
-layout_mode = 2
-
-[node name="Amount" type="Label" parent="."]
-layout_mode = 2
