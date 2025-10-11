@@ -37,6 +37,10 @@ window/size/window_height_override=920
 
 enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
 
+[global_group]
+
+ui_layer=""
+
 [input]
 
 move_right={

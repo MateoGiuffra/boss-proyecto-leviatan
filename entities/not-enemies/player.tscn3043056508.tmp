@@ -65,6 +65,10 @@ func _on_item_detector_area_entered(area: Area2D):
 			#swim_boost = inventory.size()
 			print(\"Recogido: \", world_item_data.id)
 
+func get_item_id_in_slot(slot_index: int) -> String:
+	if slot_index >= 0 and slot_index < inventory.items.size():
+		return inventory.items[slot_index].id
+	return \"\"
 
 func _physics_process(_delta: float) -> void:
 	get_input()
@@ -362,19 +366,11 @@ metadata/_edit_group_ = true
 visible = false
 position = Vector2(-0.5000286, -0.9999981)
 scale = Vector2(1.5097657, 0.84375)
-energy = 3.08
 texture = SubResource("GradientTexture2D_7phyx")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-texture_filter = 1
 position = Vector2(5.000025, -20.500008)
 scale = Vector2(3, 3)
-color = Color(0.31272963, 0.52217776, 0.99998647, 1)
-energy = 1.4
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.67058825)
-shadow_filter = 1
-shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_7phyx")
 
 [node name="AnimatedPlayer" type="AnimatedSprite2D" parent="."]
@@ -438,8 +434,8 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
