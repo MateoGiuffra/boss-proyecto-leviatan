@@ -1,0 +1,435 @@
+[gd_scene load_steps=27 format=3 uid="uid://dqgtpen4orchg"]
+
+[ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/player/idle/idle_3.png" id="3_753ju"]
+[ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/player/walk/walk_01.png" id="3_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/player/walk/walk_02.png" id="4_753ju"]
+[ext_resource type="Texture2D" uid="uid://dnt0xgelw65w2" path="res://assets/player/idle/idle_4.png" id="4_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/player/walk/walk_03.png" id="5_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://bddlcd4jmo4w5" path="res://assets/player/walk/walk_04.png" id="6_obrgw"]
+[ext_resource type="Texture2D" uid="uid://c0u0hd43ofhrk" path="res://assets/player/walk/walk_05.png" id="7_3a8uq"]
+[ext_resource type="Texture2D" uid="uid://ckvtim08u6g61" path="res://assets/player/walk/walk_06.png" id="8_jis8g"]
+[ext_resource type="Texture2D" uid="uid://d08pdr3s8dsvi" path="res://assets/player/walk/walk_07.png" id="9_73mqe"]
+[ext_resource type="Texture2D" uid="uid://nchem3rjy05p" path="res://assets/player/walk/walk_08.png" id="10_4ohmj"]
+[ext_resource type="Texture2D" uid="uid://cyohupgn5f1i7" path="res://assets/player/walk/walk_09.png" id="11_vf103"]
+[ext_resource type="Texture2D" uid="uid://b2dabngvxsw0h" path="res://assets/player/walk/walk_10.png" id="12_2x24p"]
+[ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/player/walk/walk_11.png" id="13_f0kc4"]
+[ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://entities/not-enemies/StateMachine.gd" id="17_753ju"]
+[ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://scripts/states/player/PlayerIdleState.gd" id="18_mwgf3"]
+[ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://scripts/states/player/PlayerWalkState.gd" id="19_obrgw"]
+[ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
+[ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
+[ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://inventory/Inventory.tscn" id="22_73mqe"]
+
+[sub_resource type="GDScript" id="GDScript_td2n2"]
+script/source = "extends CharacterBody2D
+
+@export var acceleration: float = 3750.0
+@export var movement_speed_limit: float = 300.0
+@export var friction_weight: float = 6.25 	
+@export var dash_speed: float = 1200.0
+@export var gravity: float = 725.0 
+@export var jump_speed: int = 450
+@export var swim_boost: int = 3
+
+@onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
+
+@onready var inventory: Inventory = $Inventory
+
+@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
+@onready var dash_timer: Timer = $Timers/DashTimer
+
+
+var movement_direction: int
+var jump: bool
+var is_dashing: bool
+var waiting_second_tap: bool
+
+func _on_item_detector_area_entered(area: Area2D):
+	if area.has_method(\"get_item_data\"):
+		var world_item_data: ItemData = area.get_item_data()
+		print(\"¡Detectado! Item: \" + world_item_data.id)
+		
+		if inventory.pick_up_item(world_item_data):
+			area.queue_free()
+			print(\"Recogido: \", world_item_data.id)
+
+func _physics_process(_delta: float) -> void:
+	get_input()
+	
+	if want_moving():
+		_play_animation(\"walk\")
+		animated_player.flip_h = movement_direction < 0
+	else:
+		_play_animation(\"idle\")
+		
+	move_and_slide()
+	
+	
+func get_input() -> void:
+	movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))	
+	jump = Input.is_action_just_pressed(\"jump\")
+	_check_double_tap(Input.is_action_just_pressed(\"move_right\"))
+	_check_double_tap(Input.is_action_just_pressed(\"move_left\"))
+	
+func _play_animation(animation_name: StringName)-> void:
+	if animated_player.sprite_frames.has_animation(animation_name):
+		animated_player.play(animation_name)
+
+#dash
+
+func _check_double_tap(is_moving: bool) -> void: 
+	if is_moving:
+		if waiting_second_tap:
+			_start_dash()
+			waiting_second_tap = false
+			double_tap_timer.stop()
+		else: 
+			waiting_second_tap = true
+			double_tap_timer.start()
+
+func _start_dash()-> void:
+	dash_timer.start()
+	is_dashing = true
+	
+func _finish_dash()-> void:
+	is_dashing = false
+	
+func _on_dash_timer_timeout() -> void:
+	_finish_dash()
+
+func _finish_waiting_for_second_tap() -> void:
+	waiting_second_tap = false
+#
+func _on_double_tap_timer_timeout() -> void:
+	_finish_waiting_for_second_tap()
+
+#moving player
+
+func want_moving() -> bool: 
+	return movement_direction != 0
+	
+func move_player(_delta: float):
+	var current_movement_speed = velocity.x + (movement_direction * acceleration * _delta)
+	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
+	
+func stop_player(_delta: float):  
+	velocity.x = lerp(velocity.x, 0.0, friction_weight * _delta) if abs(velocity.x) > 1 else 0
+
+
+
+#@export var ACCELERATION: float = 3750.0 
+#@export var H_SPEED_LIMIT: float = 300.0
+#@export var jump_speed: int = 450
+#@export var dash_speed: int = 450
+#@export var FRICTION_WEIGHT: float = 6.25 
+#@export var gravity: float = 725.0 
+#@export var double_tap_time: float = 0.25 # tiempo máximo para detectar doble tap
+#@export var swim_boosts:int = 3 # cantidad de \"impulsos\" que puede hacer mientras flota
+## variables privada que se van a modificar, las otra se usan como constantes
+#var _swim_boosts = swim_boosts 
+#var lantern_colors = [\"FFFFFF\", \"#A52019\"]
+#var lantern_index: int = 0
+#
+#var waiting_for_second_tap := false
+#var is_dashing = false
+#@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
+#@onready var dash_timer: Timer = $Timers/DashTimer
+#@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedPlayer
+#@onready var point_light_2d: PointLight2D = $PointLight2D
+#
+#var h_movement_direction: int = 0
+#var jump: bool = false
+#var change_lantern_color: bool = false
+#
+#func _physics_process(delta: float) -> void:
+	##Hace la accion con algun input
+	#_get_input()
+	#
+	### Si se mueve a la izquierda (h_movement_direction == -1) o 
+	### a la derecha (h_movement_direction == 1) acelera, si no se mueve 
+	### a ninguna dirección desacelera.
+	#if h_movement_direction != 0:
+		#
+		### Si se mueve a alguna dirección se calcula la aceleración
+		### con respecto a su posicion horizontal (velocity.x + (h_movement_direction * ACCELERATION * delta))
+		### y con la funcion clamp se busca que no se pase del limite de velocidad minimo o maximo.
+		#
+		### Si el calculo es mayor a H_SPEED_LIMIT entonces velocity.x es H_SPEED_LIMIT, 
+		### Si el calculo es menor a -H_SPEED_LIMIT entonces velocity.x es -H_SPEED_LIMIT,
+		### Si el calculo no supera ninguno de los limites entonces velocity.x es velocity.x + (h_movement_direction * ACCELERATION * delta)
+		#if is_dashing:
+			#velocity += Vector2(h_movement_direction,0).normalized() * 200
+		#else: 
+			#velocity.x = clamp(
+				#velocity.x + (h_movement_direction * ACCELERATION * delta),
+				#-H_SPEED_LIMIT,
+				#H_SPEED_LIMIT
+			#)
+			#
+			### Voltea el sprite 
+			#animated_sprite_2d.flip_h = h_movement_direction < 0
+		#
+	#else:
+		### Si no se mueve a ningun lado desacelera de forma suave gracias a la
+		### funcion lerp. 
+		#
+		### Con la funcion lerp podemos reducir un valor \"velocity.x\" a 0.0. 
+		### La velocidad con la cual se reduce depende de \"FRICTION_WEIGHT * delta\"
+		#velocity.x = lerp(velocity.x, 0.0, FRICTION_WEIGHT * delta) if abs(velocity.x) > 1 else 0
+	#
+	## Jump
+	#if jump: 
+		#_jump()
+	#
+	#if change_lantern_color:
+		#_change_light_to_next_color()
+	## Gravity
+	### Calculo en el eje y para la gravedad del jugador
+	#velocity.y += gravity * delta
+	#
+	### Cuando se tienen aplican todos los cambio, surte efecto 
+	### en el jugador. 
+	#_update_view()
+	#move_and_slide() 
+#
+#func _change_light_to_next_color()-> void:
+	#lantern_index = (lantern_index + 1) % lantern_colors.size() 
+	#point_light_2d.color = lantern_colors.get(lantern_index)
+#
+#func _jump()->void:
+	#if is_on_floor():
+		#velocity.y -= jump_speed # Velocidad de salto. 
+		#_restart_boost()
+	#else: 
+		#_swim_boost()
+#
+#func _restart_boost() -> void:
+	#_swim_boosts = swim_boosts # Si esta en el piso, se reinician los swim_booosts
+#
+#func _swim_boost()->void:
+	#if _can_boost():
+		#velocity.y = -jump_speed
+		#_swim_boosts -= 1
+#
+#func _can_boost() -> bool:
+	#return _swim_boosts > 0
+#
+#func _update_view()-> void: 
+	### Actualizar la animacion + detalles visuales del jugador frame a frame
+	#if h_movement_direction != 0: 
+		#_play_animation(\"walk\")
+	#else: 
+		#_play_animation(\"idle\")
+#
+#func _play_animation(animation_name: StringName)-> void:
+	#if animated_sprite_2d.sprite_frames.has_animation(animation_name):
+		#animated_sprite_2d.play(animation_name)
+#
+#func _get_input() -> void:
+	## Jump Action
+	#jump = Input.is_action_just_pressed(\"jump\") #Si salta es true
+	#change_lantern_color = Input.is_action_just_pressed(\"change_lantern_color\")
+	##horizontal speed
+	## Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
+	#h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
+	#check_double_tap(Input.is_action_just_pressed(\"move_left\"))
+	#check_double_tap(Input.is_action_just_pressed(\"move_right\"))
+#
+#func check_double_tap(is_moving: bool)-> void:
+	#if is_moving:
+		#if waiting_for_second_tap:
+			#_start_dash()
+			#waiting_for_second_tap = false
+			#double_tap_timer.stop()
+		#else:
+			#waiting_for_second_tap = true
+			#double_tap_timer.start()
+#
+#func _start_dash()-> void:
+	#dash_timer.start()
+	#is_dashing = true
+	#
+#func _finish_dash()-> void:
+	#is_dashing = false
+	#
+#func _on_dash_timer_timeout() -> void:
+	#_finish_dash()
+#
+#
+#func _finish_waiting_for_second_tap() -> void:
+	#waiting_for_second_tap = false
+#
+#func _on_double_tap_timer_timeout() -> void:
+	#_finish_waiting_for_second_tap()
+"
+
+[sub_resource type="Gradient" id="Gradient_bnhqw"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.8434066)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
+gradient = SubResource("Gradient_bnhqw")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cd5ud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bnhqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_753ju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mwgf3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3d7ta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bnhqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_753ju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mwgf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_obrgw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3a8uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jis8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_73mqe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4ohmj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vf103")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2x24p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_f0kc4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 20.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87q2"]
+radius = 26.0
+height = 120.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 3
+script = SubResource("GDScript_td2n2")
+metadata/_edit_group_ = true
+
+[node name="OutLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-0.5000286, -0.9999981)
+scale = Vector2(1.5097657, 0.84375)
+energy = 3.08
+texture = SubResource("GradientTexture2D_7phyx")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture_filter = 1
+position = Vector2(5.000025, -20.500008)
+scale = Vector2(3, 3)
+color = Color(0.31272963, 0.52217776, 0.99998647, 1)
+energy = 1.4
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.67058825)
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = SubResource("GradientTexture2D_7phyx")
+
+[node name="AnimatedPlayer" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, -62)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_cd5ud")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+texture_filter = 1
+position = Vector2(-2, -60)
+shape = SubResource("CapsuleShape2D_i87q2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DoubleTapTimer" type="Timer" parent="Timers"]
+wait_time = 0.25
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("17_753ju")
+initial_state = NodePath("PlayerWalkState")
+
+[node name="PlayerWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("19_obrgw")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://b8jgpxj1ccsss"
+
+[node name="PlayerIdleState" type="Node" parent="StateMachine"]
+script = ExtResource("18_mwgf3")
+metadata/_custom_type_script = "uid://bn1uk83fgflr8"
+
+[node name="PlayerJumpState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("20_3a8uq")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://dfcjh1w7f8hl2"
+
+[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("21_jis8g")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://b2lscshlwxjx5"
+
+[node name="ItemDetector" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ItemDetector"]
+texture_filter = 1
+position = Vector2(-2, -60)
+shape = SubResource("CapsuleShape2D_i87q2")
+
+[node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
+
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
+[connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
+[connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]
