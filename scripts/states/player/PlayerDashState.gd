@@ -8,7 +8,7 @@ func get_input() -> void:
 	
 func enter() -> void:
 	player.velocity += Vector2(player.movement_direction, 0).normalized() * player.dash_speed
-
+	
 func exit() -> void:
 	pass
 	
@@ -16,5 +16,6 @@ func update(_delta: float) -> void:
 	if !player.is_dashing: 
 		Transitioned.emit(self, "PlayerWalkState")
 		
+	
 func physics_update(_delta: float) -> void:
 	pass

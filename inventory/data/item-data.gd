@@ -30,10 +30,4 @@ func add_to_inventory(inventory: Inventory, item_id: String = "empty") -> bool:
 		return true
 
 	return false
-
-func collect_item():
-	if stackeable and self.actual_amount < self.max_amount:
-		actual_amount += 1
-		return true
-	return false
 	

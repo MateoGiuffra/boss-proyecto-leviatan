@@ -1,10 +1,10 @@
+[gd_scene load_steps=25 format=4 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="PackedScene" uid="uid://dqgtpen4orchg" path="res://entities/not-enemies/player.tscn" id="1_glv2v"]
 [ext_resource type="Texture2D" uid="uid://v8adjfkabpgt" path="res://assets/background/tileset/level_tileset.png" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://inventory/world-item/WorldItem.tscn" id="3_fos0i"]
 [ext_resource type="Texture2D" uid="uid://dtryndsc88ovg" path="res://assets/inventory/capsule.png" id="4_3dxm6"]
 [ext_resource type="Script" uid="uid://lba40nu1pwft" path="res://inventory/data/item-data.gd" id="5_lgr22"]
-[ext_resource type="PackedScene" uid="uid://cbkx13ybeghi3" path="res://inventory/ui/InventoryUI.tscn" id="6_3dxm6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dxm6"]
 texture = ExtResource("1_uu6xs")
@@ -493,16 +493,7 @@ terrain_set_0/terrain_1/name = "Background"
 terrain_set_0/terrain_1/color = Color(0.6271502, 0, 0.3275161, 1)
 sources/0 = SubResource("TileSetAtlasSource_r0du0")
 
-[sub_resource type="Resource" id="Resource_3dxm6"]
-resource_local_to_scene = true
-script = ExtResource("5_lgr22")
-id = "1"
-icon = ExtResource("4_3dxm6")
-description = "El jugador va a recolectar este item el cual le permite hacer dashes o propulsiones. Cada vez que lo usa, se gasta."
-metadata/_custom_type_script = "uid://lba40nu1pwft"
-
-[sub_resource type="Resource" id="Resource_lgr22"]
-
+[sub_resource type="Resource" id="Resource_sc1dx"]
 resource_local_to_scene = true
 script = ExtResource("5_lgr22")
 id = "1"
@@ -520,19 +511,8 @@ tile_set = SubResource("TileSet_lgr22")
 tile_map_data = PackedByteArray("AADj//T/AAAKAAIAAAAVAOn/AAAMAAAAAAAUAOn/AAAMAAAAAAATAOn/AAAMAAAAAAASAOn/AAAMAAAAAAARAOn/AAAMAAAAAAAQAOn/AAAMAAAAAAAPAOn/AAAMAAAAAAAOAOn/AAAMAAAAAAANAOn/AAAMAAAAAAAMAOn/AAAMAAAAAAALAOn/AAAMAAAAAAAKAOn/AAAMAAAAAAAJAOn/AAAMAAAAAAAIAOn/AAAKAAAAAAAWAOn/AAAOAAAAAAAlAPv/AAAMAAAAAAAkAPv/AAAMAAAAAAAjAPv/AAAMAAAAAAAiAPv/AAAMAAAAAAAhAPv/AAAMAAAAAAAgAPv/AAAMAAAAAAAfAPv/AAAMAAAAAAAeAPv/AAAMAAAAAAAdAPv/AAAMAAAAAAAcAPv/AAAMAAAAAAAbAPv/AAAMAAAAAAAaAPv/AAAMAAAAAAAZAPv/AAAMAAAAAAAYAPv/AAAMAAAAAAAXAPv/AAAMAAAAAAAWAPv/AAAMAAAAAAAVAPv/AAAMAAAAAAAUAPv/AAAKAAAAAAAmAPv/AAAOAAAAAAABAPT/AAAMAAAAAAAAAPT/AAAMAAAAAAD///T/AAAMAAAAAAD+//T/AAAMAAAAAAD9//T/AAAMAAAAAAD8//T/AAAMAAAAAAD7//T/AAAMAAAAAAD6//T/AAAMAAAAAAD5//T/AAAMAAAAAAD4//T/AAAKAAAAAAACAPT/AAAOAAAAAAD+/+X/AAAMAAAAAAD9/+X/AAAMAAAAAAD8/+X/AAAMAAAAAAD7/+X/AAAMAAAAAAD6/+X/AAAMAAAAAAD5/+X/AAAMAAAAAAD4/+X/AAAMAAAAAAD3/+X/AAAMAAAAAAD2/+X/AAAMAAAAAAD1/+X/AAAMAAAAAAD0/+X/AAAMAAAAAADz/+X/AAAMAAAAAADy/+X/AAAMAAAAAADx/+X/AAAMAAAAAADw/+X/AAAKAAAAAAD//+X/AAAOAAAAAAAIAP//AAAIAAIAAAAIAP7/AAAIAAIAAAAIAP3/AAAIAAIAAAAIAPz/AAAIAAIAAAAIAPv/AAAIAAIAAAAIAPr/AAAIAAIAAAAIAPn/AAAIAAIAAAAIAPj/AAAIAAIAAAAIAPf/AAAIAAIAAAAIAPb/AAAIAAIAAAAIAPX/AAAIAAIAAAAIAPT/AAAIAAAAAAA=")
 tile_set = SubResource("TileSet_3dxm6")
 
-[node name="Player" parent="." node_paths=PackedStringArray("inventory_ui") instance=ExtResource("1_glv2v")]
+[node name="Player" parent="." instance=ExtResource("1_glv2v")]
 scale = Vector2(0.5, 0.5)
-
-inventory_ui = NodePath("../InventoryCanvas/InventoryUI")
-
-[node name="WorldItem" parent="." instance=ExtResource("3_fos0i")]
-position = Vector2(-139, -23)
-item_data = SubResource("Resource_3dxm6")
-
-[node name="WorldItem2" parent="." instance=ExtResource("3_fos0i")]
-position = Vector2(-230, -34)
-item_data = SubResource("Resource_lgr22")
-
 acceleration = 200.0
 movement_speed_limit = 200.0
 dash_speed = 900.0
@@ -547,10 +527,5 @@ tile_set = SubResource("TileSet_cm0pq")
 position = Vector2(-139, -23)
 item_data = SubResource("Resource_sc1dx")
 
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.023283148, 4.337784e-06, 0.16440135, 1)
-
-[node name="InventoryCanvas" type="CanvasLayer" parent="."]
-
-[node name="InventoryUI" parent="InventoryCanvas" instance=ExtResource("6_3dxm6")]
