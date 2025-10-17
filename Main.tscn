@@ -560,3 +560,5 @@ stream = ExtResource("7_lgr22")
 volume_db = 10.0
 autoplay = true
 attenuation = 0.65975404
+
+[node name="StarsEnemy" type="CharacterBody2D" parent="."]

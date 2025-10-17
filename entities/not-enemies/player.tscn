@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://dqgtpen4orchg"]
+[gd_scene load_steps=28 format=3 uid="uid://dqgtpen4orchg"]
 
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/player/idle/idle_3.png" id="3_753ju"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/player/walk/walk_01.png" id="3_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://gpxeih1m8tca" path="res://assets/player/jump/jump_0.png" id="4_73mqe"]
 [ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/player/walk/walk_02.png" id="4_753ju"]
 [ext_resource type="Texture2D" uid="uid://dnt0xgelw65w2" path="res://assets/player/idle/idle_4.png" id="4_mwgf3"]
 [ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/player/walk/walk_03.png" id="5_mwgf3"]
@@ -44,9 +45,12 @@ script/source = "extends CharacterBody2D
 
 
 var movement_direction: int
+var count_swim_boost = swim_boost
 var jump: bool
 var is_dashing: bool
 var waiting_second_tap: bool
+var finish_colddown_dash: bool = true
+var finish_colddown_swim_boost: bool = true
 
 
 func _ready() -> void:
@@ -71,11 +75,17 @@ func _on_item_detector_area_entered(area: Area2D):
 func _physics_process(_delta: float) -> void:
 	get_input()
 	
-	if want_moving():
+	if !is_on_floor():
+		_play_animation(\"jump\")
+		if want_moving(): 
+			animated_player.flip_h = movement_direction < 0
+	elif want_moving():
 		_play_animation(\"walk\")
 		animated_player.flip_h = movement_direction < 0
 	else:
 		_play_animation(\"idle\")
+	
+	
 		
 	move_and_slide()
 	
@@ -93,7 +103,7 @@ func _play_animation(animation_name: StringName)-> void:
 #dash
 
 func _check_double_tap(is_moving: bool) -> void: 
-	if is_moving:
+	if is_moving && finish_colddown_dash:
 		if waiting_second_tap:
 			_start_dash()
 			waiting_second_tap = false
@@ -118,6 +128,10 @@ func _finish_waiting_for_second_tap() -> void:
 func _on_double_tap_timer_timeout() -> void:
 	_finish_waiting_for_second_tap()
 
+func _on_dash_cold_down_timeout() -> void:
+	finish_colddown_dash = true
+
+
 #moving player
 
 func want_moving() -> bool: 
@@ -130,7 +144,13 @@ func move_player(_delta: float):
 func stop_player(_delta: float):  
 	velocity.x = lerp(velocity.x, 0.0, friction_weight * _delta) if abs(velocity.x) > 1 else 0
 
+#jump
 
+func can_use_swim_boost() -> bool: 
+	return count_swim_boost > 0 && jump && finish_colddown_swim_boost
+
+func _on_swim_boost_cold_down_timeout() -> void:
+	finish_colddown_swim_boost = true
 
 #@export var ACCELERATION: float = 3750.0 
 #@export var H_SPEED_LIMIT: float = 300.0
@@ -311,6 +331,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("4_73mqe")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_3d7ta")
 }, {
 "duration": 1.0,
@@ -389,7 +417,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"idle"
+animation = &"jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 texture_filter = 1
@@ -411,6 +439,13 @@ one_shot = true
 
 [node name="DashTimer" type="Timer" parent="Timers"]
 wait_time = 0.2
+
+[node name="DashColdDown" type="Timer" parent="Timers"]
+
+[node name="SwimBoostColdDown" type="Timer" parent="Timers"]
+wait_time = 0.8
+one_shot = true
+ignore_time_scale = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("17_753ju")
@@ -445,9 +480,11 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Timers/DashColdDown" to="." method="_on_dash_cold_down_timeout"]
+[connection signal="timeout" from="Timers/SwimBoostColdDown" to="." method="_on_swim_boost_cold_down_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]
