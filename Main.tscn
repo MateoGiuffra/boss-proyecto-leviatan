@@ -528,10 +528,11 @@ tile_set = SubResource("TileSet_3dxm6")
 [node name="Player" parent="." node_paths=PackedStringArray("inventory_ui") instance=ExtResource("1_glv2v")]
 scale = Vector2(0.5, 0.5)
 acceleration = 200.0
-movement_speed_limit = 200.0
-dash_speed = 900.0
-gravity = 300.0
-jump_speed = 250
+movement_speed_limit = 150.0
+friction_weight = 8.25
+dash_speed = 800.0
+gravity = 200.0
+jump_speed = 150
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 
 [node name="Terrain" type="TileMapLayer" parent="."]
@@ -547,8 +548,7 @@ position = Vector2(1385, -1173)
 item_data = SubResource("Resource_trn2v")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.023283148, 4.337784e-06, 0.16440135, 1)
+color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
