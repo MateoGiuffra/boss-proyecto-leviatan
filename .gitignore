@@ -1,4 +1,4 @@
-# Godot 4+ specific ignores
+# Godot 4+ specific ignores (Lo principal que necesitas ignorar)
 .godot/
 .nomedia
 
@@ -7,10 +7,34 @@
 export.cfg
 export_credentials.cfg
 
-# Imported translations (automatically generated from CSV files)
+# Build/Export files (Archivos generados al exportar el juego)
+*.pck
+*.exe
+*.zip
+*.app
+*.apk
+*.ipa
+*.wasm
+*.html
+*.js
+*.json
+*/data*/ # Para builds de web o ciertas plataformas
+
+# Temporary/Cache files (Archivos temporales genéricos)
+*~
+*.bak
+*.swp
+*.tmp
+**/*.tmp # Por si acaso los archivos .tmp están en subcarpetas
+
+# Imported translations (Automatically generated from CSV files)
 *.translation
 
-# Mono-specific ignores
+# Mono-specific ignores (Si usas C#)
 .mono/
 data_*/
 mono_crash.*.json
+
+# IDE/Editor specific ignores (Añade los que uses)
+.vscode/ # VS Code
+.idea/  # JetBrains IDEs (Rider, etc)
