@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://kbrgr2y87fwg"]
+
+[ext_resource type="Script" uid="uid://88r0rwtd0tvu" path="res://levels/level_manager/level_manger.gd" id="1_c2h7x"]
+[ext_resource type="Script" uid="uid://m0ymkojhspfd" path="res://levels/level_manager/level_selector.gd" id="2_fi1ph"]
+
+[node name="LevelManger" type="Node"]
+script = ExtResource("1_c2h7x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelSelector" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_fi1ph")

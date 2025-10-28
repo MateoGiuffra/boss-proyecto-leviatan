@@ -28,6 +28,10 @@ run/main_scene="uid://daovg62hm8gdh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+LevelManger="*res://levels/level_manager/level_manger.gd"
+
 [display]
 
 window/size/window_width_override=1360
