@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dqgtpen4orchg"]
+[gd_scene load_steps=28 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/player/idle/idle_2.png" id="2_bnhqw"]
@@ -26,24 +26,25 @@
 [sub_resource type="GDScript" id="GDScript_td2n2"]
 script/source = "extends CharacterBody2D
 
+# Parámetros que serán gestionados por el State Machine
 @export var acceleration: float = 3750.0
 @export var movement_speed_limit: float = 300.0
-@export var friction_weight: float = 6.25 	
+@export var friction_weight: float = 6.25
 @export var dash_speed: float = 1200.0
-@export var gravity: float = 725.0 
+@export var gravity: float = 725.0
 @export var jump_speed: int = 450
 @export var swim_boost: int = 3
-
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
+@onready var state_machine = $StateMachine
 
 @onready var inventory: Inventory = $Inventory
 @export var inventory_ui: InventoryUI
-
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
 
 
+# Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
 var count_swim_boost = swim_boost
 var jump: bool
@@ -54,6 +55,7 @@ var finish_colddown_swim_boost: bool = true
 
 
 func _ready() -> void:
+	# Inicialización de InventoryUI
 	if inventory_ui == null:
 		var ui_nodes: Array = get_tree().get_nodes_in_group(\"ui_layer\")
 		if !ui_nodes.is_empty():
@@ -73,20 +75,13 @@ func _on_item_detector_area_entered(area: Area2D):
 			print(\"Recogido: \", world_item_data.id)
 
 func _physics_process(_delta: float) -> void:
+	# La lógica de animación y movimiento debe ser gestionada por el State Machine,
+	# pero dejo la parte de la gravedad/input aquí para que los estados la utilicen.
+	
 	get_input()
 	
-	if !is_on_floor():
-		_play_animation(\"jump\")
-		if want_moving(): 
-			animated_player.flip_h = movement_direction < 0
-	elif want_moving():
-		_play_animation(\"walk\")
-		animated_player.flip_h = movement_direction < 0
-	else:
-		_play_animation(\"idle\")
-	
-	
-		
+	# La animación ya no se gestiona aquí, sino en los PlayerState.gd
+	# El State Machine se encarga del movimiento (move_and_slide())
 	move_and_slide()
 	
 	
@@ -95,20 +90,26 @@ func get_input() -> void:
 	jump = Input.is_action_just_pressed(\"jump\")
 	_check_double_tap(Input.is_action_just_pressed(\"move_right\"))
 	_check_double_tap(Input.is_action_just_pressed(\"move_left\"))
+	flip_sprite(movement_direction)
 	
-func _play_animation(animation_name: StringName)-> void:
+func play_animation(animation_name: StringName)-> void:
+	# Función expuesta para que los estados puedan controlar la animación
 	if animated_player.sprite_frames.has_animation(animation_name):
 		animated_player.play(animation_name)
+	
+func flip_sprite(direction: int) -> void:
+	if direction != 0:
+		animated_player.flip_h = direction < 0
+		
+# dash (Debería moverse al PlayerDashState, pero lo mantengo aquí por ahora)
 
-#dash
-
-func _check_double_tap(is_moving: bool) -> void: 
+func _check_double_tap(is_moving: bool) -> void:
 	if is_moving && finish_colddown_dash:
 		if waiting_second_tap:
 			_start_dash()
 			waiting_second_tap = false
 			double_tap_timer.stop()
-		else: 
+		else:
 			waiting_second_tap = true
 			double_tap_timer.start()
 
@@ -124,7 +125,7 @@ func _on_dash_timer_timeout() -> void:
 
 func _finish_waiting_for_second_tap() -> void:
 	waiting_second_tap = false
-#
+	
 func _on_double_tap_timer_timeout() -> void:
 	_finish_waiting_for_second_tap()
 
@@ -132,170 +133,27 @@ func _on_dash_cold_down_timeout() -> void:
 	finish_colddown_dash = true
 
 
-#moving player
+# moving player
 
-func want_moving() -> bool: 
+func want_moving() -> bool:
 	return movement_direction != 0
 	
+# Estas funciones de movimiento y detención son redundantes con el State Machine
+# y generan conflictos, por lo que su uso debe ser delegado a los PlayerState.gd
 func move_player(_delta: float):
 	var current_movement_speed = velocity.x + (movement_direction * acceleration * _delta)
 	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
-	
-func stop_player(_delta: float):  
+	play_animation(\"walk\")
+
+func stop_player(_delta: float):
 	velocity.x = lerp(velocity.x, 0.0, friction_weight * _delta) if abs(velocity.x) > 1 else 0
+	play_animation(\"idle\")
 
-#jump
-
-func can_use_swim_boost() -> bool: 
+func can_use_swim_boost() -> bool:
 	return count_swim_boost > 0 && jump && finish_colddown_swim_boost
 
 func _on_swim_boost_cold_down_timeout() -> void:
 	finish_colddown_swim_boost = true
-
-#@export var ACCELERATION: float = 3750.0 
-#@export var H_SPEED_LIMIT: float = 300.0
-#@export var jump_speed: int = 450
-#@export var dash_speed: int = 450
-#@export var FRICTION_WEIGHT: float = 6.25 
-#@export var gravity: float = 725.0 
-#@export var double_tap_time: float = 0.25 # tiempo máximo para detectar doble tap
-#@export var swim_boosts:int = 3 # cantidad de \"impulsos\" que puede hacer mientras flota
-## variables privada que se van a modificar, las otra se usan como constantes
-#var _swim_boosts = swim_boosts 
-#var lantern_colors = [\"FFFFFF\", \"#A52019\"]
-#var lantern_index: int = 0
-#
-#var waiting_for_second_tap := false
-#var is_dashing = false
-#@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
-#@onready var dash_timer: Timer = $Timers/DashTimer
-#@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedPlayer
-#@onready var point_light_2d: PointLight2D = $PointLight2D
-#
-#var h_movement_direction: int = 0
-#var jump: bool = false
-#var change_lantern_color: bool = false
-#
-#func _physics_process(delta: float) -> void:
-	##Hace la accion con algun input
-	#_get_input()
-	#
-	### Si se mueve a la izquierda (h_movement_direction == -1) o 
-	### a la derecha (h_movement_direction == 1) acelera, si no se mueve 
-	### a ninguna dirección desacelera.
-	#if h_movement_direction != 0:
-		#
-		### Si se mueve a alguna dirección se calcula la aceleración
-		### con respecto a su posicion horizontal (velocity.x + (h_movement_direction * ACCELERATION * delta))
-		### y con la funcion clamp se busca que no se pase del limite de velocidad minimo o maximo.
-		#
-		### Si el calculo es mayor a H_SPEED_LIMIT entonces velocity.x es H_SPEED_LIMIT, 
-		### Si el calculo es menor a -H_SPEED_LIMIT entonces velocity.x es -H_SPEED_LIMIT,
-		### Si el calculo no supera ninguno de los limites entonces velocity.x es velocity.x + (h_movement_direction * ACCELERATION * delta)
-		#if is_dashing:
-			#velocity += Vector2(h_movement_direction,0).normalized() * 200
-		#else: 
-			#velocity.x = clamp(
-				#velocity.x + (h_movement_direction * ACCELERATION * delta),
-				#-H_SPEED_LIMIT,
-				#H_SPEED_LIMIT
-			#)
-			#
-			### Voltea el sprite 
-			#animated_sprite_2d.flip_h = h_movement_direction < 0
-		#
-	#else:
-		### Si no se mueve a ningun lado desacelera de forma suave gracias a la
-		### funcion lerp. 
-		#
-		### Con la funcion lerp podemos reducir un valor \"velocity.x\" a 0.0. 
-		### La velocidad con la cual se reduce depende de \"FRICTION_WEIGHT * delta\"
-		#velocity.x = lerp(velocity.x, 0.0, FRICTION_WEIGHT * delta) if abs(velocity.x) > 1 else 0
-	#
-	## Jump
-	#if jump: 
-		#_jump()
-	#
-	#if change_lantern_color:
-		#_change_light_to_next_color()
-	## Gravity
-	### Calculo en el eje y para la gravedad del jugador
-	#velocity.y += gravity * delta
-	#
-	### Cuando se tienen aplican todos los cambio, surte efecto 
-	### en el jugador. 
-	#_update_view()
-	#move_and_slide() 
-#
-#func _change_light_to_next_color()-> void:
-	#lantern_index = (lantern_index + 1) % lantern_colors.size() 
-	#point_light_2d.color = lantern_colors.get(lantern_index)
-#
-#func _jump()->void:
-	#if is_on_floor():
-		#velocity.y -= jump_speed # Velocidad de salto. 
-		#_restart_boost()
-	#else: 
-		#_swim_boost()
-#
-#func _restart_boost() -> void:
-	#_swim_boosts = swim_boosts # Si esta en el piso, se reinician los swim_booosts
-#
-#func _swim_boost()->void:
-	#if _can_boost():
-		#velocity.y = -jump_speed
-		#_swim_boosts -= 1
-#
-#func _can_boost() -> bool:
-	#return _swim_boosts > 0
-#
-#func _update_view()-> void: 
-	### Actualizar la animacion + detalles visuales del jugador frame a frame
-	#if h_movement_direction != 0: 
-		#_play_animation(\"walk\")
-	#else: 
-		#_play_animation(\"idle\")
-#
-#func _play_animation(animation_name: StringName)-> void:
-	#if animated_sprite_2d.sprite_frames.has_animation(animation_name):
-		#animated_sprite_2d.play(animation_name)
-#
-#func _get_input() -> void:
-	## Jump Action
-	#jump = Input.is_action_just_pressed(\"jump\") #Si salta es true
-	#change_lantern_color = Input.is_action_just_pressed(\"change_lantern_color\")
-	##horizontal speed
-	## Si se mueve a la izquierda el valor es -1, derecha es 1, no se mueve es 0. 
-	#h_movement_direction = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
-	#check_double_tap(Input.is_action_just_pressed(\"move_left\"))
-	#check_double_tap(Input.is_action_just_pressed(\"move_right\"))
-#
-#func check_double_tap(is_moving: bool)-> void:
-	#if is_moving:
-		#if waiting_for_second_tap:
-			#_start_dash()
-			#waiting_for_second_tap = false
-			#double_tap_timer.stop()
-		#else:
-			#waiting_for_second_tap = true
-			#double_tap_timer.start()
-#
-#func _start_dash()-> void:
-	#dash_timer.start()
-	#is_dashing = true
-	#
-#func _finish_dash()-> void:
-	#is_dashing = false
-	#
-#func _on_dash_timer_timeout() -> void:
-	#_finish_dash()
-#
-#
-#func _finish_waiting_for_second_tap() -> void:
-	#waiting_for_second_tap = false
-#
-#func _on_double_tap_timer_timeout() -> void:
-	#_finish_waiting_for_second_tap()
 "
 
 [sub_resource type="Gradient" id="Gradient_bnhqw"]
@@ -480,7 +338,6 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashColdDown" to="." method="_on_dash_cold_down_timeout"]

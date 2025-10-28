@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cwmkgl6vjq7o5"]
+
+[ext_resource type="Texture2D" uid="uid://c3rkmnhd5ot6f" path="res://assets/inventory/red-capsule.png" id="1_2pbev"]
+[ext_resource type="Script" uid="uid://lba40nu1pwft" path="res://inventory/data/item-data.gd" id="1_elr6d"]
+
+[resource]
+script = ExtResource("1_elr6d")
+icon = ExtResource("1_2pbev")
+metadata/_custom_type_script = "uid://lba40nu1pwft"
