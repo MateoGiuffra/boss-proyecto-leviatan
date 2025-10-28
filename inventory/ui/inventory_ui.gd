@@ -15,6 +15,7 @@ func initialize(inventory: Inventory):
 func _update_ui():
 	for slot in slots: 
 		slot.queue_free()
+	slots = []
 	for item in player_inventory.get_items():
 		var slot = SLOT_SCENE.instantiate()
 		

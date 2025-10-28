@@ -497,7 +497,7 @@ terrain_set_0/terrain_1/name = "Background"
 terrain_set_0/terrain_1/color = Color(0.6271502, 0, 0.3275161, 1)
 sources/0 = SubResource("TileSetAtlasSource_r0du0")
 
-[sub_resource type="Resource" id="Resource_03owx"]
+[sub_resource type="Resource" id="Resource_trn2v"]
 resource_local_to_scene = true
 script = ExtResource("5_lgr22")
 id = "1"
@@ -521,7 +521,15 @@ tile_set = SubResource("TileSet_cm0pq")
 
 [node name="WorldItem" parent="." instance=ExtResource("3_fos0i")]
 position = Vector2(-139, -23)
-item_data = SubResource("Resource_03owx")
+item_data = SubResource("Resource_trn2v")
+
+[node name="WorldItem2" parent="." instance=ExtResource("3_fos0i")]
+position = Vector2(-296, -33)
+item_data = SubResource("Resource_trn2v")
+
+[node name="WorldItem3" parent="." instance=ExtResource("3_fos0i")]
+position = Vector2(-435, -33)
+item_data = SubResource("Resource_trn2v")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)
@@ -538,4 +546,5 @@ autoplay = true
 attenuation = 0.65975404
 
 [node name="Player" parent="." instance=ExtResource("7_03owx")]
+position = Vector2(-8, -4.000001)
 scale = Vector2(0.65, 0.65)
