@@ -12,5 +12,5 @@ script = ExtResource("1_b1heh")
 [node name="InitialPlayerPosition" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InitialPlayerPosition"]
-position = Vector2(-167, 0)
+position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_11ywe")

@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://btc130konr2b"]
+
+[ext_resource type="FontFile" uid="uid://jm1u1lwmdld4" path="res://assets/fonts/Quick Spooky.otf" id="1_4hn6b"]
+
+[resource]
+default_font = ExtResource("1_4hn6b")
+default_font_size = 24
+Button/colors/font_color = Color(0.7319771, 0.7351516, 0.7206718, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Label/fonts/font = ExtResource("1_4hn6b")

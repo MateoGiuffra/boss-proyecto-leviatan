@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://daovg62hm8gdh"]
+[gd_scene load_steps=7 format=3 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://Game.gd" id="1_xkndl"]
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://entities/not-enemies/player.tscn" id="3_sb48q"]
 [ext_resource type="PackedScene" uid="uid://kbrgr2y87fwg" path="res://scenes/level_manager/LevelManager.tscn" id="3_u44n3"]
 [ext_resource type="PackedScene" uid="uid://bkvkfm8rg4l0e" path="res://scenes/levels/level_01/Level01.tscn" id="4_t88pq"]
+[ext_resource type="PackedScene" uid="uid://dx4b1abe36ky4" path="res://ui/menus/OptionsMenu.tscn" id="5_r0x5m"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="5_t88pq"]
 
 [node name="Game" type="Node"]
@@ -12,7 +13,8 @@ script = ExtResource("1_xkndl")
 [node name="LevelManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_u44n3")]
 player_scene = ExtResource("3_sb48q")
 level_scenes = {
-"Level_01": ExtResource("4_t88pq")
+"Level_01": ExtResource("4_t88pq"),
+"Options": ExtResource("5_r0x5m")
 }
 player = NodePath("../Player")
 
