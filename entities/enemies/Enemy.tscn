@@ -1,0 +1,136 @@
+[gd_scene load_steps=18 format=3 uid="uid://cey4wuep5drty"]
+
+[ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://entities/enemies/enemy.gd" id="1_i8idp"]
+[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
+[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://entities/enemies/StateMachine.gd" id="2_82qr8"]
+[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://scripts/states/enemy/EnemyIdleState.gd" id="3_rfvys"]
+[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://scripts/states/enemy/EnemyAttackState.gd" id="4_i8idp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
+size = Vector2(18, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8idp"]
+atlas = ExtResource("1_paah2")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ae7xc"]
+atlas = ExtResource("1_paah2")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iplvi"]
+atlas = ExtResource("1_paah2")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg1dj"]
+atlas = ExtResource("1_paah2")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxdrg"]
+atlas = ExtResource("1_paah2")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kppe4"]
+atlas = ExtResource("1_paah2")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijm5m"]
+atlas = ExtResource("1_paah2")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_im7nu"]
+atlas = ExtResource("1_paah2")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyjmi"]
+atlas = ExtResource("1_paah2")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ijm5m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8idp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ae7xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iplvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg1dj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxdrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kppe4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijm5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijm5m")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_im7nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyjmi")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_im7nu"]
+radius = 89.358826
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_i8idp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_rfvys")
+
+[node name="AnimatedEnemy2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -5)
+sprite_frames = SubResource("SpriteFrames_ijm5m")
+animation = &"idle"
+frame = 1
+frame_progress = 0.77476984
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_im7nu")
+debug_color = Color(0.35058236, 0.48370993, 1, 0.41960785)
+
+[node name="RayCast2D" type="RayCast2D" parent="DetectionArea"]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_82qr8")
+initial_state = NodePath("EnemyIdleState")
+
+[node name="EnemyIdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_rfvys")
+enemy = NodePath("../..")
+
+[node name="EnemyAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_i8idp")
+enemy = NodePath("../..")
+
+[connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_looped"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
