@@ -16,6 +16,5 @@ func update(_delta: float) -> void:
 	if enemy && enemy.can_follow():
 		Transitioned.emit(self, "EnemyAttackState")
 		
-	
 func physics_update(_delta: float) -> void:
 	enemy.velocity.x = move_toward(enemy.velocity.x, 0, enemy.movement_speed_limit * enemy.friction_weight * _delta)
