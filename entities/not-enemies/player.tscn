@@ -145,13 +145,6 @@ texture_filter = 1
 position = Vector2(-2, -60)
 shape = SubResource("CapsuleShape2D_i87q2")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
-zoom = Vector2(1.5, 1.5)
-process_callback = 0
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
-
 [node name="Timers" type="Node" parent="."]
 
 [node name="DoubleTapTimer" type="Timer" parent="Timers"]

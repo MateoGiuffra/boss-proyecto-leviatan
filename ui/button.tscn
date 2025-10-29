@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://3g13m1qmln7"]
+
+[ext_resource type="FontFile" uid="uid://jm1u1lwmdld4" path="res://assets/fonts/Quick Spooky.otf" id="1_v0bqk"]
+
+[node name="New Game" type="Button"]
+custom_minimum_size = Vector2(220, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_v0bqk")
+theme_override_font_sizes/font_size = 24
+button_mask = 0
+text = "New Button"
+language = "en"

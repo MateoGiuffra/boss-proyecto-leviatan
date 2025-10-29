@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://0j7qne8c1m10"]
+
+[ext_resource type="Script" uid="uid://6xbufgn4qhbf" path="res://scenes/levels/level_template/level.gd" id="1_b1heh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_11ywe"]
+radius = 40.0
+height = 80.0
+
+[node name="LevelTemplate" type="Node"]
+script = ExtResource("1_b1heh")
+
+[node name="InitialPlayerPosition" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InitialPlayerPosition"]
+position = Vector2(-167, 0)
+shape = SubResource("CapsuleShape2D_11ywe")

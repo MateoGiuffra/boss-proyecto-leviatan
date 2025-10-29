@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf86ybfupobt5"]
+
+[ext_resource type="FontFile" uid="uid://jm1u1lwmdld4" path="res://assets/fonts/Quick Spooky.otf" id="1_eap25"]
+
+[node name="New Game" type="Button"]
+theme_override_fonts/font = ExtResource("1_eap25")
+theme_override_font_sizes/font_size = 24
+text = "New Game
+"

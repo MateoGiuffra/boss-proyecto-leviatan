@@ -1,11 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://daovg62hm8gdh"]
+[gd_scene load_steps=6 format=3 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://Game.gd" id="1_xkndl"]
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://entities/not-enemies/player.tscn" id="3_sb48q"]
-[ext_resource type="PackedScene" uid="uid://kbrgr2y87fwg" path="res://levels/level_manager/LevelManager.tscn" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://kbrgr2y87fwg" path="res://scenes/level_manager/LevelManager.tscn" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://bkvkfm8rg4l0e" path="res://scenes/levels/level_01/Level01.tscn" id="4_t88pq"]
+[ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="5_t88pq"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_xkndl")
 
-[node name="LevelManager" parent="." instance=ExtResource("3_u44n3")]
+[node name="LevelManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_u44n3")]
 player_scene = ExtResource("3_sb48q")
+level_scenes = {
+"Level_01": ExtResource("4_t88pq")
+}
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("3_sb48q")]
+position = Vector2(-103, -17)
+scale = Vector2(0.65, 0.65)
+
+[node name="PlayerCamera2D" parent="Player" instance=ExtResource("5_t88pq")]
+visible = false
+zoom = Vector2(1, 1)
+
+[node name="Settings" type="Node" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Settings"]
+visible = false
+color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)

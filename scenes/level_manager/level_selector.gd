@@ -13,7 +13,8 @@ signal level_selected(level_name: String)
 # Esto debería configurarse en el Inspector.
 @export var level_map: Dictionary = {
 	"New Game": "Level_01",
-	"Tutorial": "Tutorial"
+	"Tutorial": "Tutorial",
+	"Options": "Options"
 }
 
 
