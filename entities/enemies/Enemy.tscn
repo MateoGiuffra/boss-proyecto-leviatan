@@ -94,7 +94,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_im7nu"]
-radius = 89.358826
+radius = 131.24405
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_i8idp")
@@ -118,6 +118,8 @@ shape = SubResource("CircleShape2D_im7nu")
 debug_color = Color(0.35058236, 0.48370993, 1, 0.41960785)
 
 [node name="RayCast2D" type="RayCast2D" parent="DetectionArea"]
+target_position = Vector2(0, 135)
+collision_mask = 7
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_82qr8")

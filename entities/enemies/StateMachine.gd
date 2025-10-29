@@ -6,7 +6,7 @@ extends Node
 var current_state: State
 var states: Dictionary = {}
 
-func _ready() -> void: #setUp del state machine
+func _ready() -> void:
 	for child in get_children(): 
 		if child is State:
 			states[normalize_state_name(child.name)] = child
@@ -25,11 +25,11 @@ func set_state(new_state: String):
 	else: 
 		print("unrecognized state to set: " +  str(new_state))
 
-func _process(delta: float) -> void: #encargado de la velocidad de los fotogramas
+func _process(delta: float) -> void:
 	if current_state: 
 		current_state.update(delta)
 
-func _physics_process(delta: float) -> void: #encargado del servidor de físicas
+func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.physics_update(delta)
 	
