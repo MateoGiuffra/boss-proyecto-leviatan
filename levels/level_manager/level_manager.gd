@@ -1,6 +1,5 @@
 # LevelManager.gd
-
-extends Node2D
+extends Node
 class_name LevelManager
 
 # Variables inicializadas cuando el nodo LevelManager entra en el árbol de escenas

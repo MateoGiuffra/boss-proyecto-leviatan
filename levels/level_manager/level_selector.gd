@@ -12,8 +12,8 @@ signal level_selected(level_name: String)
 # Diccionario para mapear botones de UI a los nombres de los niveles.
 # Esto debería configurarse en el Inspector.
 @export var level_map: Dictionary = {
-	"Button_World_1": "World_1",
-	"Button_Tutorial": "Tutorial"
+	"New Game": "Level_01",
+	"Tutorial": "Tutorial"
 }
 
 

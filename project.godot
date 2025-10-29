@@ -30,7 +30,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LevelManger="*res://levels/level_manager/level_manger.gd"
+LevelManger="*res://levels/level_manager/level_manager.gd"
 
 [display]
 

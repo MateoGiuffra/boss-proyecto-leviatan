@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://kbrgr2y87fwg"]
+
+[ext_resource type="Script" uid="uid://88r0rwtd0tvu" path="res://levels/level_manager/level_manager.gd" id="1_2qq6n"]
+[ext_resource type="Script" uid="uid://m0ymkojhspfd" path="res://levels/level_manager/level_selector.gd" id="2_o4nhd"]
+
+[node name="LevelManager" type="Node"]
+script = ExtResource("1_2qq6n")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelSelector" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_o4nhd")
+
+[node name="New Game" type="Button" parent="CanvasLayer/LevelSelector"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "New Game"
+
+[node name="Tutorial" type="Button" parent="CanvasLayer/LevelSelector"]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 92.0
+offset_bottom = 69.0
+text = "Tutorial"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://daovg62hm8gdh"]
+
+[ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://Game.gd" id="1_xkndl"]
+[ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://entities/not-enemies/player.tscn" id="3_sb48q"]
+[ext_resource type="PackedScene" uid="uid://kbrgr2y87fwg" path="res://levels/level_manager/LevelManager.tscn" id="3_u44n3"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_xkndl")
+
+[node name="LevelManager" parent="." instance=ExtResource("3_u44n3")]
+player_scene = ExtResource("3_sb48q")
