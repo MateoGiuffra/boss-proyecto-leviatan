@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 ## Menú de pausa genérico, abierto utilizando la acción "pause_menu"
 ## (por default la tecla Esc).

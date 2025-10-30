@@ -18,7 +18,8 @@ func want_moving():
 
 func _ready() -> void:
 	ray_cast_2d.enabled = true
-
+	
+	
 func _physics_process(_delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * _delta
@@ -64,3 +65,11 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 func _on_animated_enemy_2d_animation_looped() -> void:
 	if animated_enemy_2d.animation == "idle":
 		animated_enemy_2d.flip_h = !animated_enemy_2d.flip_h
+
+
+func _on_collision_area_body_entered(_body: Node2D) -> void:
+	print("te mate wacho")
+	player_target.hp = 0
+	GameState.current_player_changed.emit()
+
+	

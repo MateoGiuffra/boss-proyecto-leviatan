@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://0j7qne8c1m10"]
+[gd_scene load_steps=7 format=3 uid="uid://0j7qne8c1m10"]
 
-[ext_resource type="Script" uid="uid://6xbufgn4qhbf" path="res://scenes/levels/level_template/level.gd" id="1_b1heh"]
-[ext_resource type="PackedScene" uid="uid://d0wl53hsyfl8g" path="res://ui/ui/simple_menu/PauseMenu.tscn" id="2_xh6xx"]
+[ext_resource type="Script" uid="uid://6xbufgn4qhbf" path="res://src/game/scenes/levels/level_template/level.gd" id="1_b1heh"]
+[ext_resource type="PackedScene" uid="uid://d0wl53hsyfl8g" path="res://src/game/ui/menus/pause_menu/PauseMenu.tscn" id="2_xh6xx"]
+[ext_resource type="PackedScene" uid="uid://7o8w0bk4iaf8" path="res://src/game/ui/menus/defeat_menu/DefeatMenu.tscn" id="3_qnwyr"]
+[ext_resource type="PackedScene" uid="uid://cgf8nxut0nbdv" path="res://src/game/ui/menus/victory_menu/VictoryMenu.tscn" id="4_1qle4"]
+[ext_resource type="PackedScene" uid="uid://d24f418usmrj5" path="res://src/game/environment/Goal.tscn" id="5_1qle4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_11ywe"]
 radius = 40.0
@@ -9,6 +12,14 @@ height = 80.0
 
 [node name="LevelTemplate" type="Node"]
 script = ExtResource("1_b1heh")
+
+[node name="Map" type="Node" parent="."]
+
+[node name="Goal" parent="." instance=ExtResource("5_1qle4")]
+z_index = 1
+position = Vector2(2, 32)
+collision_layer = 1
+collision_mask = 4
 
 [node name="InitialPlayerPosition" type="Area2D" parent="."]
 
@@ -20,4 +31,12 @@ shape = SubResource("CapsuleShape2D_11ywe")
 
 [node name="PauseMenu" parent="UILayer" instance=ExtResource("2_xh6xx")]
 
+[node name="DefeatMenu" parent="UILayer" instance=ExtResource("3_qnwyr")]
+
+[node name="VictoryMenu" parent="UILayer" instance=ExtResource("4_1qle4")]
+
 [connection signal="return_selected" from="UILayer/PauseMenu" to="." method="_on_return_requested"]
+[connection signal="retry_selected" from="UILayer/DefeatMenu" to="." method="_on_defeat_menu_retry_selected"]
+[connection signal="return_selected" from="UILayer/DefeatMenu" to="." method="_on_defeat_menu_return_selected"]
+[connection signal="next_selected" from="UILayer/VictoryMenu" to="." method="on_level_won"]
+[connection signal="return_selected" from="UILayer/VictoryMenu" to="." method="on_return_requested"]

@@ -49,6 +49,7 @@ folder_colors={
 "res://assets/": "orange",
 "res://src/": "green",
 "res://src/game/": "blue",
+"res://src/game/entities/": "red",
 "res://src/screens/": "pink"
 }
 

@@ -37,8 +37,16 @@ func set_current_player(player: Player) -> void:
 ## Señal genérica que avisa del cumplimiento de la condición
 ## de victoria a todos los interesados.
 signal level_won()
+signal level_lost()
+
+func notify_level_lost() -> void:
+	weapons_stash.append_array(weapons_available)
+	weapons_available = []
+	level_lost.emit() 
 
 func notify_level_won() -> void:
 	weapons_stash.append_array(weapons_available)
 	weapons_available = []
 	level_won.emit()
+	
+	

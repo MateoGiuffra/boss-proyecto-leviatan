@@ -9,22 +9,11 @@ signal return_selected()
 
 func _ready() -> void:
 	hide()
-	GameState.current_player_changed.connect(_on_current_player_changed)
+	GameState.level_lost.connect(_on_level_lost)
 
+func _on_level_lost():
+	show()
 
-func _on_current_player_changed(player: Player) -> void:
-	player.hp_changed.connect(_on_hp_changed)
-	_on_hp_changed(player.hp, player.max_hp)
-
-
-func _on_hp_changed(hp: int, _hp_max: int) -> void:
-	if hp == 0:
-		show()
-
-
-func _on_retry_button_pressed() -> void:
-	retry_selected.emit()
-
-
-func _on_return_button_pressed() -> void:
+func _on_back_to_menu_button_pressed() -> void:
+	print("clicked")
 	return_selected.emit()

@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://cey4wuep5drty"]
 
-[ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://entities/enemies/enemy.gd" id="1_i8idp"]
-[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
-[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://entities/enemies/StateMachine.gd" id="2_82qr8"]
-[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://scripts/states/enemy/EnemyIdleState.gd" id="3_rfvys"]
-[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://scripts/states/enemy/EnemyAttackState.gd" id="4_i8idp"]
+[ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
+[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
+[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/StateMachine.gd" id="2_82qr8"]
+[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/EnemyIdleState.gd" id="3_rfvys"]
+[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/EnemyAttackState.gd" id="4_i8idp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
-size = Vector2(18, 12)
+size = Vector2(34, 16.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8idp"]
 atlas = ExtResource("1_paah2")
@@ -99,12 +99,19 @@ radius = 131.24405
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_i8idp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionAreaShape2D" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource("RectangleShape2D_rfvys")
+
+[node name="CollisionCharacterBodyShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_rfvys")
 
 [node name="AnimatedEnemy2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -5)
+position = Vector2(1, -9)
+scale = Vector2(1.0234377, 1.0390625)
 sprite_frames = SubResource("SpriteFrames_ijm5m")
 animation = &"idle"
 frame = 1
@@ -113,7 +120,7 @@ frame_progress = 0.77476984
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionDetectionAreaShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_im7nu")
 debug_color = Color(0.35058236, 0.48370993, 1, 0.41960785)
 
@@ -133,6 +140,7 @@ enemy = NodePath("../..")
 script = ExtResource("4_i8idp")
 enemy = NodePath("../..")
 
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]
 [connection signal="animation_looped" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_looped"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

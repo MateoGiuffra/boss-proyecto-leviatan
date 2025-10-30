@@ -9,6 +9,10 @@ class_name Player
 @export var gravity: float = 725.0
 @export var jump_speed: int = 450
 @export var swim_boost: int = 3
+# salud
+@export var max_hp: int = 1
+var hp: int = max_hp
+
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
 @onready var state_machine = $StateMachine
 
@@ -19,6 +23,9 @@ class_name Player
 @onready var dash_timer: Timer = $Timers/DashTimer
 @onready var camera: Camera2D = $Camera2D
 
+# signals 
+signal hp_changed(current_hp: int, max_hp: int)
+
 # Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
 var count_swim_boost = swim_boost
@@ -28,6 +35,10 @@ var waiting_second_tap: bool
 var finish_colddown_dash: bool = true
 var finish_colddown_swim_boost: bool = true
 
+func sum_hp(amount: int) -> void:
+	hp = clamp(hp + amount, 0, max_hp)
+	hp_changed.emit(hp, max_hp)
+	print("hp_changed %s %s" % [hp, max_hp])
 
 func _ready():
 	if inventory_ui == null:
@@ -48,7 +59,6 @@ func desactivate():
 	if camera:
 		camera.enabled = false
 
-
 func activate():
 	set_process(true)
 	set_physics_process(true)
@@ -66,7 +76,12 @@ func _on_item_detector_area_entered(area: Area2D):
 			area.queue_free()
 			print("Recogido: ", world_item_data.id)
 
+func is_dead():
+	return hp <= 0
+
 func _physics_process(_delta: float) -> void:
+	if is_dead():
+		GameState.level_lost.emit()
 	# La lógica de animación y movimiento debe ser gestionada por el State Machine,
 	# pero dejo la parte de la gravedad/input aquí para que los estados la utilicen.
 	

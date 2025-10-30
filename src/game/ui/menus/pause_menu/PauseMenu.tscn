@@ -65,7 +65,10 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
 
-[node name="PauseMenu" type="Control"]
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -75,9 +78,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_mkjft")
-script = ExtResource("1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,7 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.4627451)
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -102,7 +104,7 @@ grow_vertical = 2
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_uqaoq")
 
-[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,12 +116,12 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/TextureRect/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ResumeButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PauseMenu/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_mkjft")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rmcsp")
@@ -135,7 +137,7 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_kuqvp")
 theme_override_styles/focus = SubResource("StyleBoxFlat_80nc3")
 text = "Resume"
 
-[node name="OptionsButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="PauseMenu/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_mkjft")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rmcsp")
@@ -151,7 +153,7 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_kuqvp")
 theme_override_styles/focus = SubResource("StyleBoxFlat_80nc3")
 text = "Options"
 
-[node name="ReturnButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="PauseMenu/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_mkjft")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rmcsp")
@@ -167,7 +169,7 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_kuqvp")
 theme_override_styles/focus = SubResource("StyleBoxFlat_80nc3")
 text = "Back to menu"
 
-[node name="Label" type="Label" parent="TextureRect/MarginContainer"]
+[node name="Label" type="Label" parent="PauseMenu/TextureRect/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -177,9 +179,7 @@ text = "Paused
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_rabgt")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
 
-[connection signal="pressed" from="TextureRect/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/VBoxContainer/OptionsButton" to="OptionsMenu" method="_on_options_button_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="PauseMenu/TextureRect/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/TextureRect/MarginContainer/VBoxContainer/OptionsButton" to="OptionsMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="PauseMenu/TextureRect/MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
