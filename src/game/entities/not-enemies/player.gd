@@ -21,9 +21,10 @@ var hp: int = max_hp
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
-@onready var camera: Camera2D = $CanvasLayer/Camera2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var camera: Camera2D = $Camera
+@onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
 
 # signals 
 signal hp_changed(current_hp: int, max_hp: int)
@@ -94,6 +95,10 @@ func is_dead():
 	return hp <= 0
 
 func _physics_process(_delta: float) -> void:
+	if !is_on_floor() and not swimming_sound.playing:
+		swimming_sound.play()
+		
+	
 	if is_dead():
 		GameState.level_lost.emit()
 	# La lógica de animación y movimiento debe ser gestionada por el State Machine,

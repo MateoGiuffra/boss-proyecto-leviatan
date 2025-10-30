@@ -46,7 +46,7 @@ enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://assets/": "orange",
+"res://assets/": "yellow",
 "res://src/": "green",
 "res://src/game/": "blue",
 "res://src/game/entities/": "red",

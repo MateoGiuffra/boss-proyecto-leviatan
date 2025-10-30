@@ -38,5 +38,7 @@ func on_child_transition(state: State, new_state_name: String) -> void:
 	
 	new_state.enter()
 	current_state = new_state
+
+
 		
 	

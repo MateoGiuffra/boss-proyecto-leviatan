@@ -1,8 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=34 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not-enemies/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
+[ext_resource type="AudioStream" uid="uid://cg5mcs7cy8juh" path="res://assets/sound/player/swim_with_bubles.mp3" id="2_483nw"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/textures/player/idle/idle_2.png" id="2_bnhqw"]
+[ext_resource type="AudioStream" uid="uid://g5eqifuyre18" path="res://assets/sound/player/jump.mp3" id="2_xm2vi"]
 [ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/textures/player/idle/idle_3.png" id="3_753ju"]
 [ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/not-enemies/player.gdshader" id="3_b6hsd"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/textures/player/walk/walk_01.png" id="3_bnhqw"]
@@ -23,6 +25,7 @@
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://src/game/scripts/states/player/PlayerWalkState.gd" id="19_obrgw"]
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://src/game/scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://src/game/scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
+[ext_resource type="AudioStream" uid="uid://deix1e76jw1pu" path="res://assets/sound/player/only_step.ogg" id="21_kycvn"]
 [ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://src/game/inventory/Inventory.tscn" id="22_73mqe"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="24_vf103"]
 
@@ -125,9 +128,25 @@ collision_mask = 3
 script = ExtResource("1_4ohmj")
 metadata/_edit_group_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Sounds" type="Node2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
 
-[node name="Camera" parent="CanvasLayer" instance=ExtResource("24_vf103")]
+[node name="StepSound" type="AudioStreamPlayer2D" parent="Sounds"]
+bus = &"SFX"
+
+[node name="WashSound" type="AudioStreamPlayer2D" parent="Sounds"]
+bus = &"SFX"
+
+[node name="SwimmingSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("2_483nw")
+volume_db = -20.194
+bus = &"SFX"
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("2_xm2vi")
+bus = &"SFX"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -163,7 +182,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"jump"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 texture_filter = 1
@@ -193,6 +212,7 @@ initial_state = NodePath("PlayerWalkState")
 [node name="PlayerWalkState" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("19_obrgw")
 player = NodePath("../..")
+step_sounds = Array[AudioStream]([ExtResource("21_kycvn")])
 metadata/_custom_type_script = "uid://b8jgpxj1ccsss"
 
 [node name="PlayerIdleState" type="Node" parent="StateMachine"]
@@ -218,6 +238,8 @@ position = Vector2(-2, -60)
 shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
+
+[node name="Camera" parent="." instance=ExtResource("24_vf103")]
 
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
