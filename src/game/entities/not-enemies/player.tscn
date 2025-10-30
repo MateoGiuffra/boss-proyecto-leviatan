@@ -144,6 +144,7 @@ bus = &"SFX"
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("2_xm2vi")
+volume_db = -16.769
 bus = &"SFX"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
