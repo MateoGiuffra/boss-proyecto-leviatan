@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba6uwpdy60qt7"]
+
+[ext_resource type="PackedScene" uid="uid://bkvkfm8rg4l0e" path="res://scenes/levels/level_01/Level01.tscn" id="1"]
+[ext_resource type="Script" uid="uid://brgd3hh3aty45" path="res://screens/LevelManager.gd" id="2"]
+
+[node name="LevelManager" type="Node"]
+script = ExtResource("2")
+levels = Array[PackedScene]([ExtResource("1")])
+main_menu_scene_path = "res://src/screens/MainMenu.tscn"
+
+[node name="CurrentLevelContainer" type="Node" parent="."]

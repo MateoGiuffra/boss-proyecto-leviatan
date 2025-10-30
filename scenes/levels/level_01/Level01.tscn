@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bkvkfm8rg4l0e"]
+[gd_scene load_steps=26 format=4 uid="uid://bkvkfm8rg4l0e"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://scenes/levels/level_template/LevelTemplate.tscn" id="1_f30rv"]
 [ext_resource type="Texture2D" uid="uid://v8adjfkabpgt" path="res://assets/background/tileset/level_tileset.png" id="2_ro5ca"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
 [ext_resource type="AudioStream" uid="uid://dlar0jienjmda" path="res://assets/sound/underwater-whale-and-diving-sound-ambient-116185.mp3" id="5_lra2u"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://entities/enemies/Enemy.tscn" id="6_i5t0w"]
+[ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://entities/not-enemies/player.tscn" id="7_e2p1h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsfv7"]
 texture = ExtResource("2_ro5ca")
@@ -527,3 +528,6 @@ attenuation = 0.65975404
 
 [node name="Enemy" parent="." index="6" instance=ExtResource("6_i5t0w")]
 position = Vector2(-306, -11)
+
+[node name="Player" parent="." index="7" instance=ExtResource("7_e2p1h")]
+scale = Vector2(0.65, 0.65)

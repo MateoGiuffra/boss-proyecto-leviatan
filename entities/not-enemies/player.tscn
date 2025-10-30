@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=29 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://entities/not-enemies/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/player/walk/walk_00.png" id="2_3d7ta"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
 [ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://inventory/Inventory.tscn" id="22_73mqe"]
+[ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="24_vf103"]
 
 [sub_resource type="Gradient" id="Gradient_bnhqw"]
 interpolation_mode = 2
@@ -114,6 +115,8 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4ohmj")
 metadata/_edit_group_ = true
+
+[node name="Camera2D" parent="." instance=ExtResource("24_vf103")]
 
 [node name="OutLight" type="PointLight2D" parent="."]
 visible = false

@@ -17,7 +17,7 @@ class_name Player
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
-
+@onready var camera: Camera2D = $Camera2D
 
 # Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
@@ -29,8 +29,7 @@ var finish_colddown_dash: bool = true
 var finish_colddown_swim_boost: bool = true
 
 
-func _ready() -> void:
-	# Inicialización de InventoryUI
+func _ready():
 	if inventory_ui == null:
 		var ui_nodes: Array = get_tree().get_nodes_in_group("ui_layer")
 		if !ui_nodes.is_empty():
@@ -38,7 +37,26 @@ func _ready() -> void:
 				
 	if inventory_ui != null:
 		inventory_ui.initialize(inventory)
+	GameState.set_current_player(self)
+	
+	
+func desactivate():
+	set_process(false)
+	set_physics_process(false)
+	set_process_input(false)
+	hide()
+	if camera:
+		camera.enabled = false
 
+
+func activate():
+	# 1. Activación de Procesamiento y Visual
+	set_process(true)
+	set_physics_process(true)
+	set_process_input(true)
+	show()
+	if camera:
+		camera.enabled = true
 
 func _on_item_detector_area_entered(area: Area2D):
 	if area.has_method("get_item_data"):

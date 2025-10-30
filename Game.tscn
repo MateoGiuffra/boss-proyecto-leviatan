@@ -1,33 +1,85 @@
-[gd_scene load_steps=7 format=3 uid="uid://daovg62hm8gdh"]
+[gd_scene load_steps=5 format=3 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://Game.gd" id="1_xkndl"]
-[ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://entities/not-enemies/player.tscn" id="3_sb48q"]
-[ext_resource type="PackedScene" uid="uid://kbrgr2y87fwg" path="res://scenes/level_manager/LevelManager.tscn" id="3_u44n3"]
-[ext_resource type="PackedScene" uid="uid://bkvkfm8rg4l0e" path="res://scenes/levels/level_01/Level01.tscn" id="4_t88pq"]
-[ext_resource type="PackedScene" uid="uid://dx4b1abe36ky4" path="res://ui/menus/OptionsMenu.tscn" id="5_r0x5m"]
-[ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="5_t88pq"]
+[ext_resource type="PackedScene" uid="uid://ba6uwpdy60qt7" path="res://screens/LevelManager.tscn" id="2_xkndl"]
+[ext_resource type="Texture2D" uid="uid://c7oc08aabg7he" path="res://assets/images/main_image.png" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://m012tphmbg3w" path="res://ui/ui/options_menu/options_menu.tscn" id="4_sb48q"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_xkndl")
-
-[node name="LevelManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_u44n3")]
-player_scene = ExtResource("3_sb48q")
-level_scenes = {
-"Level_01": ExtResource("4_t88pq"),
-"Options": ExtResource("5_r0x5m")
-}
-player = NodePath("../Player")
-
-[node name="Player" parent="." instance=ExtResource("3_sb48q")]
-position = Vector2(-103, -17)
-scale = Vector2(0.65, 0.65)
-
-[node name="PlayerCamera2D" parent="Player" instance=ExtResource("5_t88pq")]
-visible = false
-zoom = Vector2(1, 1)
+level_manager_scene = ExtResource("2_xkndl")
 
 [node name="Settings" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Settings"]
 visible = false
 color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)
+
+[node name="Menus" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Menus"]
+
+[node name="Container" type="Control" parent="Menus/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menus/CanvasLayer/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -188.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_u44n3")
+
+[node name="Title" type="Label" parent="Menus/CanvasLayer/Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.5
+offset_right = 69.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "Proyecto Leviatan"
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/CanvasLayer/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.5
+offset_top = -93.0
+offset_right = 110.5
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
+layout_mode = 2
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="OptionsMenu" parent="Menus/CanvasLayer" instance=ExtResource("4_sb48q")]
+
+[connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/OptionsButton" to="Menus/CanvasLayer/OptionsMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]

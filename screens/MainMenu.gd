@@ -17,10 +17,11 @@ extends Node
 ## la documentación para experimentar
 
 @export var level_manager_scene: PackedScene
+@export var mouse_cursor: Texture
 
 
 func _ready() -> void:
-	pass
+	Input.set_custom_mouse_cursor(mouse_cursor)
 
 
 func _on_start_button_pressed() -> void:

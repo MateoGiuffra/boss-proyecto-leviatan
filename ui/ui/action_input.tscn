@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp7iy3pfhe2yq"]
+
+[ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://ui/ui/action_input.gd" id="1_oyij3"]
+
+
+[node name="ActionInput" type="PanelContainer"]
+script = ExtResource("1_oyij3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 2
+
+[node name="Input" type="Label" parent="HBoxContainer/Panel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Action" type="Label" parent="HBoxContainer"]
+layout_mode = 2
