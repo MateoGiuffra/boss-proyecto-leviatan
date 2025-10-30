@@ -30,7 +30,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://singletons/GameState.gd"
+GameState="*res://src/game/singletons/GameState.gd"
 
 [display]
 
@@ -42,6 +42,15 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "orange",
+"res://src/": "green",
+"res://src/game/": "blue",
+"res://src/screens/": "pink"
+}
 
 [global_group]
 
