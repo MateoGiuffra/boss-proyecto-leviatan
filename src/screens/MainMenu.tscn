@@ -79,6 +79,7 @@ text = "Exit
 "
 
 [node name="OptionsMenu" parent="Menus/CanvasLayer" instance=ExtResource("4_xif3j")]
+visible = false
 
 [connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/OptionsButton" to="Menus/CanvasLayer/OptionsMenu" method="_on_options_button_pressed"]

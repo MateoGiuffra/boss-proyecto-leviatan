@@ -1,196 +1,106 @@
-[gd_scene load_steps=10 format=3 uid="uid://m012tphmbg3w"]
+[gd_scene load_steps=4 format=3 uid="uid://m012tphmbg3w"]
 
-[ext_resource type="FontFile" path="res://assets/fonts/Default-Medium.tres" id="1_05p1w"]
-[ext_resource type="Script" uid="uid://mo1kl3s4i6gf" path="res://ui/ui/options_menu/options_menu.gd" id="1_kx632"]
-[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://ui/ui/action_input.tscn" id="2_lecsu"]
+[ext_resource type="Script" uid="uid://mo1kl3s4i6gf" path="res://src/game/ui/menus/options_menu/options_menu.gd" id="1_kx632"]
+[ext_resource type="Texture2D" uid="uid://c7oc08aabg7he" path="res://assets/textures/images/main_image.png" id="2_g74my"]
+[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="2_lecsu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4mfc"]
-bg_color = Color(0.29673335, 0.1865297, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.27467233, 0.7868745, 0.7843308, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-shadow_size = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xif3j"]
-content_margin_left = 5.0
-content_margin_top = 3.0
-content_margin_right = 5.0
-content_margin_bottom = 3.0
-bg_color = Color(0, 0.29803923, 0.6392157, 0.2509804)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a1cm"]
-content_margin_left = 5.0
-content_margin_top = 3.0
-content_margin_right = 5.0
-content_margin_bottom = 3.0
-bg_color = Color(0, 0.29803923, 0.6392157, 0.62352943)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkec7"]
-content_margin_left = 5.0
-content_margin_top = 3.0
-content_margin_right = 5.0
-content_margin_bottom = 3.0
-bg_color = Color(0, 0.29803923, 0.6392157, 0.4392157)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkluq"]
-content_margin_left = 5.0
-content_margin_top = 3.0
-content_margin_right = 5.0
-content_margin_bottom = 3.0
-bg_color = Color(0, 0, 0, 0.2509804)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a078r"]
-content_margin_left = 5.0
-content_margin_top = 3.0
-content_margin_right = 5.0
-content_margin_bottom = 3.0
-bg_color = Color(0.5882353, 0.6392157, 0, 0.4)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
-
-[node name="OptionsMenu" type="Control"]
-layout_mode = 3
+[node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 script = ExtResource("1_kx632")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="OptionsMenu" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="OptionsMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -24.0
+offset_right = 15.0
+offset_bottom = 372.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.2509804)
+texture = ExtResource("2_g74my")
 
-[node name="MainPanel" type="Panel" parent="."]
+[node name="Label" type="Label" parent="OptionsMenu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = 20.0
-offset_right = -50.0
-offset_bottom = -20.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 23.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t4mfc")
+theme_override_font_sizes/font_size = 48
+text = "Options"
 
-[node name="Label" type="Label" parent="MainPanel"]
+[node name="ExitButton" type="Button" parent="OptionsMenu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_top = 4.0
-offset_bottom = 18.0
-theme_override_fonts/font = ExtResource("1_05p1w")
-text = "Options
-"
-horizontal_alignment = 1
-
-[node name="ExitButton" type="Button" parent="MainPanel"]
-layout_mode = 1
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -28.0
-offset_top = -29.0
-offset_right = 27.0
-offset_bottom = -6.0
+offset_left = -30.5
+offset_top = -31.0
+offset_right = 30.5
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("1_05p1w")
-theme_override_styles/normal = SubResource("StyleBoxFlat_xif3j")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_xif3j")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_5a1cm")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_5a1cm")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tkec7")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_tkec7")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_tkec7")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_tkec7")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_tkluq")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_tkluq")
-theme_override_styles/focus = SubResource("StyleBoxFlat_a078r")
-text = "Return"
+grow_vertical = 0
+text = "Return
+"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMenu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 20.0
-offset_right = -5.0
-offset_bottom = -32.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.875
+offset_top = -150.0
+offset_right = 74.875
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
-draw_focus_border = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ActionInput" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
+[node name="ActionInput" parent="OptionsMenu/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
 actionInput = "A"
 action = "Move Left"
 
-[node name="ActionInput2" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
+[node name="ActionInput2" parent="OptionsMenu/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
 actionInput = "D"
 action = "Move Right"
 
-[node name="ActionInput3" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
+[node name="ActionInput3" parent="OptionsMenu/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
-actionInput = "W"
+actionInput = "Space"
 action = "Jump"
 
-[node name="ActionInput4" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
+[node name="ActionInput5" parent="OptionsMenu/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
-actionInput = "W + W"
-action = "Doble Jump"
-
-[node name="ActionInput5" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "Mouse Left"
-action = "Attack"
-
-[node name="ActionInput6" parent="MainPanel/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "Shift"
+actionInput = "Double A"
 action = "Dash"
 
-[connection signal="pressed" from="MainPanel/ExitButton" to="." method="hide"]
+[node name="ActionInput6" parent="OptionsMenu/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
+layout_mode = 2
+actionInput = "Double D"
+action = "Dash"
+
+[connection signal="pressed" from="OptionsMenu/ExitButton" to="." method="hide"]

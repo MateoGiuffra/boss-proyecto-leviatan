@@ -24,6 +24,7 @@ func _ready() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	print("clicked")
 	get_tree().change_scene_to_packed(level_manager_scene)
 
 
