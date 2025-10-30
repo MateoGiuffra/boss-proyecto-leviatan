@@ -1,27 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=2 format=3 uid="uid://7o8w0bk4iaf8"]
 
-[ext_resource type="FontFile" path="res://assets/fonts/Default-Big.tres" id="2"]
 [ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/DefeatMenu.gd" id="3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc220"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0, 0.2784314, 0.29411766, 0.42745098)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.49019608, 0.41960785, 0, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-corner_detail = 2
-
-[sub_resource type="LabelSettings" id="LabelSettings_djxqn"]
-font = ExtResource("2")
 
 [node name="DefeatMenu" type="Control"]
 process_mode = 3
@@ -35,50 +14,39 @@ mouse_filter = 2
 script = ExtResource("3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.25098)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="You Lost!" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.5
+offset_right = 35.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "You Lost!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -60.0
-offset_right = 80.0
-offset_bottom = 60.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cc220")
+offset_left = -57.0
+offset_top = -15.5
+offset_right = 57.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 10.0
-offset_top = 17.0
-offset_right = -10.0
-offset_bottom = 38.0
-text = "Game Lost!"
-label_settings = SubResource("LabelSettings_djxqn")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 15.0
-offset_top = -8.0
-offset_right = -15.0
-offset_bottom = 12.0
-
-[node name="BackToMenuButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="BackToMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Back to Menu"
 
-[connection signal="pressed" from="Panel/VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

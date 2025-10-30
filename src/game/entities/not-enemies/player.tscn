@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=31 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not-enemies/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/textures/player/idle/idle_2.png" id="2_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/textures/player/idle/idle_3.png" id="3_753ju"]
+[ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/not-enemies/player.gdshader" id="3_b6hsd"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/textures/player/walk/walk_01.png" id="3_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://gpxeih1m8tca" path="res://assets/textures/player/jump/jump_0.png" id="4_73mqe"]
 [ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/textures/player/walk/walk_02.png" id="4_753ju"]
@@ -24,6 +25,13 @@
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://src/game/scripts/states/player/PlayerDashState.gd" id="21_jis8g"]
 [ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://src/game/inventory/Inventory.tscn" id="22_73mqe"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="24_vf103"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kycvn"]
+shader = ExtResource("3_b6hsd")
+shader_parameter/distortion_strength = 0.001
+shader_parameter/distortion_speed = 0.5
+shader_parameter/water_fog_color = Color(0.10736025, 0.4151431, 0.5204662, 0.2)
+shader_parameter/fog_depth_y = 1000.0
 
 [sub_resource type="Gradient" id="Gradient_bnhqw"]
 interpolation_mode = 2
@@ -117,14 +125,26 @@ collision_mask = 3
 script = ExtResource("1_4ohmj")
 metadata/_edit_group_ = true
 
-[node name="Camera2D" parent="." instance=ExtResource("24_vf103")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="OutLight" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(-0.5000286, -0.9999981)
-scale = Vector2(1.5097657, 0.84375)
-energy = 3.08
-texture = SubResource("GradientTexture2D_7phyx")
+[node name="Camera" parent="CanvasLayer" instance=ExtResource("24_vf103")]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_kycvn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.06666667)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture_filter = 1

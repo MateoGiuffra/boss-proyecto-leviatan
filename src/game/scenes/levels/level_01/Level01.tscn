@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=4 uid="uid://bkvkfm8rg4l0e"]
+[gd_scene load_steps=25 format=4 uid="uid://bkvkfm8rg4l0e"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/scenes/levels/level_template/LevelTemplate.tscn" id="1_f30rv"]
 [ext_resource type="Texture2D" uid="uid://v8adjfkabpgt" path="res://assets/textures/background/tileset/level_tileset.png" id="2_ro5ca"]
 [ext_resource type="PackedScene" uid="uid://bldqwktb618w7" path="res://src/game/inventory/ui/InventoryUI.tscn" id="3_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
-[ext_resource type="AudioStream" uid="uid://dlar0jienjmda" path="res://assets/textures/sound/underwater-whale-and-diving-sound-ambient-116185.mp3" id="5_lra2u"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/not-enemies/player.tscn" id="7_e2p1h"]
 
@@ -517,19 +516,13 @@ tile_set = SubResource("TileSet_k1epx")
 SLOT_SCENE = ExtResource("4_e2p1h")
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="2"]
-stream = ExtResource("5_lra2u")
-volume_db = 10.0
-autoplay = true
-attenuation = 0.65975404
-
-[node name="Enemy" parent="." index="3" instance=ExtResource("6_i5t0w")]
+[node name="Enemy" parent="." index="2" instance=ExtResource("6_i5t0w")]
 position = Vector2(-306, -11)
 
-[node name="Player" parent="." index="4" instance=ExtResource("7_e2p1h")]
+[node name="Player" parent="." index="3" instance=ExtResource("7_e2p1h")]
 scale = Vector2(0.65, 0.65)
 
-[node name="Goal" parent="." index="5"]
+[node name="Goal" parent="." index="4"]
 position = Vector2(-316, -159)
 
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]

@@ -21,7 +21,9 @@ var hp: int = max_hp
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
-@onready var camera: Camera2D = $Camera2D
+@onready var camera: Camera2D = $CanvasLayer/Camera2D
+@onready var point_light_2d: PointLight2D = $PointLight2D
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 # signals 
 signal hp_changed(current_hp: int, max_hp: int)
@@ -34,6 +36,18 @@ var is_dashing: bool
 var waiting_second_tap: bool
 var finish_colddown_dash: bool = true
 var finish_colddown_swim_boost: bool = true
+
+func die() -> void:
+	var new_parent = get_parent()
+	canvas_layer.remove_child(camera)
+	new_parent.add_child(camera) 
+	remove_child(point_light_2d) 
+	new_parent.add_child(point_light_2d)
+	# --- Lógica de Muerte del Player ---
+	hp = 0
+	hide()
+	# Solo el Player es liberado
+	queue_free()
 
 func sum_hp(amount: int) -> void:
 	hp = clamp(hp + amount, 0, max_hp)

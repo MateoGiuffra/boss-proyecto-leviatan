@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1krst52fe87m"]
+
+[ext_resource type="Script" uid="uid://bpkesfcqx741r" path="res://src/game/ui/sliders/slider.gd" id="1_n43bu"]
+[ext_resource type="FontFile" uid="uid://i1qus13x2d0u" path="res://assets/fonts/Roboto-Bold.ttf" id="1_ujbsg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g74my"]
+bg_color = Color(0.004688624, 0.054141253, 0.14072299, 1)
+border_width_left = 70
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 70.0
+expand_margin_top = 8.0
+expand_margin_right = 7.0
+expand_margin_bottom = 8.0
+
+[node name="HSlider" type="HSlider"]
+offset_right = 252.0
+offset_bottom = 16.0
+theme_override_constants/center_grabber = 1
+theme_override_styles/slider = SubResource("StyleBoxFlat_g74my")
+value = 100.0
+script = ExtResource("1_n43bu")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -59.0
+offset_top = -2.0
+offset_right = 11.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.87246186, 0.8841633, 0.9781366, 1)
+theme_override_fonts/font = ExtResource("1_ujbsg")
+theme_override_font_sizes/font_size = 16
+text = "Effects"

@@ -11,7 +11,7 @@ extends CharacterBody2D
 @export var follow_distance:float = 200
 
 var movement_direction: int
-var player_target: CharacterBody2D = null
+var player_target: Player = null
 
 func want_moving():
 	return movement_direction != 0
@@ -69,7 +69,7 @@ func _on_animated_enemy_2d_animation_looped() -> void:
 
 func _on_collision_area_body_entered(_body: Node2D) -> void:
 	print("te mate wacho")
-	player_target.hp = 0
+	player_target.die()
 	GameState.current_player_changed.emit()
 
 	

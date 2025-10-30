@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://daovg62hm8gdh"]
+[gd_scene load_steps=6 format=3 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://src/screens/MainMenu.gd" id="1_dsrv8"]
 [ext_resource type="PackedScene" uid="uid://ba6uwpdy60qt7" path="res://src/screens/LevelManager.tscn" id="2_472iq"]
 [ext_resource type="Texture2D" uid="uid://c7oc08aabg7he" path="res://assets/textures/images/main_image.png" id="3_wtd8s"]
 [ext_resource type="PackedScene" uid="uid://m012tphmbg3w" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_xif3j"]
+[ext_resource type="AudioStream" uid="uid://dlar0jienjmda" path="res://assets/textures/sound/underwater-whale-and-diving-sound-ambient-116185.mp3" id="5_472iq"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_dsrv8")
@@ -79,6 +80,19 @@ text = "Exit
 "
 
 [node name="OptionsMenu" parent="Menus/CanvasLayer" instance=ExtResource("4_xif3j")]
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sound"]
+autoplay = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sound"]
+process_mode = 3
+stream = ExtResource("5_472iq")
+volume_db = 10.0
+autoplay = true
+attenuation = 0.65975404
+bus = &"Music"
 
 [connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Menus/CanvasLayer/Container/Buttons/OptionsButton" to="Menus/CanvasLayer/OptionsMenu" method="_on_options_button_pressed"]
