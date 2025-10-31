@@ -19,10 +19,10 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 metadata/_edit_use_anchors_ = true
 
 [node name="Enemy" parent="." index="2" instance=ExtResource("6_i5t0w")]
-position = Vector2(-306, -11)
+position = Vector2(1984, 374)
 
 [node name="Player" parent="." index="3" instance=ExtResource("7_e2p1h")]
-position = Vector2(120, 392)
+position = Vector2(1520, 396.00006)
 scale = Vector2(0.65, 0.65)
 
 [node name="Goal" parent="." index="4"]
@@ -30,3 +30,6 @@ position = Vector2(-316, -159)
 
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
+
+[node name="CanvasModulate" parent="." index="7"]
+visible = true

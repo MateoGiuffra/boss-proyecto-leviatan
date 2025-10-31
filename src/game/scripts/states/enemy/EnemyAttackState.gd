@@ -1,6 +1,7 @@
 class_name EnemyAttackState extends State
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../../AudioStreamPlayer2D"
 
-@export var enemy: CharacterBody2D
+@onready var enemy: Enemy = $"../.."
 
 func get_input():
 	pass
@@ -8,17 +9,19 @@ func get_input():
 func enter() -> void:
 	print("state changed to EnemyAttackState")
 	enemy.movement_direction = 0
+	enemy.makepath()
+	audio_stream_player_2d.play()
 
 func exit() -> void:
 	enemy.movement_direction = 0
 
 func physics_update(delta: float) -> void:
-	var player_position = enemy.player_target.global_position
-	var enemy_position = enemy.global_position
-
-	var direction_to_player = player_position - enemy_position
-	enemy.attack(delta, direction_to_player)
-	enemy.aim_to_player()
+	if not enemy.is_on_floor():
+		enemy.velocity.y += enemy.gravity * delta
+	else:
+		enemy.jumps_left = enemy.max_jumps
+	
+	enemy.navigate(delta)
 	
 func update(_delta: float) -> void:
 	if !enemy.can_follow():

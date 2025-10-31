@@ -25,6 +25,8 @@ var hp: int = max_hp
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 @onready var camera: Camera2D = $Camera
 @onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
+@onready var particles: CPUParticles2D = $CPUParticles2D
+@onready var particles_timer: Timer = $Timers/ParticlesTimer
 
 # signals 
 signal hp_changed(current_hp: int, max_hp: int)
@@ -40,14 +42,13 @@ var finish_colddown_swim_boost: bool = true
 
 func die() -> void:
 	var new_parent = get_parent()
-	canvas_layer.remove_child(camera)
+	remove_child(camera)
 	new_parent.add_child(camera) 
 	remove_child(point_light_2d) 
 	new_parent.add_child(point_light_2d)
 	# --- Lógica de Muerte del Player ---
 	hp = 0
 	hide()
-	# Solo el Player es liberado
 	queue_free()
 
 func sum_hp(amount: int) -> void:
@@ -63,6 +64,7 @@ func _ready():
 				
 	if inventory_ui != null:
 		inventory_ui.initialize(inventory)
+	particles.emitting = false
 	GameState.set_current_player(self)
 	
 	
@@ -157,10 +159,11 @@ func _on_double_tap_timer_timeout() -> void:
 
 func _on_dash_cold_down_timeout() -> void:
 	finish_colddown_dash = true
+	particles_timer.start()
+
 
 
 # moving player
-
 func want_moving() -> bool:
 	return movement_direction != 0
 	
@@ -180,3 +183,21 @@ func can_use_swim_boost() -> bool:
 
 func _on_swim_boost_cold_down_timeout() -> void:
 	finish_colddown_swim_boost = true
+
+func change_absolute_direction(angle: float):
+	# 0 grados: Right
+	# 90 grados (pi/2): Bottom
+	# 180 grados (pi): Left
+	# 270 grados (3*pi/2) o -90 grados: up
+	particles.rotation = deg_to_rad(angle)
+
+func emit_particles(angle: float) -> void:
+	particles.emitting = true
+	particles_timer.start()
+
+func _on_particles_timer_timeout() -> void:
+	particles.emitting = false
+
+func _on_particles_general_timer_timeout() -> void:
+	change_absolute_direction(-90)
+	particles.emitting = !particles.emitting 

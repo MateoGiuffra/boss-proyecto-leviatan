@@ -5,6 +5,8 @@ extends Control
 
 func _ready():
 	hide()
+	controls.hide()
+	volume.hide()
 
 func _on_options_button_pressed() -> void:
 	show()

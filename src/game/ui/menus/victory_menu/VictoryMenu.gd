@@ -15,10 +15,11 @@ func _ready() -> void:
 func _on_level_won() -> void:
 	show()
 
-func _on_next_button_pressed() -> void:
-	print("clciked")
-	next_selected.emit()
 
 func _on_return_button_pressed() -> void:
 	print("clciked")
 	return_selected.emit()
+
+
+func _on_play_again_pressed() -> void:
+	next_selected.emit()

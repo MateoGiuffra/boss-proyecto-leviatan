@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://m012tphmbg3w"]
 
 [ext_resource type="Script" uid="uid://mo1kl3s4i6gf" path="res://src/game/ui/menus/options_menu/options_menu.gd" id="1_kx632"]
-[ext_resource type="Texture2D" uid="uid://c7oc08aabg7he" path="res://assets/textures/images/main_image.png" id="2_g74my"]
 [ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="2_lecsu"]
+[ext_resource type="PackedScene" uid="uid://c44oruvbbfvul" path="res://assets/utility/main_image.tscn" id="2_m456g"]
 [ext_resource type="PackedScene" uid="uid://c1krst52fe87m" path="res://src/game/ui/sliders/slider.tscn" id="4_m456g"]
 
 [node name="MarginContainer" type="MarginContainer"]
@@ -22,18 +22,17 @@ script = ExtResource("1_kx632")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="OptionsMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -24.0
-offset_right = 15.0
-offset_bottom = 372.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_g74my")
+[node name="TextureRect" parent="OptionsMenu" instance=ExtResource("2_m456g")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -90.0
+offset_top = -62.0
+offset_right = 1154.0
+offset_bottom = 962.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Label" type="Label" parent="OptionsMenu"]
 layout_mode = 1
@@ -156,7 +155,7 @@ grow_vertical = 2
 [node name="VolumeBackButton" type="Button" parent="OptionsMenu/Volume"]
 layout_mode = 0
 offset_left = -9.0
-offset_top = 251.0
+offset_top = 256.0
 offset_right = 139.0
 offset_bottom = 289.0
 text = "Back"

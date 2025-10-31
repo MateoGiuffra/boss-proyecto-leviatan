@@ -50,6 +50,7 @@ folder_colors={
 "res://src/": "green",
 "res://src/game/": "blue",
 "res://src/game/entities/": "red",
+"res://src/game/entities/not-enemies/": "teal",
 "res://src/screens/": "pink"
 }
 

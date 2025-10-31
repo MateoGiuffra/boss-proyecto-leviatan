@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=3 format=3 uid="uid://7o8w0bk4iaf8"]
 
+[ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="2_ml0es"]
 [ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/DefeatMenu.gd" id="3"]
 
 [node name="DefeatMenu" type="Control"]
@@ -13,12 +14,11 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.25098)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_ml0es")
 
 [node name="You Lost!" type="Label" parent="."]
 layout_mode = 1
@@ -29,6 +29,7 @@ offset_left = -35.5
 offset_right = 35.5
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
 text = "You Lost!"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -47,6 +48,7 @@ grow_vertical = 2
 
 [node name="BackToMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Back to Menu"
 
 [connection signal="pressed" from="VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

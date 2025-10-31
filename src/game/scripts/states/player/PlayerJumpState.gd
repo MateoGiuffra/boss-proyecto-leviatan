@@ -3,7 +3,7 @@ class_name PlayerJumpState extends State
 
 @onready var swim_boost_cold_down: Timer = $"../../Timers/SwimBoostColdDown"
 
-@export var player: CharacterBody2D
+@export var player: Player
 @onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
 @onready var jump_sound: AudioStreamPlayer2D = $"../../Sounds/JumpSound"
 
@@ -38,7 +38,7 @@ func enter() -> void:
 	player.finish_colddown_swim_boost = false
 	player.velocity.y -= player.jump_speed
 	swim_boost_cold_down.start()
-
+	player.emit_particles(-90)
 	_play_jump_with_random_effect()
 
 func exit() -> void:

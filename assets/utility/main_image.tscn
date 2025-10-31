@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c44oruvbbfvul"]
+
+[ext_resource type="Texture2D" uid="uid://c7oc08aabg7he" path="res://assets/textures/images/main_image.png" id="1_lrv2l"]
+
+[node name="TextureRect" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -24.0
+offset_right = 15.0
+offset_bottom = 372.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lrv2l")

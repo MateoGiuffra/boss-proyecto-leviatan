@@ -1,6 +1,6 @@
 class_name PlayerDashState extends State
 
-@export var player: CharacterBody2D
+@export var player: Player
 @export var dash_speed: float = 1200.0
 @onready var dash_cold_down: Timer = $"../../Timers/DashColdDown"
 @onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
@@ -14,6 +14,8 @@ func enter() -> void:
 	player.velocity += Vector2(player.movement_direction, 0).normalized() * player.dash_speed
 	dash_cold_down.start()
 	wash_sound.play()
+	var angle: float = -180 if player.animated_player.flip_h else 180
+	player.emit_particles(angle)
 	
 func exit() -> void:
 	pass
