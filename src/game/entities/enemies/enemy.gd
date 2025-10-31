@@ -6,6 +6,7 @@ class_name Enemy
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var timer_sound: Timer = $TimerSound
 
 @export var acceleration: float = 3750.0
 @export var movement_speed_limit: float = 300.0
@@ -89,7 +90,7 @@ func can_follow() -> bool:
 	
 	# Si el jugador está demasiado lejos, deja de seguir
 	if distance_sq > follow_sq * 2.0:
-		return false
+		return false	
 	
 	return true
 
@@ -107,3 +108,9 @@ func _on_collision_area_body_entered(_body: Node2D) -> void:
 	print("te mate wacho")
 	player_target.die()
 	GameState.current_player_changed.emit()
+
+func play_sound_attack() -> void:
+	if !audio_stream_player_2d.playing:
+		audio_stream_player_2d.play()
+		#timer_sound.start()
+		

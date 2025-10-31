@@ -10,7 +10,7 @@ func enter() -> void:
 	print("state changed to EnemyAttackState")
 	enemy.movement_direction = 0
 	enemy.makepath()
-	audio_stream_player_2d.play()
+	enemy.play_sound_attack()
 
 func exit() -> void:
 	enemy.movement_direction = 0
