@@ -180,10 +180,9 @@ layout_mode = 2
 text = "General"
 
 [node name="HSliderEnemies" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
-visible = false
 layout_mode = 2
-text = "Music"
-bus_name = "Music"
+text = "Enemies"
+bus_name = "Enemies"
 
 [node name="HSliderUI" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
 visible = false

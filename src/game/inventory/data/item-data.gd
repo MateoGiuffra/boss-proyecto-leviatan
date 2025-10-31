@@ -6,8 +6,7 @@ class_name ItemData extends Resource
 
 @export var stackeable = true 
 @export var actual_amount = 0
-@export var max_amount = 5
-
+@export var max_amount = 10
 
 func is_stackeable() -> bool:
 	return stackeable

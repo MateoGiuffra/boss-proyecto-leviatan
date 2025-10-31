@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkvkfm8rg4l0e"]
+[gd_scene load_steps=8 format=3 uid="uid://bkvkfm8rg4l0e"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/scenes/levels/level_template/LevelTemplate.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://cjmuskb8u4ges" path="res://src/game/scenes/levels/level_01/my_tail_map.tscn" id="3_5rfnw"]
 [ext_resource type="PackedScene" uid="uid://bldqwktb618w7" path="res://src/game/inventory/ui/InventoryUI.tscn" id="3_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
+[ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://src/game/inventory/world-item/WorldItem.tscn" id="7_5rfnw"]
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/not-enemies/player.tscn" id="7_e2p1h"]
 
 [node name="Level01" node_paths=PackedStringArray("initial_player_position") instance=ExtResource("1_f30rv")]
@@ -21,15 +22,44 @@ metadata/_edit_use_anchors_ = true
 [node name="Enemy" parent="." index="2" instance=ExtResource("6_i5t0w")]
 position = Vector2(1984, 374)
 
-[node name="Player" parent="." index="3" instance=ExtResource("7_e2p1h")]
-position = Vector2(1520, 396.00006)
+[node name="Player" parent="." index="3" node_paths=PackedStringArray("goal") instance=ExtResource("7_e2p1h")]
+position = Vector2(296, 327)
 scale = Vector2(0.65, 0.65)
+goal = NodePath("../Goal")
 
 [node name="Goal" parent="." index="4"]
-position = Vector2(-316, -159)
+visible = false
+position = Vector2(1, 349)
 
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
 
-[node name="CanvasModulate" parent="." index="7"]
-visible = true
+[node name="WorldItem" parent="." index="8" instance=ExtResource("7_5rfnw")]
+position = Vector2(440, 316)
+
+[node name="WorldItem2" parent="." index="9" instance=ExtResource("7_5rfnw")]
+position = Vector2(1145, 379)
+
+[node name="WorldItem3" parent="." index="10" instance=ExtResource("7_5rfnw")]
+position = Vector2(1053, 373)
+
+[node name="WorldItem4" parent="." index="11" instance=ExtResource("7_5rfnw")]
+position = Vector2(964, 375)
+
+[node name="WorldItem5" parent="." index="12" instance=ExtResource("7_5rfnw")]
+position = Vector2(895, 336)
+
+[node name="WorldItem6" parent="." index="13" instance=ExtResource("7_5rfnw")]
+position = Vector2(781, 316)
+
+[node name="WorldItem7" parent="." index="14" instance=ExtResource("7_5rfnw")]
+position = Vector2(519, 318)
+
+[node name="WorldItem8" parent="." index="15" instance=ExtResource("7_5rfnw")]
+position = Vector2(689, 313)
+
+[node name="WorldItem9" parent="." index="16" instance=ExtResource("7_5rfnw")]
+position = Vector2(600, 316)
+
+[node name="WorldItem10" parent="." index="17" instance=ExtResource("7_5rfnw")]
+position = Vector2(1243, 380)

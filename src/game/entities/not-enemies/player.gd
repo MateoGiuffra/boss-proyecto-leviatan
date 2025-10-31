@@ -18,6 +18,7 @@ var hp: int = max_hp
 
 @onready var inventory: Inventory = $Inventory
 @export var inventory_ui: InventoryUI
+@export var goal: Area2D
 
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
@@ -63,6 +64,7 @@ func _ready():
 			inventory_ui = ui_nodes.get(0)
 				
 	if inventory_ui != null:
+		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
 	particles.emitting = false
 	GameState.set_current_player(self)

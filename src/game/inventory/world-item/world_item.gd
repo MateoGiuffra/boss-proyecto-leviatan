@@ -1,9 +1,11 @@
 # WorldItem.gd
 extends Area2D
 
+
 # 🎯 Definimos un tamaño objetivo para el sprite en píxeles de Godot
 # Por ejemplo, si quieres que todos los ítems en el mundo sean de 32x32 unidades.
 const TARGET_SIZE: Vector2 = Vector2(32, 32) 
+
 
 @export var item_data: ItemData:
 	set(value):

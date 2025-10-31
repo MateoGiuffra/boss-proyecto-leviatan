@@ -14,7 +14,7 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-expand_margin_left = 70.0
+expand_margin_left = 80.0
 expand_margin_top = 8.0
 expand_margin_right = 7.0
 expand_margin_bottom = 8.0
@@ -29,9 +29,9 @@ script = ExtResource("1_n43bu")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = -59.0
+offset_left = -68.0
 offset_top = -2.0
-offset_right = 11.0
+offset_right = 2.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0.87246186, 0.8841633, 0.9781366, 1)
 theme_override_fonts/font = ExtResource("1_ujbsg")

@@ -64,3 +64,4 @@ text = "Menu
 
 [connection signal="next_selected" from="." to="." method="_on_next_selected"]
 [connection signal="pressed" from="VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
