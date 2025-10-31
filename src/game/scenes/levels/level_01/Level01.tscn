@@ -19,8 +19,49 @@ initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 SLOT_SCENE = ExtResource("4_e2p1h")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="." index="2" instance=ExtResource("6_i5t0w")]
+[node name="Enemies" type="Node2D" parent="." index="2"]
+
+[node name="Enemy" parent="Enemies" index="0" instance=ExtResource("6_i5t0w")]
 position = Vector2(1984, 374)
+
+[node name="Enemy2" parent="Enemies" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(2744, -160)
+
+[node name="Enemy10" parent="Enemies" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(3811, -748)
+
+[node name="Enemy11" parent="Enemies" index="3" instance=ExtResource("6_i5t0w")]
+position = Vector2(5641, -207)
+
+[node name="Enemy12" parent="Enemies" index="4" instance=ExtResource("6_i5t0w")]
+position = Vector2(6513, -51)
+
+[node name="Enemy13" parent="Enemies" index="5" instance=ExtResource("6_i5t0w")]
+position = Vector2(6513, -1558)
+
+[node name="Enemy14" parent="Enemies" index="6" instance=ExtResource("6_i5t0w")]
+position = Vector2(6018, -2147)
+
+[node name="Enemy15" parent="Enemies" index="7" instance=ExtResource("6_i5t0w")]
+position = Vector2(6546, -2786)
+
+[node name="Enemy16" parent="Enemies" index="8" instance=ExtResource("6_i5t0w")]
+position = Vector2(4869, -3279)
+
+[node name="Enemy5" parent="Enemies" index="9" instance=ExtResource("6_i5t0w")]
+position = Vector2(3631, -1587)
+
+[node name="Enemy6" parent="Enemies" index="10" instance=ExtResource("6_i5t0w")]
+position = Vector2(3006, -2129)
+
+[node name="Enemy7" parent="Enemies" index="11" instance=ExtResource("6_i5t0w")]
+position = Vector2(3306, -2481)
+
+[node name="Enemy8" parent="Enemies" index="12" instance=ExtResource("6_i5t0w")]
+position = Vector2(4393, -2581)
+
+[node name="Enemy9" parent="Enemies" index="13" instance=ExtResource("6_i5t0w")]
+position = Vector2(2184, -2232)
 
 [node name="Player" parent="." index="3" node_paths=PackedStringArray("goal") instance=ExtResource("7_e2p1h")]
 position = Vector2(296, 327)
@@ -34,32 +75,55 @@ position = Vector2(1, 349)
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
 
-[node name="WorldItem" parent="." index="8" instance=ExtResource("7_5rfnw")]
-position = Vector2(440, 316)
+[node name="PauseMenu" parent="UILayer" index="0"]
+visible = false
 
-[node name="WorldItem2" parent="." index="9" instance=ExtResource("7_5rfnw")]
-position = Vector2(1145, 379)
+[node name="CanvasModulate" parent="." index="7"]
+color = Color(0.032321766, 1.191236e-06, 0.23798904, 1)
 
-[node name="WorldItem3" parent="." index="10" instance=ExtResource("7_5rfnw")]
-position = Vector2(1053, 373)
+[node name="Items" type="Node2D" parent="." index="8"]
 
-[node name="WorldItem4" parent="." index="11" instance=ExtResource("7_5rfnw")]
-position = Vector2(964, 375)
+[node name="WorldItem6" parent="Items" index="0" instance=ExtResource("7_5rfnw")]
+position = Vector2(3798, -464)
 
-[node name="WorldItem5" parent="." index="12" instance=ExtResource("7_5rfnw")]
-position = Vector2(895, 336)
+[node name="WorldItem7" parent="Items" index="1" instance=ExtResource("7_5rfnw")]
+position = Vector2(6087, -531)
 
-[node name="WorldItem6" parent="." index="13" instance=ExtResource("7_5rfnw")]
-position = Vector2(781, 316)
+[node name="WorldItem8" parent="Items" index="2" instance=ExtResource("7_5rfnw")]
+position = Vector2(2890, -1935)
 
-[node name="WorldItem7" parent="." index="14" instance=ExtResource("7_5rfnw")]
-position = Vector2(519, 318)
+[node name="WorldItem15" parent="Items" index="3" instance=ExtResource("7_5rfnw")]
+position = Vector2(4091, -1548)
 
-[node name="WorldItem8" parent="." index="15" instance=ExtResource("7_5rfnw")]
-position = Vector2(689, 313)
+[node name="WorldItem9" parent="Items" index="4" instance=ExtResource("7_5rfnw")]
+position = Vector2(2908, -1294)
 
-[node name="WorldItem9" parent="." index="16" instance=ExtResource("7_5rfnw")]
-position = Vector2(600, 316)
+[node name="WorldItem10" parent="Items" index="5" instance=ExtResource("7_5rfnw")]
+position = Vector2(1589, 245)
 
-[node name="WorldItem10" parent="." index="17" instance=ExtResource("7_5rfnw")]
-position = Vector2(1243, 380)
+[node name="WorldItem12" parent="Items" index="6" instance=ExtResource("7_5rfnw")]
+position = Vector2(4265, -1999)
+
+[node name="WorldItem11" parent="Items" index="7" instance=ExtResource("7_5rfnw")]
+position = Vector2(3626, -2855)
+
+[node name="WorldItem13" parent="Items" index="8" instance=ExtResource("7_5rfnw")]
+position = Vector2(1916, -623)
+
+[node name="WorldItem2" parent="Items" index="9" instance=ExtResource("7_5rfnw")]
+position = Vector2(3148, 42)
+
+[node name="WorldItem" parent="Items" index="10" instance=ExtResource("7_5rfnw")]
+position = Vector2(5718, 176)
+
+[node name="WorldItem3" parent="Items" index="11" instance=ExtResource("7_5rfnw")]
+position = Vector2(6676, -2129)
+
+[node name="WorldItem4" parent="Items" index="12" instance=ExtResource("7_5rfnw")]
+position = Vector2(6137, -1572)
+
+[node name="WorldItem5" parent="Items" index="13" instance=ExtResource("7_5rfnw")]
+position = Vector2(5117, -3134)
+
+[node name="WorldItem14" parent="Items" index="14" instance=ExtResource("7_5rfnw")]
+position = Vector2(2377, -1835)

@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/StateMachine.gd" id="2_82qr8"]
 [ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/EnemyIdleState.gd" id="3_rfvys"]
 [ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/EnemyAttackState.gd" id="4_i8idp"]
-[ext_resource type="AudioStream" uid="uid://bwh06q1vcwt21" path="res://assets/sound/enemy/whoosh-dark-45461.mp3" id="6_g3j4e"]
+[ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="7_swsnh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
 size = Vector2(34, 16.5)
@@ -148,10 +148,12 @@ autostart = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_g3j4e")
 bus = &"Enemies"
 
 [node name="TimerSound" type="Timer" parent="."]
+
+[node name="PointLight2D" parent="." instance=ExtResource("7_swsnh")]
+color = Color(0.83560866, 0.22103363, 0.3614848, 1)
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]

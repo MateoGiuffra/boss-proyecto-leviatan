@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=38 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not-enemies/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/textures/player/walk/walk_11.png" id="13_f0kc4"]
 [ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://src/game/entities/not-enemies/StateMachine.gd" id="17_753ju"]
 [ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://src/game/scripts/states/player/PlayerIdleState.gd" id="18_mwgf3"]
+[ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="19_7ruc6"]
 [ext_resource type="Texture2D" uid="uid://cjjf82obnpjxm" path="res://assets/textures/bubbles/bubble_4.png" id="19_fdc7v"]
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://src/game/scripts/states/player/PlayerWalkState.gd" id="19_obrgw"]
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://src/game/scripts/states/player/PlayerJumpState.gd" id="20_3a8uq"]
@@ -119,21 +120,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_bnhqw"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.8434066)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
-gradient = SubResource("Gradient_bnhqw")
-width = 512
-height = 512
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0.5)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kycvn"]
 shader = ExtResource("3_b6hsd")
 shader_parameter/distortion_strength = 0.001
@@ -184,17 +170,8 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
 animation = &"walk"
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-texture_filter = 1
+[node name="PointLight2D" parent="." instance=ExtResource("19_7ruc6")]
 position = Vector2(5.000025, -20.500008)
-scale = Vector2(3, 3)
-color = Color(0.31272963, 0.52217776, 0.99998647, 1)
-energy = 1.4
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.9254902)
-shadow_filter = 1
-shadow_filter_smooth = 2.0
-texture = SubResource("GradientTexture2D_7phyx")
 
 [node name="Camera" parent="." instance=ExtResource("24_vf103")]
 
@@ -202,6 +179,8 @@ texture = SubResource("GradientTexture2D_7phyx")
 scale = Vector2(1e-05, 1e-05)
 
 [node name="StepSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("21_kycvn")
+volume_db = -12.117
 bus = &"SFX"
 
 [node name="WashSound" type="AudioStreamPlayer2D" parent="Sounds"]
@@ -210,7 +189,7 @@ bus = &"SFX"
 
 [node name="SwimmingSound" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("2_483nw")
-volume_db = -20.194
+volume_db = -36.617
 bus = &"SFX"
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="Sounds"]
@@ -302,7 +281,7 @@ offset_right = 133.5
 offset_bottom = 50.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "You have to recolect all items first!"
+text = "¡Tenes que recolectar diez muestras!"
 
 [node name="ComeBackLabel" type="Label" parent="Message"]
 anchors_preset = 5
@@ -314,7 +293,7 @@ offset_right = 114.0
 offset_bottom = 62.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "Come back to begin"
+text = "¡Volve al principio!"
 
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]

@@ -6,7 +6,6 @@ func get_input() -> void:
 	pass
 	
 func enter() -> void:
-	print("state changed to EnemyIdleState")
 	enemy.movement_direction = 0
 
 func exit() -> void:

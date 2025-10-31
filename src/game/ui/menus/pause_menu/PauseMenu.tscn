@@ -48,7 +48,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("4_ncook")
 theme_override_font_sizes/font_size = 48
-text = "Paused
+text = "Pausa
 "
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
@@ -71,11 +71,11 @@ size_flags_vertical = 4
 layout_mode = 2
 theme = ExtResource("2_mkjft")
 theme_override_fonts/font = ExtResource("4_ncook")
-text = "Resume"
+text = "Atras"
 
 [node name="OptionsButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
-text = "Options"
+text = "Opciones"
 
 [node name="ReturnButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2

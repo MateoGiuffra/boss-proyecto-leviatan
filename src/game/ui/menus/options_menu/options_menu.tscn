@@ -44,7 +44,7 @@ offset_right = 31.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
-text = "Options"
+text = "Opciones"
 
 [node name="GeneralOptions" type="VBoxContainer" parent="OptionsMenu"]
 layout_mode = 1
@@ -62,17 +62,17 @@ grow_vertical = 2
 
 [node name="ExitButton" type="Button" parent="OptionsMenu/GeneralOptions"]
 layout_mode = 2
-text = "Return
+text = "Atras
 "
 
 [node name="VolumeButton" type="Button" parent="OptionsMenu/GeneralOptions"]
 layout_mode = 2
-text = "Volume
+text = "Volumen
 "
 
 [node name="ControlsButton" type="Button" parent="OptionsMenu/GeneralOptions"]
 layout_mode = 2
-text = "Controls
+text = "Controles
 "
 
 [node name="Controls" type="Control" parent="OptionsMenu"]
@@ -101,17 +101,17 @@ size_flags_horizontal = 3
 [node name="ActionInput" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
 actionInput = "A"
-action = "Move Left"
+action = "Izquierda"
 
 [node name="ActionInput2" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
 actionInput = "D"
-action = "Move Right"
+action = "Derecha"
 
 [node name="ActionInput3" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
 actionInput = "Space"
-action = "Jump"
+action = "Saltar"
 
 [node name="ActionInput5" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
 layout_mode = 2
@@ -136,7 +136,7 @@ offset_right = 619.0
 offset_bottom = 542.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Back"
+text = "Atras"
 
 [node name="Volume" type="Control" parent="OptionsMenu"]
 layout_mode = 1
@@ -158,7 +158,7 @@ offset_left = -9.0
 offset_top = 256.0
 offset_right = 139.0
 offset_bottom = 289.0
-text = "Back"
+text = "Atras"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Volume"]
 layout_mode = 1
@@ -180,8 +180,9 @@ layout_mode = 2
 text = "General"
 
 [node name="HSliderEnemies" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
+visible = false
 layout_mode = 2
-text = "Enemies"
+text = "Enemigos"
 bus_name = "Enemies"
 
 [node name="HSliderUI" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
@@ -192,12 +193,12 @@ bus_name = "Music"
 
 [node name="HSliderSFX" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
 layout_mode = 2
-text = "Effects"
+text = "Efectos"
 bus_name = "SFX"
 
 [node name="HSliderMusic" parent="OptionsMenu/Volume/VBoxContainer" instance=ExtResource("4_m456g")]
 layout_mode = 2
-text = "Music"
+text = "Musica"
 bus_name = "Music"
 
 [connection signal="pressed" from="OptionsMenu/GeneralOptions/ExitButton" to="." method="_on_exit_button_pressed"]

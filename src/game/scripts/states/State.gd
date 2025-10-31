@@ -12,5 +12,5 @@ signal Transitioned
 func play_random_sound(sound_list, stream_player: AudioStreamPlayer2D):
 	if sound_list.size() > 0:
 		stream_player.stream = sound_list[randi() % sound_list.size()]
-
+	
 	stream_player.play()

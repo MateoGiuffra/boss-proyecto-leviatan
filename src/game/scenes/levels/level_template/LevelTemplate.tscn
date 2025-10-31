@@ -36,7 +36,6 @@ shape = SubResource("CapsuleShape2D_11ywe")
 [node name="VictoryMenu" parent="UILayer" instance=ExtResource("4_1qle4")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)
 
 [connection signal="return_selected" from="UILayer/PauseMenu" to="." method="_on_return_requested"]

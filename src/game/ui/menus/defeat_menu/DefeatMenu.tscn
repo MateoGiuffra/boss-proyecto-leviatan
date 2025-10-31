@@ -30,7 +30,7 @@ offset_right = 35.5
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
-text = "You Lost!"
+text = "¡Perdiste!"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -49,6 +49,6 @@ grow_vertical = 2
 [node name="BackToMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Back to Menu"
+text = "Volver al Menu"
 
 [connection signal="pressed" from="VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
