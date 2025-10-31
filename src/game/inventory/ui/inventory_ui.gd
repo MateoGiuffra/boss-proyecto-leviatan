@@ -23,7 +23,7 @@ func _update_ui():
 		var amount_node: Label = slot.get_node("Amount")
 		
 		icon_node.texture = item.icon
-		amount_node.text = str(item.actual_amount)
+		amount_node.text = str(item.actual_amount) + "/10"
 		
 		self._config_dimensions(icon_node, amount_node, slot)
 		self._add(slot)

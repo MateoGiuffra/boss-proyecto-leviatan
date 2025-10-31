@@ -146,6 +146,10 @@ z_index = 2
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4ohmj")
+acceleration = 100.0
+dash_speed = 600.0
+gravity = 200.0
+jump_speed = 200
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -228,7 +232,7 @@ color = Color(1, 1, 1, 0.06666667)
 [node name="Timers" type="Node" parent="."]
 
 [node name="DoubleTapTimer" type="Timer" parent="Timers"]
-wait_time = 0.25
+wait_time = 0.8
 one_shot = true
 
 [node name="DashTimer" type="Timer" parent="Timers"]
@@ -237,7 +241,7 @@ wait_time = 0.2
 [node name="DashColdDown" type="Timer" parent="Timers"]
 
 [node name="SwimBoostColdDown" type="Timer" parent="Timers"]
-wait_time = 0.8
+wait_time = 0.3
 one_shot = true
 ignore_time_scale = true
 
@@ -247,6 +251,10 @@ autostart = true
 
 [node name="ParticlesTimer" type="Timer" parent="Timers"]
 one_shot = true
+
+[node name="MessageTimer" type="Timer" parent="Timers"]
+wait_time = 3.0
+autostart = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("17_753ju")
@@ -282,12 +290,39 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
+[node name="Message" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Message"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -133.5
+offset_top = 27.0
+offset_right = 133.5
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "You have to recolect all items first!"
+
+[node name="ComeBackLabel" type="Label" parent="Message"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.0
+offset_top = 28.0
+offset_right = 114.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Come back to begin"
+
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/DashColdDown" to="." method="_on_dash_cold_down_timeout"]
 [connection signal="timeout" from="Timers/SwimBoostColdDown" to="." method="_on_swim_boost_cold_down_timeout"]
 [connection signal="timeout" from="Timers/ParticlesGeneralTimer" to="." method="_on_particles_general_timer_timeout"]
 [connection signal="timeout" from="Timers/ParticlesTimer" to="." method="_on_particles_timer_timeout"]
+[connection signal="timeout" from="Timers/MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]

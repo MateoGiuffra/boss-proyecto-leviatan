@@ -27,3 +27,9 @@ func _can_add_new_type() -> bool:
 
 func get_items() -> Array[ItemData]:
 	return items.values()
+
+func items_amount() -> int:
+	var result = 0
+	for val in  items.values():
+		result += val.actual_amount
+	return result 

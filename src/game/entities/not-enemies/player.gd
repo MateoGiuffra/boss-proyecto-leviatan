@@ -20,6 +20,7 @@ var hp: int = max_hp
 @export var inventory_ui: InventoryUI
 @export var goal: Area2D
 
+
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
 @onready var point_light_2d: PointLight2D = $PointLight2D
@@ -28,7 +29,8 @@ var hp: int = max_hp
 @onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
 @onready var particles: CPUParticles2D = $CPUParticles2D
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
-
+@onready var message: Label = $Message/Label
+@onready var come_back_label: Label = $Message/ComeBackLabel
 # signals 
 signal hp_changed(current_hp: int, max_hp: int)
 
@@ -67,6 +69,8 @@ func _ready():
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
 	particles.emitting = false
+	message.modulate.a = 1.0
+	come_back_label.modulate.a = 0.0
 	GameState.set_current_player(self)
 	
 	
@@ -109,6 +113,9 @@ func _physics_process(_delta: float) -> void:
 	# pero dejo la parte de la gravedad/input aquí para que los estados la utilicen.
 	
 	get_input()
+	
+	if inventory.items_amount() == 10:
+		show_come_back_message()
 	
 	# La animación ya no se gestiona aquí, sino en los PlayerState.gd
 	# El State Machine se encarga del movimiento (move_and_slide())
@@ -203,3 +210,12 @@ func _on_particles_timer_timeout() -> void:
 func _on_particles_general_timer_timeout() -> void:
 	change_absolute_direction(-90)
 	particles.emitting = !particles.emitting 
+
+func _on_message_timer_timeout() -> void:
+	var tween = create_tween()
+	tween.tween_property(message, "modulate:a", 0.0, 0.5)
+
+func show_come_back_message() -> void:
+	var tween = create_tween()
+	tween.tween_property(come_back_label, "modulate:a",1.0, 0.5)
+	
