@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
-[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
-[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/StateMachine.gd" id="2_82qr8"]
-[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/EnemyIdleState.gd" id="3_rfvys"]
-[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/EnemyAttackState.gd" id="4_i8idp"]
+[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/slime_spiked_full.png" id="1_paah2"]
+[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/state_machine.gd" id="2_82qr8"]
+[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/enemy_idle_state.gd" id="3_rfvys"]
+[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/enemy_attack_state.gd" id="4_i8idp"]
 [ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="7_swsnh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
@@ -109,11 +109,11 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_rfvys")
 
 [node name="CollisionCharacterBodyShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_rfvys")
 
 [node name="AnimatedEnemy2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -9)
+position = Vector2(1, -9.000001)
 scale = Vector2(1.0234377, 1.0390625)
 sprite_frames = SubResource("SpriteFrames_ijm5m")
 animation = &"idle"
@@ -153,6 +153,7 @@ bus = &"Enemies"
 [node name="TimerSound" type="Timer" parent="."]
 
 [node name="PointLight2D" parent="." instance=ExtResource("7_swsnh")]
+position = Vector2(0, -4)
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]

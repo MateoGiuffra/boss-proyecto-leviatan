@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh3dqka3buk5t"
-path="res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"
+uid="uid://bw70ctahh2bh0"
+path="res://.godot/imported/barrel_pixel_oleo.png-c4e5ee54e79bfcdd0f1946d557ccde80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/slime_spiked_run.png"
-dest_files=["res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"]
+source_file="res://assets/textures/items/barrel_pixel_oleo.png"
+dest_files=["res://.godot/imported/barrel_pixel_oleo.png-c4e5ee54e79bfcdd0f1946d557ccde80.ctex"]
 
 [params]
 

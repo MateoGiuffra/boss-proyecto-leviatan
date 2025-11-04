@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh3dqka3buk5t"
-path="res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"
+uid="uid://c3rkmnhd5ot6f"
+path="res://.godot/imported/red_capsule.png-31eb0fd370f88207d8ba18b72801bde7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/slime_spiked_run.png"
-dest_files=["res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"]
+source_file="res://assets/textures/inventory/red_capsule.png"
+dest_files=["res://.godot/imported/red_capsule.png-31eb0fd370f88207d8ba18b72801bde7.ctex"]
 
 [params]
 

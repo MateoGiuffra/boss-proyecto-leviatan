@@ -30,8 +30,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://src/game/singletons/GameState.gd"
-InputMapLoader="*res://src/game/singletons/InputMapLoader.gd"
+GameState="*res://src/game/singletons/game_state.gd"
+InputMapLoader="*res://src/game/singletons/input_map_loader.gd"
 
 [display]
 

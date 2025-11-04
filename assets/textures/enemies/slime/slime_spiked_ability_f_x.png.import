@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh3dqka3buk5t"
-path="res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"
+uid="uid://dyjf2e8dguavo"
+path="res://.godot/imported/slime_spiked_ability_f_x.png-82b198e4f10b369668f2f2b133982bac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/slime_spiked_run.png"
-dest_files=["res://.godot/imported/slime_spiked_run.png-3971a79962238b3b4e81586adcb9cfd1.ctex"]
+source_file="res://assets/textures/enemies/slime/slime_spiked_ability_f_x.png"
+dest_files=["res://.godot/imported/slime_spiked_ability_f_x.png-82b198e4f10b369668f2f2b133982bac.ctex"]
 
 [params]
 
