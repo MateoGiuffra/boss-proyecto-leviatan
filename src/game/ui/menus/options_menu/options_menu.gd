@@ -2,6 +2,7 @@ extends Control
 @onready var controls: Control = $OptionsMenu/Controls
 @onready var volume: Control = $OptionsMenu/Volume
 @onready var general_options: VBoxContainer = $OptionsMenu/GeneralOptions
+@onready var main_label: Label = $OptionsMenu/Label
 
 func _ready():
 	hide()
@@ -17,17 +18,25 @@ func _on_exit_button_pressed() -> void:
 	hide()
 
 func _on_volume_button_pressed() -> void:
-	general_options.hide()
+	_hide()
 	volume.show()
 
-func _on_controls_button_pressed() -> void:
+func _hide() -> void:
 	general_options.hide()
+	main_label.hide()
+
+func _on_controls_button_pressed() -> void:
+	_hide()
 	controls.show()
 
-func _on_volume_back_button_pressed() -> void:
+func _show():
 	general_options.show()
+	main_label.show()
+
+func _on_volume_back_button_pressed() -> void:
+	_show()
 	volume.hide()
 
 func _on_control_back_button_pressed() -> void:
-	general_options.show()
+	_show()
 	controls.hide()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=4 format=3 uid="uid://7o8w0bk4iaf8"]
 
 [ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="2_ml0es"]
 [ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/DefeatMenu.gd" id="3"]
+[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="3_d6451"]
 
 [node name="DefeatMenu" type="Control"]
 process_mode = 3
@@ -22,15 +23,20 @@ texture = ExtResource("2_ml0es")
 
 [node name="You Lost!" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -35.5
-offset_right = 35.5
-offset_bottom = 23.0
+anchor_bottom = 0.5
+offset_left = -202.5
+offset_top = -32.5
+offset_right = 202.5
+offset_bottom = 32.5
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
-text = "¡Perdiste!"
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_d6451")
+theme_override_font_sizes/font_size = 72
+text = "¡PERDISTE!"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -39,16 +45,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.0
-offset_top = -15.5
-offset_right = 57.0
-offset_bottom = 15.5
+offset_left = -90.5
+offset_top = 97.0
+offset_right = 90.5
+offset_bottom = 139.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BackToMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Volver al Menu"
 
 [connection signal="pressed" from="VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

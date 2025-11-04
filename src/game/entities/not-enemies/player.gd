@@ -191,6 +191,7 @@ func show_come_back_message() -> void:
 # funciones claves como win, lost, die etc
 func win() -> void:
 	hide_label(come_back_label)
+	hide()
 	
 func die() -> void:
 	var new_parent = get_parent()

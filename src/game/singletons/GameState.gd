@@ -47,7 +47,7 @@ func notify_level_lost() -> void:
 func notify_level_won() -> void:
 	weapons_stash.append_array(weapons_available)
 	weapons_available = []
-	level_won.emit()
 	current_player.win()
+	level_won.emit()
 	
 	

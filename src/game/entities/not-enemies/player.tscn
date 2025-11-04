@@ -281,7 +281,7 @@ offset_right = 133.5
 offset_bottom = 50.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "¡Tenes que recolectar diez muestras!"
+text = "¡Tenés que recolectar diez muestras!"
 
 [node name="ComeBackLabel" type="Label" parent="Message"]
 anchors_preset = 5
@@ -293,7 +293,7 @@ offset_right = 114.0
 offset_bottom = 62.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "¡Volve al principio!"
+text = "¡Volvé al principio!"
 
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]

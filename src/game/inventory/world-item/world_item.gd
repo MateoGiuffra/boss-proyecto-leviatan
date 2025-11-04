@@ -1,5 +1,6 @@
 # WorldItem.gd
 extends Area2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 # 🎯 Definimos un tamaño objetivo para el sprite en píxeles de Godot
@@ -13,6 +14,9 @@ const TARGET_SIZE: Vector2 = Vector2(32, 32)
 	set(value):
 		item_data = value
 		_update_visuals()
+
+func _physics_process(delta: float) -> void:
+	animation_player.play("idle")
 
 # Función para que el Player obtenga los datos del ítem
 func get_item_data() -> ItemData:

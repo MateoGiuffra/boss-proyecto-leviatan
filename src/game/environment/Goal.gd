@@ -17,12 +17,12 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	
 func _on_body_entered(_body: Node) -> void:
-	if won:
-		return
-	
-	if can_win():
-		won = true
-		GameState.notify_level_won()
+	#if won:
+		#return
+	#
+	#if can_win():
+		#won = true
+	GameState.notify_level_won()
 		#_play_animation("open")
 
 func can_win() -> bool:

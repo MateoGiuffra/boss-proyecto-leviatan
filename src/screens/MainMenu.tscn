@@ -38,7 +38,7 @@ offset_left = -69.5
 offset_right = 69.5
 offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 84
 text = "Proyecto Leviatan"
 
 [node name="Buttons" type="VBoxContainer" parent="Menus/CanvasLayer/Container"]
@@ -54,17 +54,21 @@ offset_right = 110.5
 offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 24
 
 [node name="StartButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Jugar"
 
 [node name="OptionsButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Opciones"
 
 [node name="ExitButton" type="Button" parent="Menus/CanvasLayer/Container/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Salir
 "
 
