@@ -98,8 +98,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 func get_input() -> void:
-	movement_direction = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))	
-	jump = Input.is_action_just_pressed("jump")
+	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
+	jump = Input.is_action_just_pressed("saltar")
 	_check_double_tap(Input.is_action_just_pressed("dash"))
 	flip_sprite(movement_direction)
 	

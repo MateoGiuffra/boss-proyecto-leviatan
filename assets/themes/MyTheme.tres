@@ -1,12 +1,21 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://btc130konr2b"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://btc130konr2b"]
 
 [ext_resource type="FontFile" uid="uid://jm1u1lwmdld4" path="res://assets/fonts/Quick Spooky.otf" id="1_4hn6b"]
 [ext_resource type="FontFile" uid="uid://i1qus13x2d0u" path="res://assets/fonts/Roboto-Bold.ttf" id="1_fx0hd"]
+[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="3_xg147"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xg147"]
+bg_color = Color(0.654902, 0.654902, 0.654902, 0.34509805)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ge004"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [resource]
-default_font = ExtResource("1_4hn6b")
+default_font = ExtResource("3_xg147")
 default_font_size = 24
 Button/colors/font_color = Color(0.7319771, 0.7351516, 0.7206718, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/fonts/font = ExtResource("1_fx0hd")
+Button/styles/hover = SubResource("StyleBoxFlat_xg147")
+Button/styles/normal = SubResource("StyleBoxFlat_ge004")
 Label/fonts/font = ExtResource("1_4hn6b")

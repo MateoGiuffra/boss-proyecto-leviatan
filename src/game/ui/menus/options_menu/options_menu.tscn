@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://m012tphmbg3w"]
+[gd_scene load_steps=7 format=3 uid="uid://m012tphmbg3w"]
 
 [ext_resource type="Script" uid="uid://mo1kl3s4i6gf" path="res://src/game/ui/menus/options_menu/options_menu.gd" id="1_kx632"]
-[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="2_lecsu"]
 [ext_resource type="PackedScene" uid="uid://c44oruvbbfvul" path="res://assets/utility/main_image.tscn" id="2_m456g"]
 [ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="3_3leyp"]
+[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="4_hdl5g"]
 [ext_resource type="PackedScene" uid="uid://c1krst52fe87m" path="res://src/game/ui/sliders/slider.tscn" id="4_m456g"]
+[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="5_hdl5g"]
 
 [node name="MarginContainer" type="MarginContainer"]
 process_mode = 3
@@ -27,8 +28,8 @@ mouse_filter = 2
 layout_mode = 1
 offset_left = -106.0
 offset_top = -70.0
-offset_right = 211.0
-offset_bottom = 154.0
+offset_right = 560.0
+offset_bottom = 339.0
 texture = ExtResource("3_3leyp")
 
 [node name="Label" type="Label" parent="OptionsMenu"]
@@ -36,15 +37,17 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -31.0
-offset_right = 31.0
-offset_bottom = 23.0
+offset_left = -337.0
+offset_top = 77.0
+offset_right = 344.0
+offset_bottom = 196.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
-text = "Opciones"
+theme_override_fonts/font = ExtResource("4_hdl5g")
+theme_override_font_sizes/font_size = 64
+text = "OPCIONES"
+horizontal_alignment = 1
 
 [node name="GeneralOptions" type="VBoxContainer" parent="OptionsMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,52 +77,28 @@ text = "Controles
 "
 
 [node name="Controls" type="Control" parent="OptionsMenu"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMenu/Controls"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 471.125
-offset_top = 144.0
-offset_right = 620.875
-offset_bottom = 444.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Controls/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ActionInput" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "A"
-action = "Izquierda"
-
-[node name="ActionInput2" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "D"
-action = "Derecha"
-
-[node name="ActionInput3" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "Space"
-action = "Saltar"
-
-[node name="ActionInput5" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "Double A"
-action = "Dash"
-
-[node name="ActionInput6" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("2_lecsu")]
-layout_mode = 2
-actionInput = "Double D"
-action = "Dash"
+[node name="Label" type="Label" parent="OptionsMenu/Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -340.5
+offset_top = 40.0
+offset_right = 340.5
+offset_bottom = 159.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_hdl5g")
+theme_override_font_sizes/font_size = 64
+text = "CONFIGURACIÓN DE 
+CONTROLES "
+horizontal_alignment = 1
 
 [node name="ControlBackButton" type="Button" parent="OptionsMenu/Controls"]
 layout_mode = 1
@@ -128,16 +107,52 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 472.0
-offset_top = 511.0
-offset_right = 619.0
-offset_bottom = 542.0
+offset_left = -29.0
+offset_top = -40.0
+offset_right = 29.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Atras"
 
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMenu/Controls"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.5
+offset_top = -144.0
+offset_right = 192.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Controls/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="ActionInput" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("5_hdl5g")]
+layout_mode = 2
+
+[node name="ActionInput2" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("5_hdl5g")]
+layout_mode = 2
+action_name = "Dash"
+input_default_text = "Shift"
+
+[node name="ActionInput3" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("5_hdl5g")]
+layout_mode = 2
+action_name = "Izquierda"
+input_default_text = "A"
+
+[node name="ActionInput4" parent="OptionsMenu/Controls/ScrollContainer/VBoxContainer" instance=ExtResource("5_hdl5g")]
+layout_mode = 2
+action_name = "Derecha"
+input_default_text = "D"
+
 [node name="Volume" type="Control" parent="OptionsMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

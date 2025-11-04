@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_released("pause_menu") && !options_menu.visible:
+	if event.is_action_released("pausar_menu") && !options_menu.visible:
 		visible = !visible
 		get_tree().paused = visible
 
@@ -21,7 +21,6 @@ func _on_resume_button_pressed() -> void:
 
 func _on_return_button_pressed() -> void:
 	return_selected.emit()
-
 
 func _on_options_button_pressed() -> void:
 	options_menu.show()

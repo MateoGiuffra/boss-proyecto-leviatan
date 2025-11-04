@@ -1,21 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp7iy3pfhe2yq"]
+[gd_scene load_steps=4 format=3 uid="uid://bp7iy3pfhe2yq"]
 
-[ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://ui/ui/action_input.gd" id="1_oyij3"]
+[ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://src/game/ui/menus/action_input.gd" id="1_oyij3"]
+[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="2_8jd1k"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jd1k"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 2
+border_color = Color(0.08714452, 0.27900043, 0.49456656, 0.7490196)
 
-[node name="ActionInput" type="PanelContainer"]
+[node name="ActionInput" type="Button"]
+custom_minimum_size = Vector2(0, 55)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8jd1k")
 script = ExtResource("1_oyij3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(20, 10)
+[node name="Action" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_8jd1k")
+theme_override_font_sizes/font_size = 20
+text = "Saltar"
 
-[node name="Input" type="Label" parent="HBoxContainer/Panel"]
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="Input" type="Label" parent="MarginContainer/HBoxContainer/InputContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6892529, 0.72677946, 0.75768363, 1)
+theme_override_fonts/font = ExtResource("2_8jd1k")
+theme_override_font_sizes/font_size = 18
+text = "Espacio"
 horizontal_alignment = 1
 
-[node name="Action" type="Label" parent="HBoxContainer"]
-layout_mode = 2
+[connection signal="pressed" from="." to="." method="_on_pressed"]
