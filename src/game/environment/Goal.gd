@@ -1,8 +1,9 @@
 extends Area2D
-
+class_name Goal
 @onready var portal: AnimatedSprite2D = $Portal
 @onready var inventory: Inventory = $Inventory
-
+# esta variable es para asignar desde afuera. El valor minimo de items a agarrar para ganar
+@export var min_amount: int = 10
 var won: bool = false
 var obtain_all: bool = false
 var amount: int = 0
@@ -10,25 +11,22 @@ var amount: int = 0
 
 func initialize(inventory: Inventory):
 	inventory.inventory_changed.connect(self.update_amount)
-	
 
-func _ready() -> void:
-	
+func _ready() -> void:	
 	_play_animation("idle")
 	body_entered.connect(_on_body_entered)
 	
-	
-
 func _on_body_entered(_body: Node) -> void:
 	if won:
 		return
 	
-	if amount == 10:
-		print("You win!")
+	if can_win():
 		won = true
 		GameState.notify_level_won()
 		#_play_animation("open")
-	
+
+func can_win() -> bool:
+	return amount >= min_amount
 	
 func update_amount() -> void: 
 	print("Aumentooo")

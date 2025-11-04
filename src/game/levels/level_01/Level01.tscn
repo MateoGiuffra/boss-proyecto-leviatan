@@ -63,9 +63,10 @@ position = Vector2(4393, -2581)
 [node name="Enemy9" parent="Enemies" index="13" instance=ExtResource("6_i5t0w")]
 position = Vector2(2184, -2232)
 
-[node name="Player" parent="." index="3" node_paths=PackedStringArray("goal") instance=ExtResource("7_e2p1h")]
+[node name="Player" parent="." index="3" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
 position = Vector2(296, 327)
 scale = Vector2(0.6, 0.6)
+inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
 
 [node name="Goal" parent="." index="4"]

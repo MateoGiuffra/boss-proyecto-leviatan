@@ -5,6 +5,8 @@ extends Area2D
 # 🎯 Definimos un tamaño objetivo para el sprite en píxeles de Godot
 # Por ejemplo, si quieres que todos los ítems en el mundo sean de 32x32 unidades.
 const TARGET_SIZE: Vector2 = Vector2(32, 32) 
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 
 @export var item_data: ItemData:
@@ -18,8 +20,8 @@ func get_item_data() -> ItemData:
 
 # Actualiza el Sprite con la textura del Resource y ajusta su tamaño
 func _update_visuals():
-	var sprite = $Sprite2D
-	var collision_shape = $CollisionShape2D # Asume que tienes un hijo CollisionShape2D
+	var sprite = sprite_2d
+	var collision_shape = collision_shape_2d
 
 	if sprite and item_data and item_data.icon:
 		sprite.texture = item_data.icon

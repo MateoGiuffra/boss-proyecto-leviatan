@@ -44,6 +44,7 @@ theme_override_font_sizes/font_size = 48
 text = "Opciones"
 
 [node name="GeneralOptions" type="VBoxContainer" parent="OptionsMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -136,6 +137,7 @@ grow_vertical = 0
 text = "Atras"
 
 [node name="Volume" type="Control" parent="OptionsMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
