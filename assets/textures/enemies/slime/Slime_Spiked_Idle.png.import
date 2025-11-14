@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chw26p0akmfbf"
-path="res://.godot/imported/slime_spiked_idle.png-1e7735e7a2878a9309ec4715458e7da9.ctex"
+path="res://.godot/imported/Slime_Spiked_Idle.png-43915d5cc21038ea8f4a078ef44bbde9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/slime_spiked_idle.png"
-dest_files=["res://.godot/imported/slime_spiked_idle.png-1e7735e7a2878a9309ec4715458e7da9.ctex"]
+source_file="res://assets/textures/enemies/slime/Slime_Spiked_Idle.png"
+dest_files=["res://.godot/imported/Slime_Spiked_Idle.png-43915d5cc21038ea8f4a078ef44bbde9.ctex"]
 
 [params]
 

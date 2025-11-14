@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
-[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/slime_spiked_full.png" id="1_paah2"]
+[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
 [ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/state_machine.gd" id="2_82qr8"]
 [ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/enemy_idle_state.gd" id="3_rfvys"]
 [ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/enemy_attack_state.gd" id="4_i8idp"]

@@ -2,15 +2,25 @@ class_name InventoryUI extends Control
 
 #const SLOT_SCENE = preload("uid://dogaewk7x4u0q")
 @export var SLOT_SCENE: PackedScene
+@onready var slot_item: HBoxContainer = $VBoxContainer/MarginContainer/Slot
+
 
 @onready var v_box_container: VBoxContainer = $VBoxContainer
 var slots = []
 var player_inventory: Inventory = null
+var total_actual: int = 0
 
 func initialize(inventory: Inventory):
 	self.player_inventory = inventory
-	inventory.inventory_changed.connect(self._update_ui)
-	_update_ui()
+	inventory.inventory_changed.connect(self._update_efficient)
+	#_update_efficient()
+	#_update_ui()
+
+func _update_efficient(): 
+	total_actual += 1
+	var amount_node: Label = slot_item.get_node("Amount")
+	amount_node.text = str(total_actual) + "/10"
+	print(total_actual)
 
 func _update_ui():
 	for slot in slots: 

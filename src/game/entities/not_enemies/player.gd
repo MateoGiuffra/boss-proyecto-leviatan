@@ -12,7 +12,7 @@ class_name Player
 @export var inventory_ui: InventoryUI
 @export var goal: Area2D
 # salud
-@export var max_hp: int = 1
+@export var max_hp: int = 3
 var hp: int = max_hp
 
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
@@ -28,6 +28,7 @@ var hp: int = max_hp
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
 @onready var message: Label = $Message/Label
 @onready var come_back_label: Label = $Message/ComeBackLabel
+@onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
 
 # Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
@@ -194,15 +195,21 @@ func win() -> void:
 	hide()
 	
 func die() -> void:
-	var new_parent = get_parent()
-	remove_child(camera)
-	new_parent.add_child(camera) 
-	remove_child(point_light_2d) 
-	new_parent.add_child(point_light_2d)
-	# --- Lógica de Muerte del Player ---
-	hp = 0
-	hide()
-	queue_free()
+	hp -= 1
+	print("sacar vida")
+	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
+	life_to_remove.queue_free()
+	
+	if hp == 0:
+		var new_parent = get_parent()
+		remove_child(camera)
+		new_parent.add_child(camera) 
+		remove_child(point_light_2d) 
+		new_parent.add_child(point_light_2d)
+		# --- Lógica de Muerte del Player ---
+		hp = 0
+		hide()
+		queue_free()
 	
 
 func sum_hp(amount: int) -> void:
