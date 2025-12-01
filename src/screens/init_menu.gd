@@ -11,4 +11,4 @@ func connect_buttons_to_sound():
 	for button in buttons:
 		if button:
 			button.mouse_entered.connect(SoundManager.play_hover_sound.bind(hover_button))
-			
+			hover_button.bus = "UI"

@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckgfu7hfstbci"]
+
+[ext_resource type="Script" uid="uid://b0fekwxnxgc7o" path="res://src/screens/v_box_texts.gd" id="1_5teb0"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_qdagw"]
+[ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/next_scene.gd" id="3_ay0eq"]
+
+[node name="HistoryScreen" type="VBoxContainer"]
+size_flags_vertical = 8
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="VBoxTexts" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 30
+script = ExtResource("1_5teb0")
+
+[node name="Label" type="Label" parent="VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qdagw")
+text = "Al adentrarse en la base, la oscuridad revela cicatrices de experimentos abandonados."
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qdagw")
+text = "No todo lo que se creó allí murió."
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qdagw")
+text = "Entre tuberías y luces parpadeantes, criaturas deformadas —restos vivientes de viejos proyectos— siguen acechando."
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qdagw")
+text = "El periodista comprende que no se trata solo de registrar la verdad:"
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76955456, 0.07547466, 2.8878452e-07, 1)
+theme_override_fonts/font = ExtResource("2_qdagw")
+theme_override_font_sizes/font_size = 30
+text = "Tiene que sobrevivir para contarla."
+autowrap_mode = 2
+
+[node name="NextScene" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_qdagw")
+theme_override_font_sizes/font_size = 29
+text = "Siguiente"
+script = ExtResource("3_ay0eq")

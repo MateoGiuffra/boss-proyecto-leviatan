@@ -4,7 +4,6 @@ extends Control
 @onready var general_options: VBoxContainer = $OptionsMenu/Options/VBoxContainer/GeneralOptions
 @onready var main_label: Label = $OptionsMenu/Options/VBoxContainer/Label
 
-
 func _ready():
 	hide()
 	controls.hide()

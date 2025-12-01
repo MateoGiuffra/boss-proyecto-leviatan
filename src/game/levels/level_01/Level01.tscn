@@ -125,6 +125,7 @@ position = Vector2(5117, -3134)
 position = Vector2(2765, -1328)
 
 [node name="Enemies" type="Node2D" parent="." index="8"]
+visible = false
 
 [node name="Enemy" parent="Enemies" index="0" instance=ExtResource("6_i5t0w")]
 position = Vector2(1984, 374)
@@ -190,4 +191,7 @@ position = Vector2(3119, -1455)
 position = Vector2(2418, 182)
 
 [node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
-position = Vector2(-1227, 601)
+position = Vector2(-1175, 611)
+
+[node name="CanvasModulate" parent="." index="10"]
+visible = false

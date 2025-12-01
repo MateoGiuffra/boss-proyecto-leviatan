@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=5 format=3 uid="uid://7o8w0bk4iaf8"]
 
 [ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="2_ml0es"]
-[ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/DefeatMenu.gd" id="3"]
-[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="3_d6451"]
+[ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/defeat_menu.gd" id="3"]
+[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/basic_commercial_l_t_black.woff" id="3_d6451"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="4_fyy4q"]
 
 [node name="DefeatMenu" type="Control"]
 process_mode = 3
@@ -52,9 +53,10 @@ offset_bottom = 139.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackToMenuButton" type="Button" parent="VBoxContainer"]
+[node name="BackToMenuButton" type="Button" parent="VBoxContainer" groups=["ButtonUI"]]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("4_fyy4q")
+theme_override_font_sizes/font_size = 29
 text = "Volver al Menu"
 
 [connection signal="pressed" from="VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
