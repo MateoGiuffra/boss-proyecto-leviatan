@@ -37,18 +37,19 @@ func _on_start_button_pressed() -> void:
 	var tween3 = get_tree().create_tween()
 	var tween_audio = get_tree().create_tween()
 	# ambas llamadas sin delay: deberían ejecutarse en paralelo
-	tween1.tween_property(zoom_effect, "scale", Vector2(zoom_amount, zoom_amount), 2)\
+	tween1.tween_property(zoom_effect, "scale", Vector2(zoom_amount, zoom_amount), 3)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween2.tween_property(zoom_effect, "position", new_position, 2)\
+	tween2.tween_property(zoom_effect, "position", new_position, 3)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween3.tween_property(fade_rect, "color:a", 1.0, 1) 
 	tween_audio.tween_property(audio_background_menu, "volume_db", -50, 2)
 
 	
 	await tween3.finished
+	await tween_audio.finished
 	await tween1.finished
 	await tween2.finished
-	await tween_audio.finished
+	
 	
 	get_tree().change_scene_to_packed(level_manager_scene)
 	

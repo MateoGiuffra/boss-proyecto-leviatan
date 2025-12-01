@@ -24,7 +24,7 @@ boss = NodePath("../Boss")
 position = Vector2(-130, -426)
 
 [node name="Player" parent="." index="4" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(296, 327)
+position = Vector2(56.00002, 351)
 scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
