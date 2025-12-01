@@ -25,11 +25,14 @@ const JUMP_DIST_THRESHOLD: float = 300.0
 func want_moving():
 	return movement_direction != 0
 
+
+
 func _ready() -> void:
 	ray_cast_2d.enabled = true
 	if player_target:
 		makepath()
 
+	
 func _on_timer_make_path_timeout() -> void:
 	makepath()
 
@@ -104,6 +107,5 @@ func _on_animated_enemy_2d_animation_looped() -> void:
 		animated_enemy_2d.flip_h = !animated_enemy_2d.flip_h
 
 func _on_collision_area_body_entered(_body: Node2D) -> void:
-	print("te mate wacho")
 	player_target.die()
 	GameState.current_player_changed.emit()

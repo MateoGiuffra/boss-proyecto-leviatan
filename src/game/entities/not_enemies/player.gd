@@ -52,6 +52,7 @@ func _ready():
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
 		
+		
 	particles.emitting = false
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
@@ -193,6 +194,18 @@ func show_come_back_message() -> void:
 func win() -> void:
 	hide_label(come_back_label)
 	hide()
+
+
+func die_finish() -> void: 
+	var new_parent = get_parent()
+	remove_child(camera)
+	new_parent.add_child(camera) 
+	remove_child(point_light_2d) 
+	new_parent.add_child(point_light_2d)
+	# --- Lógica de Muerte del Player ---
+	hp = 0
+	hide()
+	queue_free()
 	
 func die() -> void:
 	hp -= 1
@@ -201,15 +214,7 @@ func die() -> void:
 	life_to_remove.queue_free()
 	
 	if hp == 0:
-		var new_parent = get_parent()
-		remove_child(camera)
-		new_parent.add_child(camera) 
-		remove_child(point_light_2d) 
-		new_parent.add_child(point_light_2d)
-		# --- Lógica de Muerte del Player ---
-		hp = 0
-		hide()
-		queue_free()
+		die_finish()
 	
 
 func sum_hp(amount: int) -> void:

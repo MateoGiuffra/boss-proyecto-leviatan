@@ -122,14 +122,14 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kycvn"]
 shader = ExtResource("3_b6hsd")
-shader_parameter/distortion_strength = 0.001
-shader_parameter/distortion_speed = 0.5
+shader_parameter/distortion_strength = 0.0010000000475
+shader_parameter/distortion_speed = 0.6
 shader_parameter/water_fog_color = Color(0.10736025, 0.4151431, 0.5204662, 0.2)
 shader_parameter/fog_depth_y = 1000.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 2
-collision_layer = 4
+collision_layer = 12
 collision_mask = 3
 script = ExtResource("1_4ohmj")
 acceleration = 100.0
@@ -172,8 +172,23 @@ animation = &"walk"
 
 [node name="PointLight2D" parent="." instance=ExtResource("19_7ruc6")]
 position = Vector2(5.000025, -20.500008)
+scale = Vector2(2.7, 2.7)
+color = Color(0.8324709, 0.8887561, 1, 1)
+energy = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_kycvn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.06666667)
 
 [node name="Camera" parent="." instance=ExtResource("24_vf103")]
+offset = Vector2(0, -100)
 
 [node name="Sounds" type="Node2D" parent="."]
 scale = Vector2(1e-05, 1e-05)
@@ -222,17 +237,6 @@ offset_bottom = 62.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "¡Volvé al principio!"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_kycvn")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0.06666667)
 
 [node name="Timers" type="Node" parent="."]
 

@@ -4,6 +4,7 @@ class_name Goal
 @onready var inventory: Inventory = $Inventory
 # esta variable es para asignar desde afuera. El valor minimo de items a agarrar para ganar
 @export var min_amount: int = 10
+@export var boss: Area2D
 var won: bool = false
 var obtain_all: bool = false
 var amount: int = 0
@@ -24,6 +25,7 @@ func _on_body_entered(_body: Node) -> void:
 		won = true
 		GameState.notify_level_won()
 		#_play_animation("open")
+		
 
 func can_win() -> bool:
 	return amount >= min_amount
@@ -31,6 +33,8 @@ func can_win() -> bool:
 func update_amount() -> void: 
 	print("Aumentooo")
 	amount += 1
+	if can_win(): 
+		boss.init_attack()
 
 func _on_portal_animation_finished() -> void:
 	if portal.animation == "open":

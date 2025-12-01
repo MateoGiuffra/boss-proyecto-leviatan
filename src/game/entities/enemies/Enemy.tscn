@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://cey4wuep5drty"]
+[gd_scene load_steps=20 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
 [ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
 [ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/state_machine.gd" id="2_82qr8"]
 [ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/enemy_idle_state.gd" id="3_rfvys"]
 [ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/enemy_attack_state.gd" id="4_i8idp"]
-[ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="7_swsnh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
 size = Vector2(34, 16.5)
@@ -97,10 +96,27 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_im7nu"]
 radius = 131.24405
 
+[sub_resource type="Gradient" id="Gradient_bnhqw"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.9099099)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7phyx"]
+gradient = SubResource("Gradient_bnhqw")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_i8idp")
-acceleration = 2000.0
-gravity = 1025.0
+acceleration = 1500.0
+movement_speed_limit = 200.0
+gravity = 600.0
+jump_speed = 250
 
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_mask = 4
@@ -152,9 +168,17 @@ bus = &"Enemies"
 
 [node name="TimerSound" type="Timer" parent="."]
 
-[node name="PointLight2D" parent="." instance=ExtResource("7_swsnh")]
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture_filter = 1
 position = Vector2(0, -4)
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
+energy = 1.4
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.9254902)
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = SubResource("GradientTexture2D_7phyx")
+metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]

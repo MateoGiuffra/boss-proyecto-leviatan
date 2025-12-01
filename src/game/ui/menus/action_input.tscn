@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bp7iy3pfhe2yq"]
 
 [ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://src/game/ui/menus/action_input.gd" id="1_oyij3"]
-[ext_resource type="FontFile" uid="uid://xhlhi52pbeov" path="res://assets/fonts/BasicCommercialLT-Black.woff" id="2_8jd1k"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_8jd1k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jd1k"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -36,7 +36,7 @@ layout_mode = 2
 [node name="Action" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_8jd1k")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 29
 text = "Saltar"
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
@@ -52,7 +52,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6892529, 0.72677946, 0.75768363, 1)
 theme_override_fonts/font = ExtResource("2_8jd1k")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 29
 text = "Espacio"
 horizontal_alignment = 1
 

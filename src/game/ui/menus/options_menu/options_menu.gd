@@ -1,8 +1,9 @@
 extends Control
 @onready var controls: Control = $OptionsMenu/Controls
 @onready var volume: Control = $OptionsMenu/Volume
-@onready var general_options: VBoxContainer = $OptionsMenu/GeneralOptions
-@onready var main_label: Label = $OptionsMenu/Label
+@onready var general_options: VBoxContainer = $OptionsMenu/Options/VBoxContainer/GeneralOptions
+@onready var main_label: Label = $OptionsMenu/Options/VBoxContainer/Label
+
 
 func _ready():
 	hide()
