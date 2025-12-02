@@ -16,6 +16,7 @@ initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
 [node name="Goal" parent="." index="1" node_paths=PackedStringArray("boss")]
+visible = false
 position = Vector2(1, 349)
 boss = NodePath("../Boss")
 
