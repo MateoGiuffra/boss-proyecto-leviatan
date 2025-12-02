@@ -36,7 +36,7 @@ shape = SubResource("CapsuleShape2D_11ywe")
 [node name="VictoryMenu" parent="UILayerMenu" instance=ExtResource("4_1qle4")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.04798825, 0.0011836691, 0.014898961, 0.9607843)
+color = Color(0.8039216, 0, 0.4862745, 1)
 
 [connection signal="return_selected" from="UILayerMenu/PauseMenu" to="." method="_on_return_requested"]
 [connection signal="retry_selected" from="UILayerMenu/DefeatMenu" to="." method="_on_defeat_menu_retry_selected"]

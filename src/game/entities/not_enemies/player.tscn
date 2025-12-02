@@ -138,6 +138,9 @@ gravity = 200.0
 jump_speed = 200
 metadata/_edit_group_ = true
 
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 texture_filter = 1
 position = Vector2(-2, -60)

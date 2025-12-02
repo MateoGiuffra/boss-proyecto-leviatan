@@ -10,13 +10,13 @@ func _ready() -> void:
 	connect_buttons_to_sound()
 	hide()
 	
-
 func connect_buttons_to_sound():
 	var buttons = get_tree().get_nodes_in_group("ButtonUI") 
 
 	for button in buttons:
 		if button:
 			button.mouse_entered.connect(SoundManager.play_hover_sound.bind(hover_button))
+			hover_button.bus = "UI"
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_released("pausar_menu") && !options_menu.visible:

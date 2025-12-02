@@ -16,7 +16,6 @@ initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
 [node name="Goal" parent="." index="1" node_paths=PackedStringArray("boss")]
-visible = false
 position = Vector2(1, 349)
 boss = NodePath("../Boss")
 
@@ -98,13 +97,13 @@ position = Vector2(2416, -363)
 position = Vector2(3541, -771)
 
 [node name="WorldItem13" parent="Items" index="8" instance=ExtResource("7_5rfnw")]
-position = Vector2(3965, -1279)
+position = Vector2(3931, -1277)
 
 [node name="WorldItem16" parent="Items" index="9" instance=ExtResource("7_5rfnw")]
 position = Vector2(2877, -681)
 
 [node name="WorldItem17" parent="Items" index="10" instance=ExtResource("7_5rfnw")]
-position = Vector2(3865, -248)
+position = Vector2(3914, -256)
 
 [node name="WorldItem2" parent="Items" index="11" instance=ExtResource("7_5rfnw")]
 position = Vector2(3019, -860)
@@ -119,13 +118,12 @@ position = Vector2(4162, -2010)
 position = Vector2(5657, -1895)
 
 [node name="WorldItem5" parent="Items" index="15" instance=ExtResource("7_5rfnw")]
-position = Vector2(5117, -3134)
+position = Vector2(4722, -1324)
 
 [node name="WorldItem14" parent="Items" index="16" instance=ExtResource("7_5rfnw")]
 position = Vector2(2765, -1328)
 
 [node name="Enemies" type="Node2D" parent="." index="8"]
-visible = false
 
 [node name="Enemy" parent="Enemies" index="0" instance=ExtResource("6_i5t0w")]
 position = Vector2(1984, 374)
@@ -194,4 +192,4 @@ position = Vector2(2418, 182)
 position = Vector2(-1175, 611)
 
 [node name="CanvasModulate" parent="." index="10"]
-visible = false
+color = Color(0.8231498, 4.3317677e-06, 0.50400394, 1)
