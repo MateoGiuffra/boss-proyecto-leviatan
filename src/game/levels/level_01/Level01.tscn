@@ -98,13 +98,13 @@ position = Vector2(2416, -363)
 position = Vector2(3541, -771)
 
 [node name="WorldItem13" parent="Items" index="8" instance=ExtResource("7_5rfnw")]
-position = Vector2(3965, -1279)
+position = Vector2(3931, -1277)
 
 [node name="WorldItem16" parent="Items" index="9" instance=ExtResource("7_5rfnw")]
 position = Vector2(2877, -681)
 
 [node name="WorldItem17" parent="Items" index="10" instance=ExtResource("7_5rfnw")]
-position = Vector2(3865, -248)
+position = Vector2(3914, -256)
 
 [node name="WorldItem2" parent="Items" index="11" instance=ExtResource("7_5rfnw")]
 position = Vector2(3019, -860)
@@ -119,7 +119,7 @@ position = Vector2(4162, -2010)
 position = Vector2(5657, -1895)
 
 [node name="WorldItem5" parent="Items" index="15" instance=ExtResource("7_5rfnw")]
-position = Vector2(5117, -3134)
+position = Vector2(4722, -1324)
 
 [node name="WorldItem14" parent="Items" index="16" instance=ExtResource("7_5rfnw")]
 position = Vector2(2765, -1328)
@@ -190,4 +190,7 @@ position = Vector2(3119, -1455)
 position = Vector2(2418, 182)
 
 [node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
-position = Vector2(-1227, 601)
+position = Vector2(-1175, 611)
+
+[node name="CanvasModulate" parent="." index="10"]
+color = Color(0.8231498, 4.3317677e-06, 0.50400394, 1)

@@ -3,7 +3,12 @@ extends Control
 @onready var monster_sea: AudioStreamPlayer = $MonsterSea
 @export var level_manager_scene: PackedScene
 @onready var tutorial: Control = $Tutorial
+@onready var jump_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/JumpKey
+@onready var dash_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3/DashKey
+@onready var left_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LeftKey
+@onready var right_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/RightKey
 
+var keys: Array[Label] = [jump_key, dash_key, left_key, right_key]
 
 var fragments = []
 var current_index = 0
@@ -17,7 +22,35 @@ func _enter_tree():
 
 func _ready():
 	show_fragment(0)
-		
+	set_current_key("dash", dash_key)
+	set_current_key("saltar", jump_key)
+	set_current_movement_key("derecha", right_key)
+	set_current_movement_key("izquierda", left_key)
+
+func _physics_process(_delta: float) -> void:
+	for label_key in keys: 
+		_update_text(label_key)
+	
+
+func _update_text(label: Label) -> void:
+	if label and label.text.contains("(physical)"):
+		label.text = normalize_text(label.text)
+
+func normalize_text(text: String) -> String:
+	return text.replace("_", " ").strip_escapes().replace("(physical)", "").capitalize()
+	
+func set_current_key(key_binding: String, label: Label) -> void:
+	var events = InputMap.action_get_events(key_binding)
+	
+	for ev in events:
+		if ev is InputEventKey:
+			var text: String = normalize_text(ev.as_text())		
+			label.text = text
+
+func set_current_movement_key(key_binding: String, label: Label, ) -> void:
+	set_current_key(key_binding, label)
+	label.text =  key_binding.capitalize() + " - " + label.text
+	
 func show_fragment(index):
 	for i in range(fragments.size()):
 		fragments[i].visible = (i == index)
@@ -32,10 +65,15 @@ func _on_next_scene_pressed():
 	if current_index < fragments.size():
 		show_fragment(current_index)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("saltear"):
+		print("saltear clikced")
+		tutorial.play_fade()
 
 func _on_last_scene_pressed() -> void:
 	await texts.play_fade_out()
-	await button.play_fade_out()
+	if button.has_method("play_fade_out"): 
+		await button.play_fade_out()
 	
 	var tween_audio = get_tree().create_tween()
 	tween_audio.tween_property(music_history, "volume_db", -80, 2)
@@ -44,7 +82,6 @@ func _on_last_scene_pressed() -> void:
 	await monster_sea.finished
 	
 	tutorial.play_fade()
-	
 	
 	
 func _on_new_scene_pressed() -> void:

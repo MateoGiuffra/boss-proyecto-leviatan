@@ -171,10 +171,9 @@ text = "Enemigos"
 bus_name = "Enemies"
 
 [node name="HSliderUI" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" instance=ExtResource("4_m456g")]
-visible = false
 layout_mode = 2
-text = "Music"
-bus_name = "Music"
+text = "Interfaz"
+bus_name = "UI"
 
 [node name="HSliderSFX" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("4_m456g")]
 layout_mode = 2

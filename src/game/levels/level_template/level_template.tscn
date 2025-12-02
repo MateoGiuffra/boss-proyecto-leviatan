@@ -13,7 +13,7 @@ height = 80.0
 [node name="LevelTemplate" type="Node"]
 script = ExtResource("1_b1heh")
 
-[node name="Map" type="Node" parent="."]
+[node name="Map" type="Node2D" parent="."]
 
 [node name="Goal" parent="." instance=ExtResource("5_1qle4")]
 z_index = 1
@@ -39,7 +39,7 @@ z_index = 200
 z_index = 200
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.0052063186, 6.768387e-07, 0.06740496, 1)
+color = Color(0.8039216, 0, 0.4862745, 1)
 
 [connection signal="return_selected" from="UILayerMenu/PauseMenu" to="." method="_on_return_requested"]
 [connection signal="retry_selected" from="UILayerMenu/DefeatMenu" to="." method="_on_defeat_menu_retry_selected"]

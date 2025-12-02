@@ -220,7 +220,6 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_mxmr8")
 theme_override_font_sizes/font_size = 29
 text = "Siguiente"
-script = ExtResource("4_0mrxt")
 
 [node name="Tutorial" type="Control" parent="."]
 layout_mode = 1
@@ -278,7 +277,7 @@ theme_override_constants/separation = 150
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="Label" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MovementLabel" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 theme_override_font_sizes/font_size = 40
@@ -289,12 +288,12 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 60
 
-[node name="Label" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LeftKey" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 text = "Izquierda - A"
 
-[node name="Label2" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="RightKey" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 text = "Derecha - D"
@@ -303,13 +302,13 @@ text = "Derecha - D"
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="Label2" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="JumpTitle" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 theme_override_font_sizes/font_size = 40
 text = "Salto"
 
-[node name="Label" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="JumpKey" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 text = "Espacio"
@@ -319,17 +318,16 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="Label3" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="DashTitle" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
 theme_override_font_sizes/font_size = 40
 text = "Dash"
 
-[node name="Label4" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+[node name="DashKey" type="Label" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mxmr8")
-theme_override_font_sizes/font_size = 29
-text = "L"
+text = "SHIFT"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tutorial/MarginTutorial/VBoxContainer/VBoxContainer"]
