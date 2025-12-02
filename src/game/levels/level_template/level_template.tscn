@@ -28,12 +28,15 @@ position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_11ywe")
 
 [node name="UILayerMenu" type="CanvasLayer" parent="."]
+layer = 101
 
 [node name="PauseMenu" parent="UILayerMenu" instance=ExtResource("2_xh6xx")]
 
 [node name="DefeatMenu" parent="UILayerMenu" instance=ExtResource("3_qnwyr")]
+z_index = 200
 
 [node name="VictoryMenu" parent="UILayerMenu" instance=ExtResource("4_1qle4")]
+z_index = 200
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.8039216, 0, 0.4862745, 1)

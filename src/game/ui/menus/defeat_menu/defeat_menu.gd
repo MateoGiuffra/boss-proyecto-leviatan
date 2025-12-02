@@ -17,3 +17,7 @@ func _on_level_lost():
 func _on_back_to_menu_button_pressed() -> void:
 	print("clicked")
 	return_selected.emit()
+
+
+func _on_retry_button_pressed() -> void:
+	retry_selected.emit() 
