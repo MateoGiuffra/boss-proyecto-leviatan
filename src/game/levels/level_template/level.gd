@@ -15,6 +15,7 @@ signal next_level_requested()
 
 func _ready() -> void:
 	randomize()
+	
 
 # Funciones que hacen de interfaz para las señales
 func _on_level_won() -> void:
