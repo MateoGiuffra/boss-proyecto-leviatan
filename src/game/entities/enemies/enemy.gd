@@ -6,7 +6,12 @@ class_name Enemy
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var timer_sound: Timer = $TimerSound
 
+
+@export var min_wait_time_idle_sound: float = 12.5
+@export var max_wait_time_idle_sound: float = 100
+@export var idle_sound: AudioStreamMP3
 @export var acceleration: float = 3750.0
 @export var movement_speed_limit: float = 300.0
 @export var friction_weight: float = 6.25 	
@@ -14,6 +19,7 @@ class_name Enemy
 @export var jump_speed: int = 450
 @export var follow_distance:float = 200
 @export var max_jumps: int = 2
+
 var jumps_left: int = max_jumps
 
 var movement_direction: int
@@ -22,16 +28,35 @@ var player_target: Player = null
 const JUMP_HEIGHT_THRESHOLD: float = -30.0
 const JUMP_DIST_THRESHOLD: float = 300.0
 
-func want_moving():
-	return movement_direction != 0
-
-
-
 func _ready() -> void:
 	ray_cast_2d.enabled = true
 	if player_target:
 		makepath()
+	self.audio_stream_player_2d.stream = idle_sound
+	self.set_time_to_timer_sound(min_wait_time_idle_sound)
 
+func _physics_process(_delta: float) -> void:
+	if want_moving():
+		_play_animation("walk")
+		animated_enemy_2d.flip_h = movement_direction < 0
+	else:
+		_play_animation("idle")
+	aim_to_player()
+	move_and_slide()
+	
+	
+
+func want_moving():
+	return movement_direction != 0
+
+func set_time_to_timer_sound(new_time: float) -> void: 
+	self.timer_sound.wait_time = new_time
+
+func play_idle_sound() -> void:
+	audio_stream_player_2d.play()
+	# cambio el tiempo de reproducción del sonido para que no se vuelva molesto en cierto punto
+	var next_wait_time:float = randf_range(min_wait_time_idle_sound, max_wait_time_idle_sound)
+	set_time_to_timer_sound(next_wait_time)
 	
 func _on_timer_make_path_timeout() -> void:
 	makepath()
@@ -40,14 +65,7 @@ func makepath() -> void:
 	if player_target:
 		nav_agent.target_position = player_target.global_position
 
-func _physics_process(_delta: float) -> void:
-	if want_moving():
-		_play_animation("walk")
-		animated_enemy_2d.flip_h = movement_direction < 0
-	else:
-		_play_animation("idle")
-	
-	move_and_slide()
+
 
 func navigate(delta) -> void:
 	if nav_agent.is_navigation_finished():
