@@ -15,6 +15,9 @@ class_name Player
 @export var max_hp: int = 3
 var hp: int = max_hp
 
+@export var max_oxygen: float = 100
+var oxygen: float = 100
+
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
 @onready var state_machine = $StateMachine
 @onready var inventory: Inventory = $Inventory
@@ -29,6 +32,9 @@ var hp: int = max_hp
 @onready var message: Label = $Message/Label
 @onready var come_back_label: Label = $Message/ComeBackLabel
 @onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
+# timers
+@onready var h20_timer: Timer = $Timers/H20Timer
+
 
 # Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
@@ -57,7 +63,23 @@ func _ready():
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
 	GameState.set_current_player(self)
+
+func _physics_process(_delta: float) -> void:
+	if !is_on_floor() and not swimming_sound.playing:
+		swimming_sound.play()
 	
+	if is_dead():
+		GameState.level_lost.emit()
+	# La logica de animación y movimiento debe ser gestionada por el State Machine.
+	
+	get_input()
+	
+	if inventory.items_amount() == goal.min_amount:
+		show_come_back_message()
+
+	move_and_slide()
+	
+		
 
 func desactivate():
 	set_process(false)
@@ -83,21 +105,8 @@ func _on_item_detector_area_entered(area: Area2D):
 		if inventory.pick_up_item(world_item_data):
 			area.queue_free()
 			print("Recogido: ", world_item_data.id)
+	
 
-func _physics_process(_delta: float) -> void:
-	if !is_on_floor() and not swimming_sound.playing:
-		swimming_sound.play()
-	
-	if is_dead():
-		GameState.level_lost.emit()
-	# La logica de animación y movimiento debe ser gestionada por el State Machine.
-	
-	get_input()
-	
-	if inventory.items_amount() == goal.min_amount:
-		show_come_back_message()
-
-	move_and_slide()
 	
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
@@ -216,12 +225,19 @@ func die() -> void:
 	if hp == 0:
 		die_finish()
 	
-
 func sum_hp(amount: int) -> void:
 	hp = clamp(hp + amount, 0, max_hp)
 	hp_changed.emit(hp, max_hp)
 	print("hp_changed %s %s" % [hp, max_hp])	
 
-
 func is_dead():
-	return hp <= 0
+	return hp <= 0 or oxygen <= 0
+
+# h20 
+func _on_h_20_timer_timeout() -> void:
+	self.oxygen -= 10 
+	h20_timer.start()
+	print(oxygen)
+
+func add_oxygen(new_oxygen: int) -> void:
+	self.oxygen = min(self.oxygen + new_oxygen, max_oxygen)

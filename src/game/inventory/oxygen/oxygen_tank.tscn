@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b72el8mfxgrj"]
+
+[ext_resource type="Script" uid="uid://cvwet18ggi04m" path="res://src/game/inventory/oxygen/oxygen_tank.gd" id="1_xat8t"]
+[ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="2_1rl5j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7evs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1rl5j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rj7e0"]
+radius = 6.0
+height = 20.0
+
+[node name="OxygenTank" type="Area2D"]
+collision_layer = 7
+collision_mask = 4
+script = ExtResource("1_xat8t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.02558594, 0.032421876)
+sprite_frames = SubResource("SpriteFrames_c7evs")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_rj7e0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

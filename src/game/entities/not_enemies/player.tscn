@@ -268,6 +268,10 @@ one_shot = true
 wait_time = 3.0
 autostart = true
 
+[node name="H20Timer" type="Timer" parent="Timers"]
+wait_time = 10.0
+autostart = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("17_753ju")
 initial_state = NodePath("PlayerWalkState")
@@ -309,6 +313,7 @@ shape = SubResource("CapsuleShape2D_i87q2")
 [connection signal="timeout" from="Timers/ParticlesGeneralTimer" to="." method="_on_particles_general_timer_timeout"]
 [connection signal="timeout" from="Timers/ParticlesTimer" to="." method="_on_particles_timer_timeout"]
 [connection signal="timeout" from="Timers/MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="timeout" from="Timers/H20Timer" to="." method="_on_h_20_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]

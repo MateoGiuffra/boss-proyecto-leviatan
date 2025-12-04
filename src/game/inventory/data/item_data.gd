@@ -23,7 +23,6 @@ func add_to_inventory(inventory: Inventory, item_id: String = "empty") -> bool:
 		actual_amount = 1 
 		inventory.add(self) 
 		return true
-		
 	elif stackeable:
 		actual_amount += 1
 		return true
