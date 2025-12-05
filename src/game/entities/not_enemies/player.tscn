@@ -1,16 +1,17 @@
-[gd_scene load_steps=38 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=44 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not_enemies/player.gd" id="1_4ohmj"]
-[ext_resource type="Texture2D" uid="uid://b8y23l3txtasg" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
+[ext_resource type="Texture2D" uid="uid://vu10a0th7ncl" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="AudioStream" uid="uid://cg5mcs7cy8juh" path="res://assets/sound/player/swim_with_bubles.mp3" id="2_483nw"]
-[ext_resource type="Texture2D" uid="uid://t0ecywtwoeab" path="res://assets/textures/player/idle/idle_2.png" id="2_bnhqw"]
-[ext_resource type="Texture2D" uid="uid://chkf5h360n0c3" path="res://assets/textures/player/idle/idle_3.png" id="3_753ju"]
+[ext_resource type="Texture2D" uid="uid://brtggygnksjy0" path="res://assets/textures/player/idle/idle_2.png" id="2_bnhqw"]
+[ext_resource type="Texture2D" uid="uid://cyrpne18nr7vg" path="res://assets/textures/player/idle/idle_3.png" id="3_753ju"]
 [ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/not_enemies/player.gdshader" id="3_b6hsd"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/textures/player/walk/walk_01.png" id="3_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://gpxeih1m8tca" path="res://assets/textures/player/jump/jump_0.png" id="4_73mqe"]
 [ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/textures/player/walk/walk_02.png" id="4_753ju"]
-[ext_resource type="Texture2D" uid="uid://dnt0xgelw65w2" path="res://assets/textures/player/idle/idle_4.png" id="4_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://dxfbr113bd3c7" path="res://assets/textures/player/idle/idle_4.png" id="4_mwgf3"]
 [ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/textures/player/walk/walk_03.png" id="5_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://iy1hpnbmoqi2" path="res://assets/textures/player/idle/idle.png" id="6_10jiy"]
 [ext_resource type="Texture2D" uid="uid://bddlcd4jmo4w5" path="res://assets/textures/player/walk/walk_04.png" id="6_obrgw"]
 [ext_resource type="Texture2D" uid="uid://c0u0hd43ofhrk" path="res://assets/textures/player/walk/walk_05.png" id="7_3a8uq"]
 [ext_resource type="Texture2D" uid="uid://ckvtim08u6g61" path="res://assets/textures/player/walk/walk_06.png" id="8_jis8g"]
@@ -26,33 +27,15 @@
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://src/game/scripts/states/player/player_walk_state.gd" id="19_obrgw"]
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://src/game/scripts/states/player/player_jump_state.gd" id="20_3a8uq"]
 [ext_resource type="AudioStream" uid="uid://bp6vc1rq50aw5" path="res://assets/sound/player/swoop1_108087.mp3" id="20_05p3n"]
+[ext_resource type="Shader" uid="uid://8is6bqc6ijd7" path="res://src/game/entities/not_enemies/player_oxygen.gdshader" id="21_11uyg"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://src/game/scripts/states/player/player_dash_state.gd" id="21_jis8g"]
 [ext_resource type="AudioStream" uid="uid://deix1e76jw1pu" path="res://assets/sound/player/only_step.ogg" id="21_kycvn"]
 [ext_resource type="AudioStream" uid="uid://vhg4vjk2w1ew" path="res://assets/sound/player/jumping_1_6452.mp3" id="22_05p3n"]
 [ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://src/game/inventory/Inventory.tscn" id="22_73mqe"]
+[ext_resource type="Shader" uid="uid://dqfcxwn6wq876" path="res://src/game/entities/not_enemies/player_damage.gdshader" id="22_mdyrr"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="24_vf103"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87q2"]
-radius = 26.0
-height = 120.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fdc7v"]
-blend_mode = 1
-light_mode = 1
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = true
-
-[sub_resource type="Curve" id="Curve_fdc7v"]
-_limits = [-500.0, 500.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.29651162, 207.86517), 0.0, 0.0, 0, 0, Vector2(0.44186044, 455.0562), 0.0, 0.0, 0, 0, Vector2(0.8604651, 219.10114), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="Curve" id="Curve_05p3n"]
-_limits = [0.0, 200.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.37790698, 56.17978), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10jiy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cd5ud"]
 animations = [{
@@ -65,6 +48,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_mwgf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_10jiy")
 }],
 "loop": true,
 "name": &"idle",
@@ -120,12 +106,42 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87q2"]
+radius = 26.0
+height = 120.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fdc7v"]
+blend_mode = 1
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_fdc7v"]
+_limits = [-500.0, 500.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.29651162, 207.86517), 0.0, 0.0, 0, 0, Vector2(0.44186044, 455.0562), 0.0, 0.0, 0, 0, Vector2(0.8604651, 219.10114), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_05p3n"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.37790698, 56.17978), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kycvn"]
 shader = ExtResource("3_b6hsd")
 shader_parameter/distortion_strength = 0.0010000000475
 shader_parameter/distortion_speed = 0.6
 shader_parameter/water_fog_color = Color(0.10736025, 0.4151431, 0.5204662, 0.2)
 shader_parameter/fog_depth_y = 1000.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdyrr"]
+shader = ExtResource("21_11uyg")
+shader_parameter/intensity = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10jiy"]
+shader = ExtResource("22_mdyrr")
+shader_parameter/intensity = 0.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 2
@@ -137,6 +153,30 @@ dash_speed = 600.0
 gravity = 200.0
 jump_speed = 200
 metadata/_edit_group_ = true
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="OxygenBar" type="ProgressBar" parent="Pivot"]
+modulate = Color(0.9554865, 0.89809716, 1.540184e-06, 1)
+offset_left = -46.4166
+offset_top = -37.825733
+offset_right = 53.9147
+offset_bottom = 17.58651
+rotation = -1.5707964
+scale = Vector2(0.4, 0.4)
+localize_numeral_system = false
+theme_override_styles/fill = SubResource("StyleBoxFlat_10jiy")
+value = 100.0
+show_percentage = false
+
+[node name="AnimatedPlayer" type="AnimatedSprite2D" parent="Pivot"]
+texture_filter = 1
+position = Vector2(2, -62)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_cd5ud")
+animation = &"walk"
+frame = 4
+frame_progress = 0.19133253
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
@@ -161,17 +201,11 @@ gravity = Vector2(0, -800)
 initial_velocity_min = 41.24
 initial_velocity_max = 82.48
 orbit_velocity_curve = SubResource("Curve_fdc7v")
-scale_amount_min = 0.5
+scale_amount_min = 0.3
+scale_amount_max = 0.6
 color = Color(0, 0.40392157, 0.4117647, 0.7882353)
 anim_speed_max = 5.28
 anim_speed_curve = SubResource("Curve_05p3n")
-
-[node name="AnimatedPlayer" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
-position = Vector2(2, -62)
-scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"walk"
 
 [node name="PointLight2D" parent="." instance=ExtResource("19_7ruc6")]
 position = Vector2(5.000025, -20.500008)
@@ -181,7 +215,7 @@ energy = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRectWavy" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_kycvn")
 anchors_preset = 15
 anchor_right = 1.0
@@ -189,6 +223,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.06666667)
+
+[node name="ColorRectOxygenMark" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_mdyrr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRectDamage" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_10jiy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera" parent="." instance=ExtResource("24_vf103")]
 offset = Vector2(0, -100)
@@ -305,17 +355,6 @@ position = Vector2(-2, -60)
 shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
-
-[node name="OxygenBar" type="ProgressBar" parent="."]
-modulate = Color(0.043137256, 0, 1, 1)
-offset_left = -36.68174
-offset_top = -38.352596
-offset_right = 65.19971
-offset_bottom = -17.395855
-rotation = -1.5707964
-scale = Vector2(0.4, 0.4)
-value = 100.0
-show_percentage = false
 
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]

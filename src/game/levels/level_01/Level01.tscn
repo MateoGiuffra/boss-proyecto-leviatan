@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkvkfm8rg4l0e"]
+[gd_scene load_steps=11 format=3 uid="uid://bkvkfm8rg4l0e"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://cjmuskb8u4ges" path="res://src/game/levels/level_01/my_tail_map.tscn" id="3_5rfnw"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/not_enemies/player.tscn" id="7_e2p1h"]
 [ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="8_behuu"]
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
-[ext_resource type="AudioStream" uid="uid://cnqliwfxd2wjv" path="res://assets/sound/enemy/idle/baby_talk.mp3" id="9_mqwp2"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
 
 [node name="Level01" node_paths=PackedStringArray("initial_player_position") instance=ExtResource("1_f30rv")]
@@ -77,99 +76,76 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 
 [node name="Enemy" parent="Enemies" index="0" instance=ExtResource("6_i5t0w")]
 position = Vector2(1984, 374)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy2" parent="Enemies" index="1" instance=ExtResource("6_i5t0w")]
 position = Vector2(2744, -160)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy3" parent="Enemies" index="2" instance=ExtResource("6_i5t0w")]
 position = Vector2(2407, -339)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy10" parent="Enemies" index="3" instance=ExtResource("6_i5t0w")]
 position = Vector2(3811, -748)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy11" parent="Enemies" index="4" instance=ExtResource("6_i5t0w")]
 position = Vector2(5641, -207)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy12" parent="Enemies" index="5" instance=ExtResource("6_i5t0w")]
 position = Vector2(6513, -51)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy13" parent="Enemies" index="6" instance=ExtResource("6_i5t0w")]
 position = Vector2(6513, -1558)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy14" parent="Enemies" index="7" instance=ExtResource("6_i5t0w")]
 position = Vector2(6018, -2147)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy15" parent="Enemies" index="8" instance=ExtResource("6_i5t0w")]
 position = Vector2(6546, -2786)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy16" parent="Enemies" index="9" instance=ExtResource("6_i5t0w")]
 position = Vector2(4869, -3279)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy5" parent="Enemies" index="10" instance=ExtResource("6_i5t0w")]
 position = Vector2(3631, -1587)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy6" parent="Enemies" index="11" instance=ExtResource("6_i5t0w")]
 position = Vector2(3006, -2129)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy7" parent="Enemies" index="12" instance=ExtResource("6_i5t0w")]
 position = Vector2(3306, -2481)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy8" parent="Enemies" index="13" instance=ExtResource("6_i5t0w")]
 position = Vector2(4393, -2581)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy9" parent="Enemies" index="14" instance=ExtResource("6_i5t0w")]
 position = Vector2(2184, -2232)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy17" parent="Enemies" index="15" instance=ExtResource("6_i5t0w")]
 position = Vector2(2926, -1825)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy18" parent="Enemies" index="16" instance=ExtResource("6_i5t0w")]
 position = Vector2(2306, -1841)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy19" parent="Enemies" index="17" instance=ExtResource("6_i5t0w")]
 position = Vector2(2824, -2616)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy20" parent="Enemies" index="18" instance=ExtResource("6_i5t0w")]
 position = Vector2(2665, -1539)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy21" parent="Enemies" index="19" instance=ExtResource("6_i5t0w")]
 position = Vector2(3119, -1455)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Enemy22" parent="Enemies" index="20" instance=ExtResource("6_i5t0w")]
 position = Vector2(2418, 182)
-idle_sound = ExtResource("9_mqwp2")
 
 [node name="Boss" parent="." index="8" instance=ExtResource("9_ctuea")]
 position = Vector2(-1175, 611)
 
 [node name="CanvasModulate" parent="." index="9"]
-visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
 [node name="ItemsContainer" type="Node2D" parent="." index="10"]
 
 [node name="WorldItemsContainer" type="Node2D" parent="ItemsContainer" index="0"]
-visible = false
 
 [node name="WorldItem6" parent="ItemsContainer/WorldItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
 position = Vector2(1642, -1256)
@@ -225,4 +201,106 @@ position = Vector2(2765, -1328)
 [node name="OxygenTankContainer" type="Node2D" parent="ItemsContainer" index="1"]
 
 [node name="OxygenTank" parent="ItemsContainer/OxygenTankContainer" index="0" instance=ExtResource("11_yrqp0")]
-position = Vector2(1511, 399)
+position = Vector2(1509, 391)
+
+[node name="OxygenTank2" parent="ItemsContainer/OxygenTankContainer" index="1" instance=ExtResource("11_yrqp0")]
+position = Vector2(1998, 134)
+
+[node name="OxygenTank3" parent="ItemsContainer/OxygenTankContainer" index="2" instance=ExtResource("11_yrqp0")]
+position = Vector2(1984, -70)
+
+[node name="OxygenTank4" parent="ItemsContainer/OxygenTankContainer" index="3" instance=ExtResource("11_yrqp0")]
+position = Vector2(1544, -284)
+
+[node name="OxygenTank5" parent="ItemsContainer/OxygenTankContainer" index="4" instance=ExtResource("11_yrqp0")]
+position = Vector2(1947, -374)
+
+[node name="OxygenTank6" parent="ItemsContainer/OxygenTankContainer" index="5" instance=ExtResource("11_yrqp0")]
+position = Vector2(3000, -308)
+
+[node name="OxygenTank7" parent="ItemsContainer/OxygenTankContainer" index="6" instance=ExtResource("11_yrqp0")]
+position = Vector2(2070, -840)
+
+[node name="OxygenTank8" parent="ItemsContainer/OxygenTankContainer" index="7" instance=ExtResource("11_yrqp0")]
+position = Vector2(1926, -1344)
+
+[node name="OxygenTank9" parent="ItemsContainer/OxygenTankContainer" index="8" instance=ExtResource("11_yrqp0")]
+position = Vector2(1613, -1593)
+
+[node name="OxygenTank10" parent="ItemsContainer/OxygenTankContainer" index="9" instance=ExtResource("11_yrqp0")]
+position = Vector2(1658, -2013)
+
+[node name="OxygenTank11" parent="ItemsContainer/OxygenTankContainer" index="10" instance=ExtResource("11_yrqp0")]
+position = Vector2(2753, -1942)
+
+[node name="OxygenTank12" parent="ItemsContainer/OxygenTankContainer" index="11" instance=ExtResource("11_yrqp0")]
+position = Vector2(3034, -1301)
+
+[node name="OxygenTank13" parent="ItemsContainer/OxygenTankContainer" index="12" instance=ExtResource("11_yrqp0")]
+position = Vector2(4528, -1642)
+
+[node name="OxygenTank27" parent="ItemsContainer/OxygenTankContainer" index="13" instance=ExtResource("11_yrqp0")]
+position = Vector2(4705, -1027)
+
+[node name="OxygenTank28" parent="ItemsContainer/OxygenTankContainer" index="14" instance=ExtResource("11_yrqp0")]
+position = Vector2(5148, -508)
+
+[node name="OxygenTank29" parent="ItemsContainer/OxygenTankContainer" index="15" instance=ExtResource("11_yrqp0")]
+position = Vector2(4941, 188)
+
+[node name="OxygenTank30" parent="ItemsContainer/OxygenTankContainer" index="16" instance=ExtResource("11_yrqp0")]
+position = Vector2(4031, 141)
+
+[node name="OxygenTank31" parent="ItemsContainer/OxygenTankContainer" index="17" instance=ExtResource("11_yrqp0")]
+position = Vector2(6087, 14)
+
+[node name="OxygenTank32" parent="ItemsContainer/OxygenTankContainer" index="18" instance=ExtResource("11_yrqp0")]
+position = Vector2(6875, -8)
+
+[node name="OxygenTank33" parent="ItemsContainer/OxygenTankContainer" index="19" instance=ExtResource("11_yrqp0")]
+position = Vector2(6693, -359)
+
+[node name="OxygenTank34" parent="ItemsContainer/OxygenTankContainer" index="20" instance=ExtResource("11_yrqp0")]
+position = Vector2(6443, -644)
+
+[node name="OxygenTank35" parent="ItemsContainer/OxygenTankContainer" index="21" instance=ExtResource("11_yrqp0")]
+position = Vector2(6526, -1050)
+
+[node name="OxygenTank14" parent="ItemsContainer/OxygenTankContainer" index="22" instance=ExtResource("11_yrqp0")]
+position = Vector2(5195, -1627)
+
+[node name="OxygenTank15" parent="ItemsContainer/OxygenTankContainer" index="23" instance=ExtResource("11_yrqp0")]
+position = Vector2(5928, -1756)
+
+[node name="OxygenTank16" parent="ItemsContainer/OxygenTankContainer" index="24" instance=ExtResource("11_yrqp0")]
+position = Vector2(6179, -1599)
+
+[node name="OxygenTank17" parent="ItemsContainer/OxygenTankContainer" index="25" instance=ExtResource("11_yrqp0")]
+position = Vector2(6511, -1533)
+
+[node name="OxygenTank18" parent="ItemsContainer/OxygenTankContainer" index="26" instance=ExtResource("11_yrqp0")]
+position = Vector2(6676, -2099)
+
+[node name="OxygenTank19" parent="ItemsContainer/OxygenTankContainer" index="27" instance=ExtResource("11_yrqp0")]
+position = Vector2(6528, -2665)
+
+[node name="OxygenTank20" parent="ItemsContainer/OxygenTankContainer" index="28" instance=ExtResource("11_yrqp0")]
+position = Vector2(6089, -2886)
+
+[node name="OxygenTank21" parent="ItemsContainer/OxygenTankContainer" index="29" instance=ExtResource("11_yrqp0")]
+position = Vector2(5317, -2772)
+
+[node name="OxygenTank22" parent="ItemsContainer/OxygenTankContainer" index="30" instance=ExtResource("11_yrqp0")]
+position = Vector2(4738, -3286)
+
+[node name="OxygenTank24" parent="ItemsContainer/OxygenTankContainer" index="31" instance=ExtResource("11_yrqp0")]
+position = Vector2(3546, -3104)
+
+[node name="OxygenTank25" parent="ItemsContainer/OxygenTankContainer" index="32" instance=ExtResource("11_yrqp0")]
+position = Vector2(2281, -2969)
+
+[node name="OxygenTank26" parent="ItemsContainer/OxygenTankContainer" index="33" instance=ExtResource("11_yrqp0")]
+position = Vector2(3597, -2370)
+
+[node name="OxygenTank23" parent="ItemsContainer/OxygenTankContainer" index="34" instance=ExtResource("11_yrqp0")]
+position = Vector2(6457, -3288)

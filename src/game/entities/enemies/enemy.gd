@@ -4,11 +4,12 @@ class_name Enemy
 @onready var animated_enemy_2d: AnimatedSprite2D = $AnimatedEnemy2D
 @onready var state_machine: Node = $StateMachine
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var timer_sound: Timer = $TimerSound
 # raycasts: 
 @onready var always_up_ray_cast_2d: RayCast2D = $DetectionArea/AlwaysUpRayCast2D
 @onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
+# timers
+@onready var damage_timer: Timer = $Timers/DamageTimer
+
 
 #movements
 var on_ceiling := false
@@ -19,13 +20,6 @@ var on_ceiling := false
 @export var jump_speed: int = 450
 @export var follow_distance:float = 200
 @export var max_jumps: int = 2
-
-# timers
-@export var min_wait_time_idle_sound: float = 12.5
-@export var max_wait_time_idle_sound: float = 100
-
-#sounds
-@export var idle_sound: AudioStreamMP3
 
 var jumps_left: int = max_jumps
 
@@ -39,8 +33,6 @@ func _ready() -> void:
 	ray_cast_2d.enabled = true
 	if player_target:
 		makepath()
-	self.audio_stream_player_2d.stream = idle_sound
-	self.set_time_to_timer_sound(min_wait_time_idle_sound)
 
 func _physics_process(_delta: float) -> void:
 	update_orientation()
@@ -74,15 +66,6 @@ func is_colliding_up() -> bool:
 
 func want_moving():
 	return movement_direction != 0
-
-func set_time_to_timer_sound(new_time: float) -> void: 
-	self.timer_sound.wait_time = new_time
-
-func play_idle_sound() -> void:
-	audio_stream_player_2d.play()
-	# cambio el tiempo de reproducción del sonido para que no se vuelva molesto en cierto punto
-	var next_wait_time:float = randf_range(min_wait_time_idle_sound, max_wait_time_idle_sound)
-	set_time_to_timer_sound(next_wait_time)
 	
 func _on_timer_make_path_timeout() -> void:
 	makepath()
@@ -90,8 +73,6 @@ func _on_timer_make_path_timeout() -> void:
 func makepath() -> void:
 	if player_target:
 		nav_agent.target_position = player_target.global_position
-
-
 
 func navigate(delta):
 	if nav_agent.is_navigation_finished():
@@ -135,8 +116,6 @@ func can_follow() -> bool:
 	
 	return true
 
-
-
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):	
 		player_target = body
@@ -147,6 +126,27 @@ func _on_animated_enemy_2d_animation_looped() -> void:
 	if animated_enemy_2d.animation == "idle":
 		animated_enemy_2d.flip_h = !animated_enemy_2d.flip_h
 
-func _on_collision_area_body_entered(_body: Node2D) -> void:
-	player_target.die()
-	GameState.current_player_changed.emit()
+	
+func _on_collision_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		player_target = body 
+		
+		# Aplica el primer tick de daño y ENCIENDE el Timer
+		if damage_timer.is_stopped():
+			player_target.beaten()
+			GameState.current_player_changed.emit()
+			damage_timer.start()
+
+# NUEVA FUNCIÓN NECESARIA: Detiene el daño recurrente
+func _on_collision_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		# ¡IMPORTANTE! Detiene el contador de daño cuando el jugador se va
+		damage_timer.stop()
+		player_target = null # Opcional: limpiar la referencia
+
+# La función del Timer se mantiene simple, ya que el Timer solo corre cuando el jugador está dentro
+func _on_damage_timer_timeout() -> void:
+	# Verificamos si la referencia al jugador todavía existe
+	if player_target:
+		player_target.beaten()
+		GameState.current_player_changed.emit()

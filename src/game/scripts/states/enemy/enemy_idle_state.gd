@@ -25,8 +25,3 @@ func physics_update(_delta: float) -> void:
 	
 	if enemy.is_on_floor():
 		enemy.jumps_left = enemy.max_jumps
-
-
-func _on_audio_stream_timer_timeout() -> void:
-	if enemy: 
-		enemy.play_idle_sound()

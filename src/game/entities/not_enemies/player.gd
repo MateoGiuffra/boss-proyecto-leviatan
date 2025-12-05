@@ -17,9 +17,13 @@ var hp: int = max_hp
 # oxigeno
 @export var max_oxygen: float = 100
 var oxygen: float = 100
-@onready var oxygen_bar: ProgressBar = $OxygenBar
+@onready var oxygen_bar: ProgressBar = $Pivot/OxygenBar
 
-@onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
+# visual
+@onready var pivot: Node2D = $Pivot
+@onready var animated_player: AnimatedSprite2D = $Pivot/AnimatedPlayer
+
+
 @onready var state_machine = $StateMachine
 @onready var inventory: Inventory = $Inventory
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
@@ -35,7 +39,12 @@ var oxygen: float = 100
 @onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
 # timers
 @onready var h20_timer: Timer = $Timers/H20Timer
-
+# shaders
+@onready var oxygen_overlay: ColorRect = $CanvasLayer/ColorRectOxygenMark
+@onready var damage_overlay: ColorRect = $CanvasLayer/ColorRectDamage
+const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -29.656)
+const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
+var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 
 # Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
 var movement_direction: int
@@ -70,6 +79,13 @@ func set_oxygen_bar_initial_values() -> void:
 	self.oxygen_bar.min_value = 0
 	self.oxygen_bar.max_value = self.max_oxygen
 	self.oxygen_bar.value = self.max_oxygen
+	set_oxygen_bar_idle_position()
+
+func set_oxygen_bar_idle_position() -> void:
+	pass
+	
+func set_oxygen_bar_moving_position() -> void:
+	pass
 
 func _physics_process(_delta: float) -> void:
 	if !is_on_floor() and not swimming_sound.playing:
@@ -112,27 +128,26 @@ func _on_item_detector_area_entered(area: Area2D):
 		if inventory.pick_up_item(world_item_data):
 			area.queue_free()
 			print("Recogido: ", world_item_data.id)
-	
 
 	
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
 	jump = Input.is_action_just_pressed("saltar")
 	_check_double_tap(Input.is_action_just_pressed("dash"))
-	flip_sprite(movement_direction)
+	_update_visuals(movement_direction)
 	
 func play_animation(animation_name: StringName)-> void:
 	# Función expuesta para que los estados puedan controlar la animación
 	if animated_player.sprite_frames.has_animation(animation_name):
 		animated_player.play(animation_name)
 	
-func flip_sprite(direction: int) -> void:
+func _update_visuals(direction: int) -> void:
 	if direction != 0:
-		animated_player.flip_h = direction < 0
-		if direction > 0:
-			oxygen_bar.position.x = -abs(oxygen_bar.position.x)
-		else:
-			oxygen_bar.position.x = abs(oxygen_bar.position.x)
+		var is_left := direction < 0
+		pivot.scale.x = -1.0 if is_left else 1.0
+		oxygen_bar.position.y = -37.826
+	else: 
+		oxygen_bar.position.y = -29.826
 		
 # dash (Debería moverse al PlayerDashState, pero lo mantengo aquí por ahora)
 func _check_double_tap(is_dashing: bool) -> void:
@@ -210,7 +225,7 @@ func show_come_back_message() -> void:
 	var tween = create_tween()
 	tween.tween_property(come_back_label, "modulate:a", 1.0, 0.5)
 
-# funciones claves como win, lost, die etc
+# funciones claves como win, lost, beaten etc
 func win() -> void:
 	hide_label(come_back_label)
 	hide()
@@ -227,14 +242,28 @@ func die_finish() -> void:
 	hide()
 	queue_free()
 	
-func die() -> void:
+func beaten() -> void:
 	hp -= 1
+	damage_flash()
 	print("sacar vida")
 	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
 	life_to_remove.queue_free()
 	
 	if hp <= 0:
 		die_finish()
+
+func damage_flash():
+	var mat = damage_overlay.material
+	# aseguramos que arranca en 1
+	mat.set_shader_parameter("intensity", 1.0)
+
+	var tween := get_tree().create_tween()
+	# va de 1 a 0 en 0.25 segundos
+	tween.tween_method(
+		func(v): mat.set_shader_parameter("intensity", v),
+		1.0, 0.0, 0.75
+	)
+
 	
 func sum_hp(amount: int) -> void:
 	hp = clamp(hp + amount, 0, max_hp)
@@ -261,5 +290,33 @@ func add_oxygen(new_oxygen: int) -> void:
 func update_oxygen_bar() -> void: 
 	var tween = get_tree().create_tween()
 	tween.tween_property(oxygen_bar, "value", oxygen, 0.2)
+	update_oxygen_overlay()
 	
+func update_oxygen_overlay() -> void:
+	var shader = oxygen_overlay.material
+	shader.set_shader_parameter("intensity", 1.0 - (oxygen / max_oxygen))
+
+# messages
+func get_defeat_message() -> String:
+	var die_messages: Array[String] = [
+		"¡Has sido devorado!", 
+		"¡Tu alma ha sido reclamada!",
+		"¡El vacío te consumió!",
+		"¡Has caído en combate!"
+	]
 	
+	var oxygen_messages: Array[String] = [
+		"¡Te quedaste sin oxígeno!",
+		"¡El aire te falló!",
+		"¡No pudiste contener la respiración!",
+		"¡La presión te ahogó!",
+		"¡Tus pulmones no resistieron!"
+	]
+	
+	if hp <= 0:	
+		return die_messages.pick_random()
+	elif oxygen <= 0:	
+		return oxygen_messages.pick_random()
+	else:
+		return "¡Tu alma ha sido reclamada!"
+		

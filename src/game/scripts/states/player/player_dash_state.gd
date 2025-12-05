@@ -10,6 +10,7 @@ func get_input() -> void:
 	pass
 	
 func enter() -> void:
+	player.set_oxygen_bar_idle_position()
 	player.finish_colddown_dash = false
 	player.velocity += Vector2(player.movement_direction, 0).normalized() * player.dash_speed
 	dash_cold_down.start()

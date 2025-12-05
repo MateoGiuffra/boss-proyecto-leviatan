@@ -5,8 +5,8 @@ extends State
 
 @onready var double_tap_timer: Timer = $"../../Timers/DoubleTapTimer"
 @onready var dash_timer: Timer = $"../../Timers/DashTimer"
-@onready var animated_player: AnimatedSprite2D = $"../../AnimatedPlayer"
 @onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
+@onready var animated_player: AnimatedSprite2D = $"../../Pivot/AnimatedPlayer"
 
 # Lista de sonidos posibles (asignar en el editor)
 @export var step_sounds: Array[AudioStream] = []
@@ -24,6 +24,7 @@ func enter() -> void:
 	player.is_dashing = false
 	player.waiting_second_tap = false
 	_waiting_to_play = false
+	player.set_oxygen_bar_moving_position()
 
 	if not animated_player.is_connected("frame_changed", Callable(self, "_on_frame_changed")):
 		animated_player.connect("frame_changed", Callable(self, "_on_frame_changed"))

@@ -1,7 +1,7 @@
 class_name PlayerIdleState extends State
 
 @onready var player: CharacterBody2D = $"../.."
-@onready var animated_player: AnimatedSprite2D = $"../../AnimatedPlayer"
+@onready var animated_player: AnimatedSprite2D = $"../../Pivot/AnimatedPlayer"
 @onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
 
 var movement_direction: int
@@ -9,6 +9,7 @@ var movement_direction: int
 func enter() -> void: 
 	movement_direction = 0
 	step_sound.stop()
+	player.set_oxygen_bar_idle_position()
 
 func exit() -> void:
 	pass

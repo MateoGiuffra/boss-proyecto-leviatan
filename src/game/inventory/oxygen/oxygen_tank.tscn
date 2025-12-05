@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b72el8mfxgrj"]
+[gd_scene load_steps=8 format=3 uid="uid://b72el8mfxgrj"]
 
 [ext_resource type="Script" uid="uid://cvwet18ggi04m" path="res://src/game/inventory/oxygen/oxygen_tank.gd" id="1_xat8t"]
 [ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="2_1rl5j"]
+[ext_resource type="AudioStream" uid="uid://db325xw786g77" path="res://assets/sound/items/pick_up_mc.mp3" id="3_1rl5j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c7evs"]
 animations = [{
@@ -18,6 +19,21 @@ animations = [{
 radius = 6.0
 height = 20.0
 
+[sub_resource type="Gradient" id="Gradient_bnhqw"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.5405405)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xat8t"]
+gradient = SubResource("Gradient_bnhqw")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
 [node name="OxygenTank" type="Area2D"]
 collision_layer = 7
 collision_mask = 4
@@ -32,4 +48,24 @@ animation = &"idle"
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_rj7e0")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture_filter = 1
+position = Vector2(30, 16)
+scale = Vector2(2, 2)
+color = Color(0.64460224, 0.06643487, 0.19325373, 1)
+energy = 1.4
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.9254902)
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = SubResource("GradientTexture2D_xat8t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1rl5j")
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]

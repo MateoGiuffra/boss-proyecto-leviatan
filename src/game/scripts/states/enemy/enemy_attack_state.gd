@@ -1,6 +1,4 @@
 class_name EnemyAttackState extends State
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../../AudioStreamPlayer2D"
-
 @onready var enemy: Enemy = $"../.."
 
 func get_input():
@@ -9,7 +7,6 @@ func get_input():
 func enter() -> void:
 	enemy.movement_direction = 0
 	enemy.makepath()
-	audio_stream_player_2d.play()
 
 func exit() -> void:
 	enemy.movement_direction = 0

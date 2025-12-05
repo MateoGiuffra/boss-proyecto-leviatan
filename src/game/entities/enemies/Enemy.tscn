@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cey4wuep5drty"]
+[gd_scene load_steps=20 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
 [ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
 [ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/state_machine.gd" id="2_82qr8"]
 [ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/enemy_idle_state.gd" id="3_rfvys"]
 [ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/enemy_attack_state.gd" id="4_i8idp"]
-[ext_resource type="AudioStream" uid="uid://cnqliwfxd2wjv" path="res://assets/sound/enemy/idle/baby_talk.mp3" id="6_g3j4e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
 size = Vector2(34, 16.5)
@@ -119,12 +118,6 @@ movement_speed_limit = 200.0
 gravity = 600.0
 jump_speed = 250
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_g3j4e")
-volume_db = -14.137
-panning_strength = 1.79
-bus = &"Enemies"
-
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_mask = 4
 
@@ -168,14 +161,7 @@ script = ExtResource("3_rfvys")
 [node name="EnemyAttackState" type="Node" parent="StateMachine"]
 script = ExtResource("4_i8idp")
 
-[node name="TimerMakePath" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
-[node name="TimerSound" type="Timer" parent="."]
-wait_time = 6.147
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture_filter = 1
@@ -189,12 +175,17 @@ shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_7phyx")
 metadata/_edit_group_ = true
 
-[node name="AudioStreamTimer" type="Timer" parent="."]
-wait_time = 12.358
+[node name="Timers" type="Node" parent="."]
+
+[node name="DamageTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="TimerMakePath" type="Timer" parent="Timers"]
+wait_time = 0.5
+autostart = true
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]
 [connection signal="animation_looped" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_looped"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="timeout" from="TimerMakePath" to="." method="_on_timer_make_path_timeout"]
-[connection signal="timeout" from="AudioStreamTimer" to="StateMachine/EnemyIdleState" method="_on_audio_stream_timer_timeout"]
+[connection signal="timeout" from="Timers/TimerMakePath" to="." method="_on_timer_make_path_timeout"]

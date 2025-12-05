@@ -40,7 +40,8 @@ func enter() -> void:
 	swim_boost_cold_down.start()
 	player.emit_particles(-90)
 	_play_jump_with_random_effect()
-
+	player.set_oxygen_bar_moving_position()
+	
 func exit() -> void:
 	pass
 	
