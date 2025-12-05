@@ -4,14 +4,14 @@ class_name Enemy
 @onready var animated_enemy_2d: AnimatedSprite2D = $AnimatedEnemy2D
 @onready var state_machine: Node = $StateMachine
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var timer_sound: Timer = $TimerSound
+# raycasts: 
+@onready var always_up_ray_cast_2d: RayCast2D = $DetectionArea/AlwaysUpRayCast2D
+@onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
 
-
-@export var min_wait_time_idle_sound: float = 12.5
-@export var max_wait_time_idle_sound: float = 100
-@export var idle_sound: AudioStreamMP3
+#movements
+var on_ceiling := false
 @export var acceleration: float = 3750.0
 @export var movement_speed_limit: float = 300.0
 @export var friction_weight: float = 6.25 	
@@ -19,6 +19,13 @@ class_name Enemy
 @export var jump_speed: int = 450
 @export var follow_distance:float = 200
 @export var max_jumps: int = 2
+
+# timers
+@export var min_wait_time_idle_sound: float = 12.5
+@export var max_wait_time_idle_sound: float = 100
+
+#sounds
+@export var idle_sound: AudioStreamMP3
 
 var jumps_left: int = max_jumps
 
@@ -36,15 +43,34 @@ func _ready() -> void:
 	self.set_time_to_timer_sound(min_wait_time_idle_sound)
 
 func _physics_process(_delta: float) -> void:
+	update_orientation()
 	if want_moving():
 		_play_animation("walk")
 		animated_enemy_2d.flip_h = movement_direction < 0
 	else:
 		_play_animation("idle")
+	
 	aim_to_player()
 	move_and_slide()
+
+func update_orientation() -> void:
+	var colliding_ceiling := is_colliding_up()
 	
+	if colliding_ceiling and not on_ceiling:
+		on_ceiling = true
+		# Opción A: flip vertical
+		animated_enemy_2d.flip_v = true
+		# Si preferís rotación en vez de flip:
+		# animated_enemy_2d.rotation_degrees = 180
+		
+	elif not colliding_ceiling and on_ceiling:
+		on_ceiling = false
+		animated_enemy_2d.flip_v = false
+		# animated_enemy_2d.rotation_degrees = 0
+
 	
+func is_colliding_up() -> bool: 
+	return always_up_ray_cast_2d.is_colliding()	
 
 func want_moving():
 	return movement_direction != 0
@@ -67,27 +93,22 @@ func makepath() -> void:
 
 
 
-func navigate(delta) -> void:
+func navigate(delta):
 	if nav_agent.is_navigation_finished():
 		movement_direction = 0
+		velocity.x = lerp(velocity.x, 0.0, delta * 8.0)
 		return
 		
 	var next_path_point = nav_agent.get_next_path_position()
-	var direction_to_next_point = global_position.direction_to(next_path_point)
+	var dir = (next_path_point - global_position).normalized()
 	
-	var height_difference = next_path_point.y - global_position.y
-	var horizontal_distance = abs(next_path_point.x - global_position.x)
+	# Movimiento horizontal solamente
+	velocity.x = dir.x * movement_speed_limit
 	
-	if height_difference < JUMP_HEIGHT_THRESHOLD and horizontal_distance < JUMP_DIST_THRESHOLD:
-		if is_on_floor() and jumps_left > 0:
-			velocity.y = -jump_speed
-			jumps_left -= 1
-	
-	movement_direction = sign(direction_to_next_point.x)
-	var new_velocity_x = move_toward(velocity.x, direction_to_next_point.x * movement_speed_limit, acceleration * delta)
-	velocity.x = new_velocity_x
-	
-	nav_agent.set_velocity(velocity)
+	# Movimiento vertical → dejarlo a la física
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
 
 func aim_to_player():
 	if player_target:
@@ -113,6 +134,8 @@ func can_follow() -> bool:
 		return false
 	
 	return true
+
+
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):	
