@@ -220,6 +220,7 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_mxmr8")
 theme_override_font_sizes/font_size = 29
 text = "Siguiente"
+script = ExtResource("4_0mrxt")
 
 [node name="Tutorial" type="Control" parent="."]
 layout_mode = 1
