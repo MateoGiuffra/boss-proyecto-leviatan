@@ -112,6 +112,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
 
 [node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_i8idp")
 acceleration = 1500.0
 movement_speed_limit = 200.0
@@ -167,7 +168,7 @@ script = ExtResource("4_i8idp")
 texture_filter = 1
 position = Vector2(0, -4)
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
-energy = 1.4
+energy = 0.81
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1

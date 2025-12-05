@@ -319,7 +319,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="H20Timer" type="Timer" parent="Timers"]
-wait_time = 10.0
+wait_time = 7.0
 autostart = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

@@ -296,27 +296,5 @@ func update_oxygen_overlay() -> void:
 	var shader = oxygen_overlay.material
 	shader.set_shader_parameter("intensity", 1.0 - (oxygen / max_oxygen))
 
-# messages
-func get_defeat_message() -> String:
-	var die_messages: Array[String] = [
-		"¡Has sido devorado!", 
-		"¡Tu alma ha sido reclamada!",
-		"¡El vacío te consumió!",
-		"¡Has caído en combate!"
-	]
-	
-	var oxygen_messages: Array[String] = [
-		"¡Te quedaste sin oxígeno!",
-		"¡El aire te falló!",
-		"¡No pudiste contener la respiración!",
-		"¡La presión te ahogó!",
-		"¡Tus pulmones no resistieron!"
-	]
-	
-	if hp <= 0:	
-		return die_messages.pick_random()
-	elif oxygen <= 0:	
-		return oxygen_messages.pick_random()
-	else:
-		return "¡Tu alma ha sido reclamada!"
+
 		
