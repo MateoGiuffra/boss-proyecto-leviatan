@@ -14,9 +14,10 @@ class_name Player
 # salud
 @export var max_hp: int = 3
 var hp: int = max_hp
-
+# oxigeno
 @export var max_oxygen: float = 100
 var oxygen: float = 100
+@onready var oxygen_bar: ProgressBar = $OxygenBar
 
 @onready var animated_player: AnimatedSprite2D = $AnimatedPlayer
 @onready var state_machine = $StateMachine
@@ -62,7 +63,13 @@ func _ready():
 	particles.emitting = false
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
+	set_oxygen_bar_initial_values()
 	GameState.set_current_player(self)
+
+func set_oxygen_bar_initial_values() -> void:
+	self.oxygen_bar.min_value = 0
+	self.oxygen_bar.max_value = self.max_oxygen
+	self.oxygen_bar.value = self.max_oxygen
 
 func _physics_process(_delta: float) -> void:
 	if !is_on_floor() and not swimming_sound.playing:
@@ -122,6 +129,10 @@ func play_animation(animation_name: StringName)-> void:
 func flip_sprite(direction: int) -> void:
 	if direction != 0:
 		animated_player.flip_h = direction < 0
+		if direction > 0:
+			oxygen_bar.position.x = -abs(oxygen_bar.position.x)
+		else:
+			oxygen_bar.position.x = abs(oxygen_bar.position.x)
 		
 # dash (Debería moverse al PlayerDashState, pero lo mantengo aquí por ahora)
 func _check_double_tap(is_dashing: bool) -> void:
@@ -222,7 +233,7 @@ func die() -> void:
 	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
 	life_to_remove.queue_free()
 	
-	if hp == 0:
+	if hp <= 0:
 		die_finish()
 	
 func sum_hp(amount: int) -> void:
@@ -235,9 +246,20 @@ func is_dead():
 
 # h20 
 func _on_h_20_timer_timeout() -> void:
-	self.oxygen -= 10 
+	lose_oxygen(10)
 	h20_timer.start()
 	print(oxygen)
 
+func lose_oxygen(oxygen: int )-> void: 
+	self.oxygen -= 10 
+	update_oxygen_bar()
+	
 func add_oxygen(new_oxygen: int) -> void:
 	self.oxygen = min(self.oxygen + new_oxygen, max_oxygen)
+	update_oxygen_bar()
+
+func update_oxygen_bar() -> void: 
+	var tween = get_tree().create_tween()
+	tween.tween_property(oxygen_bar, "value", oxygen, 0.2)
+	
+	
