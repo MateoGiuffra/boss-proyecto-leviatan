@@ -164,9 +164,10 @@ script = ExtResource("4_i8idp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
 position = Vector2(0, -4)
+enabled = false
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
 energy = 0.81
 shadow_enabled = true

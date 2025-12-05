@@ -48,10 +48,11 @@ animation = &"idle"
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_rj7e0")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
 position = Vector2(30, 16)
 scale = Vector2(2, 2)
+enabled = false
 color = Color(0.64460224, 0.06643487, 0.19325373, 1)
 energy = 0.81
 shadow_enabled = true

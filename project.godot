@@ -42,7 +42,7 @@ window/size/window_width_override=1360
 window/size/window_height_override=920
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/vsync/vsync_mode=2
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
@@ -64,6 +64,7 @@ folder_colors={
 ui_layer=""
 Player="Para validar si es el player el objeto con el cual se esta trabajando"
 ButtonUI=""
+dynamic_light="Grupo para guardar todas las luces que se van prendiendo de forma dinamica al acercarse el jugador a ellas"
 
 [gui]
 

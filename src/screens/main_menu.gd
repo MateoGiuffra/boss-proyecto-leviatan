@@ -22,9 +22,16 @@ extends Node
 @onready var audio_background_menu: AudioStreamPlayer = $Sound/AudioBackgroundMenu
 
 
+@export var enable_distance := 1000.0
+
+var lights: Array[Light2D] = []
+
 func _ready() -> void:
 	InputMapLoader.load_input_map()
 	Input.set_custom_mouse_cursor(load("res://assets/textures/cursor/cursor.png"))
+	
+
+
 
 
 func _on_start_button_pressed() -> void:
