@@ -1,6 +1,7 @@
 # WorldItem.gd
 extends Area2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var pick_up_sound: AudioStreamPlayer2D = $PickUpSound
 
 
 # 🎯 Definimos un tamaño objetivo para el sprite en píxeles de Godot
@@ -9,11 +10,13 @@ const TARGET_SIZE: Vector2 = Vector2(32, 32)
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-
 @export var item_data: ItemData:
 	set(value):
 		item_data = value
 		_update_visuals()
+
+func _ready() -> void:
+	item_data.play_pickup_sound.connect(pick_up_sound.play)
 
 func _physics_process(delta: float) -> void:
 	animation_player.play("idle")

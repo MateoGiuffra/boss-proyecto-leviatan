@@ -8,6 +8,8 @@ class_name ItemData extends Resource
 @export var actual_amount = 0
 @export var max_amount = 10
 
+signal play_pickup_sound 
+
 func is_stackeable() -> bool:
 	return stackeable
 
@@ -32,6 +34,8 @@ func add_to_inventory(inventory: Inventory, item_id: String = "empty") -> bool:
 func collect_item():
 	if stackeable and self.actual_amount < self.max_amount:
 		actual_amount += 1
+		emit_signal("play_pickup_sound")
 		return true
+		
 	return false
 	

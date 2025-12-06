@@ -7,7 +7,13 @@ extends Control
 @onready var dash_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3/DashKey
 @onready var left_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LeftKey
 @onready var right_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/RightKey
+@onready var story_image: Sprite2D = $StoryImage
+const STORY_FIRST_IMAGE = preload("uid://ck8lx3g0527a5")
+const STORY_SECOND_IMAGE = preload("uid://dwlqg7sx7rukj")
+const STORY_THIRD_IMAGE = preload("uid://citg5j5o6461o")
+const STOTY_FOURTH_IMAGE = preload("uid://cdqa4d2xua8lj")
 
+var images: Array[Resource] = [STORY_FIRST_IMAGE, STORY_SECOND_IMAGE, STORY_THIRD_IMAGE, STOTY_FOURTH_IMAGE]
 var keys: Array[Label] = [jump_key, dash_key, left_key, right_key]
 
 var fragments = []
@@ -54,7 +60,8 @@ func set_current_movement_key(key_binding: String, label: Label, ) -> void:
 func show_fragment(index):
 	for i in range(fragments.size()):
 		fragments[i].visible = (i == index)
-
+	
+	story_image.texture = images[index]
 	texts = fragments[index].get_node("VBoxTexts")
 	button = fragments[index].get_node("NextScene")
 	texts.play_fade()
