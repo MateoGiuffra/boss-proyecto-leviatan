@@ -42,7 +42,7 @@ var oxygen: float = 100
 # shaders
 @onready var oxygen_overlay: ColorRect = $CanvasLayer/ColorRectOxygenMark
 @onready var damage_overlay: ColorRect = $CanvasLayer/ColorRectDamage
-const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -29.656)
+const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
 const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
 var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 
@@ -67,8 +67,10 @@ func _ready():
 	if inventory_ui != null:
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
-		
-		
+	
+	oxygen_bar.show()
+	animated_player.scale.x = 4
+	animated_player.scale.y = 4
 	particles.emitting = false
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
@@ -173,20 +175,46 @@ func _on_double_tap_timer_timeout() -> void:
 func _on_dash_cold_down_timeout() -> void:
 	finish_colddown_dash = true
 	particles_timer.start()
+	
+# moving
 
-# moving player
 func want_moving() -> bool:
 	return movement_direction != 0
-	
-# Estas funciones de movimiento y detención son usadas por la state machine.
-func move_player(_delta: float):
-	var current_movement_speed = velocity.x + (movement_direction * acceleration * _delta)
-	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
-	play_animation("walk")
 
-func stop_player(_delta: float):
-	velocity.x = lerp(velocity.x, 0.0, friction_weight * _delta) if abs(velocity.x) > 1 else 0
-	play_animation("idle")
+func move_player(delta: float) -> void:
+	var current_movement_speed = velocity.x + (movement_direction * acceleration * delta)
+	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
+
+	if is_dashing:
+		play_animation("dash")
+		return
+
+	if not is_on_floor():
+		if velocity.y < 0.0:
+			play_animation("jump")  
+		else:
+			play_animation("fall")  
+	else:
+		if want_moving():
+			play_animation("walk")
+		else:
+			play_animation("idle")
+
+func stop_player(delta: float) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, friction_weight * delta)
+
+	if is_dashing:
+		play_animation("dash")
+		return
+
+	if is_on_floor():
+		play_animation("idle")
+	else:
+		if velocity.y < 0.0:
+			play_animation("jump")
+		else:
+			play_animation("fall")
+
 
 func can_use_swim_boost() -> bool:
 	return count_swim_boost > 0 && jump && finish_colddown_swim_boost
@@ -230,6 +258,9 @@ func win() -> void:
 	hide_label(come_back_label)
 	hide()
 
+# funciones relacionadas al daño y la muerte
+func is_dead():
+	return hp <= 0 or oxygen <= 0
 
 func die_finish() -> void: 
 	var new_parent = get_parent()
@@ -237,28 +268,33 @@ func die_finish() -> void:
 	new_parent.add_child(camera) 
 	remove_child(point_light_2d) 
 	new_parent.add_child(point_light_2d)
+	animated_player.scale.x = 8
+	animated_player.scale.y = 8
+	oxygen_bar.hide()
+	play_animation("die")
+
+func _on_animated_player_animation_finished() -> void:
 	# --- Lógica de Muerte del Player ---
 	hp = 0
 	hide()
-	queue_free()
-	
+	queue_free() 
+
 func beaten() -> void:
 	hp -= 1
 	damage_flash()
 	print("sacar vida")
-	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
-	life_to_remove.queue_free()
+	#var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
+	#life_to_remove.queue_free()
 	
 	if hp <= 0:
 		die_finish()
 
 func damage_flash():
 	var mat = damage_overlay.material
-	# aseguramos que arranca en 1
+	
 	mat.set_shader_parameter("intensity", 1.0)
 
 	var tween := get_tree().create_tween()
-	# va de 1 a 0 en 0.25 segundos
 	tween.tween_method(
 		func(v): mat.set_shader_parameter("intensity", v),
 		1.0, 0.0, 0.75
@@ -269,9 +305,6 @@ func sum_hp(amount: int) -> void:
 	hp = clamp(hp + amount, 0, max_hp)
 	hp_changed.emit(hp, max_hp)
 	print("hp_changed %s %s" % [hp, max_hp])	
-
-func is_dead():
-	return hp <= 0 or oxygen <= 0
 
 # h20 
 func _on_h_20_timer_timeout() -> void:
@@ -295,6 +328,3 @@ func update_oxygen_bar() -> void:
 func update_oxygen_overlay() -> void:
 	var shader = oxygen_overlay.material
 	shader.set_shader_parameter("intensity", 1.0 - (oxygen / max_oxygen))
-
-
-		
