@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkvkfm8rg4l0e"]
+[gd_scene load_steps=16 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://cjmuskb8u4ges" path="res://src/game/levels/level_01/my_tail_map.tscn" id="3_5rfnw"]
 [ext_resource type="PackedScene" uid="uid://bldqwktb618w7" path="res://src/game/inventory/ui/inventory_ui.tscn" id="3_i5t0w"]
+[ext_resource type="PackedScene" uid="uid://bvmo3x0lj3fqv" path="res://src/game/levels/chunk/chunk.tscn" id="3_yrqp0"]
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://src/game/inventory/world_item/world_item.tscn" id="7_5rfnw"]
@@ -11,13 +12,24 @@
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqwp2"]
+size = Vector2(3302, 1135.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yrqp0"]
+size = Vector2(3699.5, 1408.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdsmj"]
+size = Vector2(2108.5, 2727.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i53je"]
+size = Vector2(3718.5, 1387.75)
+
 [node name="Level01" node_paths=PackedStringArray("initial_player_position") instance=ExtResource("1_f30rv")]
 initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
 [node name="Goal" parent="." index="1" node_paths=PackedStringArray("boss")]
-visible = false
 position = Vector2(1, 349)
 boss = NodePath("../Boss")
 
@@ -72,235 +84,173 @@ expand_mode = 2
 size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
-[node name="Enemies" type="Node2D" parent="." index="7"]
-
-[node name="Enemy" parent="Enemies" index="0" instance=ExtResource("6_i5t0w")]
-position = Vector2(1984, 374)
-
-[node name="Enemy2" parent="Enemies" index="1" instance=ExtResource("6_i5t0w")]
-position = Vector2(2744, -160)
-
-[node name="Enemy3" parent="Enemies" index="2" instance=ExtResource("6_i5t0w")]
-position = Vector2(2407, -339)
-
-[node name="Enemy10" parent="Enemies" index="3" instance=ExtResource("6_i5t0w")]
-position = Vector2(3811, -748)
-
-[node name="Enemy11" parent="Enemies" index="4" instance=ExtResource("6_i5t0w")]
-position = Vector2(5641, -207)
-
-[node name="Enemy12" parent="Enemies" index="5" instance=ExtResource("6_i5t0w")]
-position = Vector2(6513, -51)
-
-[node name="Enemy13" parent="Enemies" index="6" instance=ExtResource("6_i5t0w")]
-position = Vector2(6513, -1558)
-
-[node name="Enemy14" parent="Enemies" index="7" instance=ExtResource("6_i5t0w")]
-position = Vector2(6018, -2147)
-
-[node name="Enemy15" parent="Enemies" index="8" instance=ExtResource("6_i5t0w")]
-position = Vector2(6546, -2786)
-
-[node name="Enemy16" parent="Enemies" index="9" instance=ExtResource("6_i5t0w")]
-position = Vector2(4869, -3279)
-
-[node name="Enemy5" parent="Enemies" index="10" instance=ExtResource("6_i5t0w")]
-position = Vector2(3631, -1587)
-
-[node name="Enemy6" parent="Enemies" index="11" instance=ExtResource("6_i5t0w")]
-position = Vector2(3006, -2129)
-
-[node name="Enemy7" parent="Enemies" index="12" instance=ExtResource("6_i5t0w")]
-position = Vector2(3306, -2481)
-
-[node name="Enemy8" parent="Enemies" index="13" instance=ExtResource("6_i5t0w")]
-position = Vector2(4393, -2581)
-
-[node name="Enemy9" parent="Enemies" index="14" instance=ExtResource("6_i5t0w")]
-position = Vector2(2184, -2232)
-
-[node name="Enemy17" parent="Enemies" index="15" instance=ExtResource("6_i5t0w")]
-position = Vector2(2926, -1825)
-
-[node name="Enemy18" parent="Enemies" index="16" instance=ExtResource("6_i5t0w")]
-position = Vector2(2306, -1841)
-
-[node name="Enemy19" parent="Enemies" index="17" instance=ExtResource("6_i5t0w")]
-position = Vector2(2824, -2616)
-
-[node name="Enemy20" parent="Enemies" index="18" instance=ExtResource("6_i5t0w")]
-position = Vector2(2665, -1539)
-
-[node name="Enemy21" parent="Enemies" index="19" instance=ExtResource("6_i5t0w")]
-position = Vector2(3119, -1455)
-
-[node name="Enemy22" parent="Enemies" index="20" instance=ExtResource("6_i5t0w")]
-position = Vector2(2418, 182)
-
-[node name="Boss" parent="." index="8" instance=ExtResource("9_ctuea")]
+[node name="Boss" parent="." index="7" instance=ExtResource("9_ctuea")]
 position = Vector2(-1175, 611)
 
-[node name="CanvasModulate" parent="." index="9"]
+[node name="CanvasModulate" parent="." index="8"]
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
-[node name="ItemsContainer" type="Node2D" parent="." index="10"]
+[node name="Chunks" type="Node2D" parent="." index="9"]
 
-[node name="WorldItemsContainer" type="Node2D" parent="ItemsContainer" index="0"]
+[node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
+position = Vector2(1345, 417)
 
-[node name="WorldItem6" parent="ItemsContainer/WorldItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
-position = Vector2(1642, -1256)
+[node name="CollisionShape2D" parent="Chunks/Chunk01" index="0"]
+position = Vector2(641.5, -512.5)
 
-[node name="WorldItem7" parent="ItemsContainer/WorldItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
-position = Vector2(6087, -531)
+[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="0"]
 
-[node name="WorldItem8" parent="ItemsContainer/WorldItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem8" parent="Chunks/Chunk01/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
 position = Vector2(1936, -410)
 
-[node name="WorldItem15" parent="ItemsContainer/WorldItemsContainer" index="3" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem15" parent="Chunks/Chunk01/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
 position = Vector2(2477, -3)
 
-[node name="WorldItem23" parent="ItemsContainer/WorldItemsContainer" index="4" instance=ExtResource("7_5rfnw")]
-position = Vector2(2142, 289)
-
-[node name="WorldItem9" parent="ItemsContainer/WorldItemsContainer" index="5" instance=ExtResource("7_5rfnw")]
-position = Vector2(2592, -936)
-
-[node name="WorldItem12" parent="ItemsContainer/WorldItemsContainer" index="6" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem12" parent="Chunks/Chunk01/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
 position = Vector2(2416, -363)
 
-[node name="WorldItem11" parent="ItemsContainer/WorldItemsContainer" index="7" instance=ExtResource("7_5rfnw")]
-position = Vector2(3541, -771)
+[node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="1"]
 
-[node name="WorldItem13" parent="ItemsContainer/WorldItemsContainer" index="8" instance=ExtResource("7_5rfnw")]
-position = Vector2(3931, -1277)
+[node name="Enemy" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(636, -59)
 
-[node name="WorldItem16" parent="ItemsContainer/WorldItemsContainer" index="9" instance=ExtResource("7_5rfnw")]
-position = Vector2(2877, -681)
+[node name="Enemy2" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(1396, -593)
 
-[node name="WorldItem17" parent="ItemsContainer/WorldItemsContainer" index="10" instance=ExtResource("7_5rfnw")]
-position = Vector2(3914, -256)
+[node name="Enemy3" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(1059, -772)
 
-[node name="WorldItem2" parent="ItemsContainer/WorldItemsContainer" index="11" instance=ExtResource("7_5rfnw")]
-position = Vector2(3019, -860)
+[node name="Enemy22" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("6_i5t0w")]
+position = Vector2(1074, -251)
 
-[node name="WorldItem" parent="ItemsContainer/WorldItemsContainer" index="12" instance=ExtResource("7_5rfnw")]
-position = Vector2(5718, 176)
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="2"]
 
-[node name="WorldItem3" parent="ItemsContainer/WorldItemsContainer" index="13" instance=ExtResource("7_5rfnw")]
-position = Vector2(4162, -2010)
+[node name="OxygenTank_01" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
+position = Vector2(558, -269)
 
-[node name="WorldItem4" parent="ItemsContainer/WorldItemsContainer" index="14" instance=ExtResource("7_5rfnw")]
-position = Vector2(5657, -1895)
+[node name="OxygenTank_02" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
+position = Vector2(591, -1043)
 
-[node name="WorldItem5" parent="ItemsContainer/WorldItemsContainer" index="15" instance=ExtResource("7_5rfnw")]
-position = Vector2(4722, -1324)
+[node name="OxygenTank_03" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
+position = Vector2(1243, -236)
 
-[node name="WorldItem14" parent="ItemsContainer/WorldItemsContainer" index="16" instance=ExtResource("7_5rfnw")]
-position = Vector2(2765, -1328)
+[node name="OxygenTank_04" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
+position = Vector2(1874, -721)
 
-[node name="OxygenTankContainer" type="Node2D" parent="ItemsContainer" index="1"]
+[node name="Chunk02" parent="Chunks" index="1" instance=ExtResource("3_yrqp0")]
 
-[node name="OxygenTank" parent="ItemsContainer/OxygenTankContainer" index="0" instance=ExtResource("11_yrqp0")]
-position = Vector2(1509, 391)
+[node name="CollisionShape2D" parent="Chunks/Chunk02" index="0"]
+position = Vector2(5483, -135.125)
+shape = SubResource("RectangleShape2D_mqwp2")
 
-[node name="OxygenTank2" parent="ItemsContainer/OxygenTankContainer" index="1" instance=ExtResource("11_yrqp0")]
-position = Vector2(1998, 134)
+[node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk02/EntitiesContainer" index="0"]
 
-[node name="OxygenTank3" parent="ItemsContainer/OxygenTankContainer" index="2" instance=ExtResource("11_yrqp0")]
-position = Vector2(1984, -70)
+[node name="EnemyChunk02_01" parent="Chunks/Chunk02/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(5641, -207)
 
-[node name="OxygenTank4" parent="ItemsContainer/OxygenTankContainer" index="3" instance=ExtResource("11_yrqp0")]
-position = Vector2(1544, -284)
+[node name="EnemyChunk02_02" parent="Chunks/Chunk02/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(6137, -148)
 
-[node name="OxygenTank5" parent="ItemsContainer/OxygenTankContainer" index="4" instance=ExtResource("11_yrqp0")]
-position = Vector2(1947, -374)
+[node name="EnemyChunk02_03" parent="Chunks/Chunk02/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(5762, 174)
 
-[node name="OxygenTank6" parent="ItemsContainer/OxygenTankContainer" index="5" instance=ExtResource("11_yrqp0")]
-position = Vector2(3000, -308)
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk02/EntitiesContainer" index="1"]
 
-[node name="OxygenTank7" parent="ItemsContainer/OxygenTankContainer" index="6" instance=ExtResource("11_yrqp0")]
-position = Vector2(2070, -840)
+[node name="Chunk03" parent="Chunks" index="2" instance=ExtResource("3_yrqp0")]
 
-[node name="OxygenTank8" parent="ItemsContainer/OxygenTankContainer" index="7" instance=ExtResource("11_yrqp0")]
-position = Vector2(1926, -1344)
+[node name="CollisionShape2D" parent="Chunks/Chunk03" index="0"]
+position = Vector2(3178.25, -1402.625)
+shape = SubResource("RectangleShape2D_yrqp0")
 
-[node name="OxygenTank9" parent="ItemsContainer/OxygenTankContainer" index="8" instance=ExtResource("11_yrqp0")]
-position = Vector2(1613, -1593)
+[node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="0"]
 
-[node name="OxygenTank10" parent="ItemsContainer/OxygenTankContainer" index="9" instance=ExtResource("11_yrqp0")]
-position = Vector2(1658, -2013)
+[node name="EnemyChunk03_01" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(2808.0002, -1690)
 
-[node name="OxygenTank11" parent="ItemsContainer/OxygenTankContainer" index="10" instance=ExtResource("11_yrqp0")]
-position = Vector2(2753, -1942)
+[node name="EnemyChunk03_02" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(3116.0002, -1470.0001)
 
-[node name="OxygenTank12" parent="ItemsContainer/OxygenTankContainer" index="11" instance=ExtResource("11_yrqp0")]
-position = Vector2(3034, -1301)
+[node name="EnemyChunk03_03" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(3855, -1722.0001)
 
-[node name="OxygenTank13" parent="ItemsContainer/OxygenTankContainer" index="12" instance=ExtResource("11_yrqp0")]
-position = Vector2(4528, -1642)
+[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="1"]
 
-[node name="OxygenTank27" parent="ItemsContainer/OxygenTankContainer" index="13" instance=ExtResource("11_yrqp0")]
-position = Vector2(4705, -1027)
+[node name="WorldItem_01" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
+position = Vector2(2745, -1078)
 
-[node name="OxygenTank28" parent="ItemsContainer/OxygenTankContainer" index="14" instance=ExtResource("11_yrqp0")]
-position = Vector2(5148, -508)
+[node name="WorldItem_02" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
+position = Vector2(2428, -1752)
 
-[node name="OxygenTank29" parent="ItemsContainer/OxygenTankContainer" index="15" instance=ExtResource("11_yrqp0")]
-position = Vector2(4941, 188)
+[node name="WorldItem_03" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
+position = Vector2(3983, -1722)
 
-[node name="OxygenTank30" parent="ItemsContainer/OxygenTankContainer" index="16" instance=ExtResource("11_yrqp0")]
-position = Vector2(4031, 141)
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="2"]
 
-[node name="OxygenTank31" parent="ItemsContainer/OxygenTankContainer" index="17" instance=ExtResource("11_yrqp0")]
-position = Vector2(6087, 14)
+[node name="Chunk04" parent="Chunks" index="3" instance=ExtResource("3_yrqp0")]
+position = Vector2(-1816, -1709)
 
-[node name="OxygenTank32" parent="ItemsContainer/OxygenTankContainer" index="18" instance=ExtResource("11_yrqp0")]
-position = Vector2(6875, -8)
+[node name="CollisionShape2D" parent="Chunks/Chunk04" index="0"]
+position = Vector2(7896.75, -360.125)
+shape = SubResource("RectangleShape2D_pdsmj")
 
-[node name="OxygenTank33" parent="ItemsContainer/OxygenTankContainer" index="19" instance=ExtResource("11_yrqp0")]
-position = Vector2(6693, -359)
+[node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk04/EntitiesContainer" index="0"]
 
-[node name="OxygenTank34" parent="ItemsContainer/OxygenTankContainer" index="20" instance=ExtResource("11_yrqp0")]
-position = Vector2(6443, -644)
+[node name="EnemyChunk04_01" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(7901, -49)
 
-[node name="OxygenTank35" parent="ItemsContainer/OxygenTankContainer" index="21" instance=ExtResource("11_yrqp0")]
-position = Vector2(6526, -1050)
+[node name="EnemyChunk04_02" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(8282, 359)
 
-[node name="OxygenTank14" parent="ItemsContainer/OxygenTankContainer" index="22" instance=ExtResource("11_yrqp0")]
-position = Vector2(5195, -1627)
+[node name="EnemyChunk04_03" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(8516, -395)
 
-[node name="OxygenTank15" parent="ItemsContainer/OxygenTankContainer" index="23" instance=ExtResource("11_yrqp0")]
-position = Vector2(5928, -1756)
+[node name="EnemyChunk04_04" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("6_i5t0w")]
+position = Vector2(8295, -933)
 
-[node name="OxygenTank16" parent="ItemsContainer/OxygenTankContainer" index="24" instance=ExtResource("11_yrqp0")]
-position = Vector2(6179, -1599)
+[node name="EnemyChunk04_05" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="4" instance=ExtResource("6_i5t0w")]
+position = Vector2(7864, -1417)
 
-[node name="OxygenTank17" parent="ItemsContainer/OxygenTankContainer" index="25" instance=ExtResource("11_yrqp0")]
-position = Vector2(6511, -1533)
+[node name="EnemyChunk04_06" parent="Chunks/Chunk04/EntitiesContainer/EnemiesContainer" index="5" instance=ExtResource("6_i5t0w")]
+position = Vector2(7864, -1417)
 
-[node name="OxygenTank18" parent="ItemsContainer/OxygenTankContainer" index="26" instance=ExtResource("11_yrqp0")]
-position = Vector2(6676, -2099)
+[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk04/EntitiesContainer" index="1"]
 
-[node name="OxygenTank19" parent="ItemsContainer/OxygenTankContainer" index="27" instance=ExtResource("11_yrqp0")]
-position = Vector2(6528, -2665)
+[node name="WorldItem_01" parent="Chunks/Chunk04/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
+position = Vector2(8068, -64)
 
-[node name="OxygenTank20" parent="ItemsContainer/OxygenTankContainer" index="28" instance=ExtResource("11_yrqp0")]
-position = Vector2(6089, -2886)
+[node name="WorldItem_02" parent="Chunks/Chunk04/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
+position = Vector2(7859, -795)
 
-[node name="OxygenTank21" parent="ItemsContainer/OxygenTankContainer" index="29" instance=ExtResource("11_yrqp0")]
-position = Vector2(5317, -2772)
+[node name="WorldItem_03" parent="Chunks/Chunk04/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
+position = Vector2(8736, -666)
 
-[node name="OxygenTank22" parent="ItemsContainer/OxygenTankContainer" index="30" instance=ExtResource("11_yrqp0")]
-position = Vector2(4738, -3286)
+[node name="WorldItem_04" parent="Chunks/Chunk04/EntitiesContainer/ItemsContainer" index="3" instance=ExtResource("7_5rfnw")]
+position = Vector2(7324, 696)
 
-[node name="OxygenTank24" parent="ItemsContainer/OxygenTankContainer" index="31" instance=ExtResource("11_yrqp0")]
-position = Vector2(3546, -3104)
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk04/EntitiesContainer" index="2"]
 
-[node name="OxygenTank25" parent="ItemsContainer/OxygenTankContainer" index="32" instance=ExtResource("11_yrqp0")]
-position = Vector2(2281, -2969)
+[node name="Chunk05" parent="Chunks" index="4" instance=ExtResource("3_yrqp0")]
+position = Vector2(-1540, -2650)
 
-[node name="OxygenTank26" parent="ItemsContainer/OxygenTankContainer" index="33" instance=ExtResource("11_yrqp0")]
-position = Vector2(3597, -2370)
+[node name="CollisionShape2D" parent="Chunks/Chunk05" index="0"]
+position = Vector2(4706.25, -127.125)
+shape = SubResource("RectangleShape2D_i53je")
 
-[node name="OxygenTank23" parent="ItemsContainer/OxygenTankContainer" index="34" instance=ExtResource("11_yrqp0")]
-position = Vector2(6457, -3288)
+[node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="0"]
+
+[node name="EnemyChunk05_01" parent="Chunks/Chunk05/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(4801, 144)
+
+[node name="EnemyChunk05_02" parent="Chunks/Chunk05/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(3861, 155)
+
+[node name="EnemyChunk05_03" parent="Chunks/Chunk05/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(5384, -6)
+
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
+
+[editable path="Chunks/Chunk01"]
+[editable path="Chunks/Chunk02"]
+[editable path="Chunks/Chunk03"]
+[editable path="Chunks/Chunk04"]
+[editable path="Chunks/Chunk05"]

@@ -34,6 +34,10 @@ GameState="*res://src/game/singletons/game_state.gd"
 InputMapLoader="*res://src/game/singletons/input_map_loader.gd"
 SoundManager="*res://src/game/singletons/sound_manager.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/viewport_width=1280
