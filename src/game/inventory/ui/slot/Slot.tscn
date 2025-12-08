@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3lxbj2vtqg0h"]
+[gd_scene load_steps=3 format=3 uid="uid://c3lxbj2vtqg0h"]
 
+[ext_resource type="Script" uid="uid://byfjgxmq33cjh" path="res://src/game/inventory/ui/slot/slot.gd" id="1_05w1c"]
 [ext_resource type="Texture2D" uid="uid://cchf7aqj3oxcb" path="res://assets/textures/inventory/element.png" id="1_eyqve"]
 
 [node name="Slot" type="HBoxContainer"]
+script = ExtResource("1_05w1c")
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2

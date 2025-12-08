@@ -3,15 +3,18 @@ class_name Goal
 @onready var portal: AnimatedSprite2D = $Portal
 @onready var inventory: Inventory = $Inventory
 # esta variable es para asignar desde afuera. El valor minimo de items a agarrar para ganar
-@export var min_amount: int = 10
+@export var min_items_amount: int = 1
+@export var min_documentables_amount: int = 1
+
 @export var boss: Area2D
 var won: bool = false
 var obtain_all: bool = false
-var amount: int = 0
+var target_player: Player
 
 
 func initialize(inventory: Inventory):
-	inventory.inventory_changed.connect(self.update_amount)
+	target_player = GameState.current_player
+	inventory.inventory_changed.connect(self.update_items_amount)
 
 func _ready() -> void:	
 	_play_animation("idle")
@@ -28,11 +31,15 @@ func _on_body_entered(_body: Node) -> void:
 		
 
 func can_win() -> bool:
-	return amount >= min_amount
+	if target_player: 
+		return  target_player.inventory.get_items().size() >= min_items_amount and \
+				target_player.zones.size() >= min_documentables_amount and \
+				target_player.animated_player.animation != "shoot_camera"
+				
+	target_player = GameState.current_player
+	return false
 	
-func update_amount() -> void: 
-	print("Aumentooo")
-	amount += 1
+func update_items_amount() -> void: 
 	if can_win(): 
 		boss.init_attack()
 

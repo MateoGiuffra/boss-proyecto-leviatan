@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=17 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://cjmuskb8u4ges" path="res://src/game/levels/level_01/my_tail_map.tscn" id="3_5rfnw"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="8_behuu"]
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
+[ext_resource type="PackedScene" uid="uid://3nkrnf665rv2" path="res://src/game/environment/documentables/documentable.tscn" id="12_pdsmj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqwp2"]
 size = Vector2(3302, 1135.75)
@@ -112,6 +113,9 @@ position = Vector2(2477, -3)
 [node name="WorldItem12" parent="Chunks/Chunk01/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
 position = Vector2(2416, -363)
 
+[node name="WorldItem13" parent="Chunks/Chunk01/EntitiesContainer/ItemsContainer" index="3" instance=ExtResource("7_5rfnw")]
+position = Vector2(65, -25)
+
 [node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="1"]
 
 [node name="Enemy_01" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
@@ -136,6 +140,21 @@ position = Vector2(1291, -247)
 
 [node name="OxygenTank_04" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
 position = Vector2(1874, -721)
+
+[node name="Documentables" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="3"]
+
+[node name="Documentable" parent="Chunks/Chunk01/EntitiesContainer/Documentables" index="0" instance=ExtResource("12_pdsmj")]
+position = Vector2(72, 152)
+id = "1"
+
+[node name="CollisionShape2D" parent="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable" index="0"]
+position = Vector2(2, -219)
+
+[node name="Documentable2" parent="Chunks/Chunk01/EntitiesContainer/Documentables" index="1" instance=ExtResource("12_pdsmj")]
+id = "2"
+
+[node name="CollisionShape2D" parent="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable2" index="0"]
+position = Vector2(265, -65)
 
 [node name="Chunk02" parent="Chunks" index="1" instance=ExtResource("3_yrqp0")]
 
@@ -250,6 +269,8 @@ position = Vector2(5384, -6)
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
 
 [editable path="Chunks/Chunk01"]
+[editable path="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable"]
+[editable path="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable2"]
 [editable path="Chunks/Chunk02"]
 [editable path="Chunks/Chunk03"]
 [editable path="Chunks/Chunk04"]

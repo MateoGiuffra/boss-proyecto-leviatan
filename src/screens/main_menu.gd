@@ -29,10 +29,6 @@ var lights: Array[Light2D] = []
 func _ready() -> void:
 	InputMapLoader.load_input_map()
 	Input.set_custom_mouse_cursor(load("res://assets/textures/cursor/cursor.png"))
-	
-
-
-
 
 func _on_start_button_pressed() -> void:
 	var zoom_amount = 4.5

@@ -1,14 +1,17 @@
-[gd_scene load_steps=47 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=56 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/player/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://vu10a0th7ncl" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://cfwiuemgtx7tc" path="res://assets/textures/player/dash/dash_01.png" id="2_10jiy"]
 [ext_resource type="AudioStream" uid="uid://cg5mcs7cy8juh" path="res://assets/sound/player/swim_with_bubles.mp3" id="2_483nw"]
+[ext_resource type="Texture2D" uid="uid://d002ccsw3b7gi" path="res://assets/textures/player/can_shoot/can_shoot_01.png" id="2_du5rv"]
+[ext_resource type="Texture2D" uid="uid://muuuvam3hg1m" path="res://assets/textures/player/can_shoot/can_shoot_02.png" id="3_2pbfl"]
 [ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/player/player.gdshader" id="3_b6hsd"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/textures/player/walk/walk_01.png" id="3_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://d3g0nexd5nwkf" path="res://assets/textures/player/dash/dash_02.png" id="3_kn6pg"]
 [ext_resource type="Texture2D" uid="uid://dkgni46biq0y" path="res://assets/textures/player/jump/jump.png" id="4_10jiy"]
 [ext_resource type="Texture2D" uid="uid://g77uckby1gjd" path="res://assets/textures/player/walk/walk_02.png" id="4_753ju"]
+[ext_resource type="Texture2D" uid="uid://b8k7tr8jv70h2" path="res://assets/textures/player/can_shoot/can_shoot_03.png" id="4_pod8o"]
 [ext_resource type="Texture2D" uid="uid://crrmsrok5xhbw" path="res://assets/textures/player/die/die_01.png" id="4_qqekh"]
 [ext_resource type="Texture2D" uid="uid://cwea6um71jl0q" path="res://assets/textures/player/jump/jump_02.png" id="5_kn6pg"]
 [ext_resource type="Texture2D" uid="uid://bf5muolwjra5q" path="res://assets/textures/player/walk/walk_03.png" id="5_mwgf3"]
@@ -23,9 +26,15 @@
 [ext_resource type="Texture2D" uid="uid://cyohupgn5f1i7" path="res://assets/textures/player/walk/walk_09.png" id="11_vf103"]
 [ext_resource type="Texture2D" uid="uid://b2dabngvxsw0h" path="res://assets/textures/player/walk/walk_10.png" id="12_2x24p"]
 [ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/textures/player/walk/walk_11.png" id="13_f0kc4"]
+[ext_resource type="Texture2D" uid="uid://c3dsvr2tpvhd0" path="res://assets/textures/player/shoot_camera/shoot_camera_01.png" id="14_gccwp"]
+[ext_resource type="Texture2D" uid="uid://d03lwny5bqdyb" path="res://assets/textures/player/shoot_camera/shoot_camera_02.png" id="15_vnsak"]
+[ext_resource type="Texture2D" uid="uid://hvj8jrsvi1g3" path="res://assets/textures/player/shoot_camera/shoot_camera_03.png" id="16_42kpb"]
 [ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://src/game/entities/player/state_machine.gd" id="17_753ju"]
+[ext_resource type="Texture2D" uid="uid://d3m0c30c30n5i" path="res://assets/textures/player/shoot_camera/shoot_camera_04.png" id="17_qujcr"]
 [ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://src/game/scripts/states/player/player_idle_state.gd" id="18_mwgf3"]
+[ext_resource type="Texture2D" uid="uid://d0cxtlby1crtp" path="res://assets/textures/player/shoot_camera/shoot_camera_05.png" id="18_neh7j"]
 [ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="19_7ruc6"]
+[ext_resource type="Texture2D" uid="uid://disxc22gx8bfk" path="res://assets/textures/player/shoot_camera/shoot_camera_06.png" id="19_d5550"]
 [ext_resource type="Texture2D" uid="uid://cjjf82obnpjxm" path="res://assets/textures/bubbles/bubble_4.png" id="19_fdc7v"]
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://src/game/scripts/states/player/player_walk_state.gd" id="19_obrgw"]
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://src/game/scripts/states/player/player_jump_state.gd" id="20_3a8uq"]
@@ -42,6 +51,20 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cd5ud"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_du5rv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2pbfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pod8o")
+}],
+"loop": false,
+"name": &"can_shoot",
+"speed": 3.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_10jiy")
@@ -111,6 +134,38 @@ animations = [{
 "loop": true,
 "name": &"jump",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_gccwp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vnsak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vnsak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vnsak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vnsak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_42kpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_qujcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_neh7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_d5550")
+}],
+"loop": false,
+"name": &"shoot_camera",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -194,7 +249,7 @@ shader_parameter/intensity = 0.0
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 2
 collision_layer = 4
-collision_mask = 3
+collision_mask = 35
 script = ExtResource("1_4ohmj")
 acceleration = 100.0
 dash_speed = 600.0
@@ -222,7 +277,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"die"
+animation = &"shoot_camera"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

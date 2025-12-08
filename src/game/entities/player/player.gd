@@ -60,6 +60,12 @@ var waiting_second_tap: bool
 var finish_colddown_dash: bool = true
 var finish_colddown_swim_boost: bool = true
 
+# documentables
+var can_take_photo: bool = false
+var is_taking_photo: bool = false
+var current_photo_zone: DocumentableZone = null
+var zones: Array[String] = []
+
 # signals 
 signal hp_changed(current_hp: int, max_hp: int)
 
@@ -81,8 +87,7 @@ func activate():
 		inventory_ui.initialize(inventory)
 	
 	oxygen_bar.show()
-	animated_player.scale.x = 4
-	animated_player.scale.y = 4
+	animated_player.scale = Vector2(4, 4)
 	particles.emitting = false
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
@@ -111,8 +116,9 @@ func _physics_process(_delta: float) -> void:
 		GameState.level_lost.emit()
 	
 	get_input()
+	_update_photo_zone_state()
 	
-	if inventory.items_amount() == goal.min_amount:
+	if goal.can_win():
 		show_come_back_message()
 
 	move_and_slide()
@@ -125,7 +131,6 @@ func desactivate():
 	if camera:
 		camera.enabled = false
 
-
 func _on_item_detector_area_entered(area: Area2D):
 	if area.has_method("get_item_data"):
 		var world_item_data: ItemData = area.get_item_data()
@@ -135,15 +140,15 @@ func _on_item_detector_area_entered(area: Area2D):
 			area.queue_free()
 			print("Recogido: ", world_item_data.id)
 
-	
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
 	jump = Input.is_action_just_pressed("saltar")
 	_check_double_tap(Input.is_action_just_pressed("dash"))
+	if Input.is_action_just_pressed("sacar_foto"):
+		_try_take_photo()
 	_update_visuals(movement_direction)
 	
 func play_animation(animation_name: StringName)-> void:
-	# Función expuesta para que los estados puedan controlar la animación
 	if animated_player.sprite_frames.has_animation(animation_name):
 		animated_player.play(animation_name)
 	
@@ -151,11 +156,11 @@ func _update_visuals(direction: int) -> void:
 	if direction != 0:
 		var is_left := direction < 0
 		pivot.scale.x = -1.0 if is_left else 1.0
-		oxygen_bar.position.y = -37.826
+		oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
 	else: 
-		oxygen_bar.position.y = -29.826
+		oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
 		
-# dash (Debería moverse al PlayerDashState, pero lo mantengo aquí por ahora)
+# dash
 func _check_double_tap(is_dashing: bool) -> void:
 	if is_dashing && finish_colddown_dash && want_moving():
 		_start_dash()
@@ -193,6 +198,9 @@ func move_player(delta: float) -> void:
 		play_animation("die")
 		return
 	
+	if is_taking_photo or can_take_photo:
+		return
+	
 	if is_dashing:
 		play_animation("dash")
 		return
@@ -210,8 +218,12 @@ func move_player(delta: float) -> void:
 
 func stop_player(delta: float) -> void:
 	velocity.x = lerp(velocity.x, 0.0, friction_weight * delta) if abs(velocity.x) > 1 else 0
+
 	if is_dead():
 		play_animation("die")
+		return
+
+	if is_taking_photo or can_take_photo:
 		return
 
 	if is_dashing:
@@ -226,7 +238,6 @@ func stop_player(delta: float) -> void:
 		else:
 			play_animation("fall")
 
-
 func can_use_swim_boost() -> bool:
 	return count_swim_boost > 0 && jump && finish_colddown_swim_boost
 
@@ -234,10 +245,6 @@ func _on_swim_boost_cold_down_timeout() -> void:
 	finish_colddown_swim_boost = true
 
 func change_absolute_direction(angle: float):
-	# 0 grados: Right
-	# 90 grados (pi/2): Bottom
-	# 180 grados (pi): Left
-	# 270 grados (3*pi/2) o -90 grados: up
 	particles.rotation = deg_to_rad(angle)
 
 func emit_particles(angle: float) -> void:
@@ -289,14 +296,11 @@ func _on_die_timer_timeout() -> void:
 
 func die_finish() -> void: 
 	oxygen_bar.hide()
-	animated_player.scale.x = 8
-	animated_player.scale.y = 8
+	animated_player.scale = Vector2(8, 8)
 	play_animation("die")
 	
-
 func damage_flash():
 	var mat = damage_overlay.material
-	
 	mat.set_shader_parameter("intensity", 1.0)
 
 	var tween := get_tree().create_tween()
@@ -305,7 +309,6 @@ func damage_flash():
 		1.0, 0.0, 0.75
 	)
 
-	
 func sum_hp(amount: int) -> void:
 	hp = clamp(hp + amount, 0, max_hp)
 	hp_changed.emit(hp, max_hp)
@@ -333,3 +336,81 @@ func update_oxygen_bar() -> void:
 func update_oxygen_overlay() -> void:
 	var shader = oxygen_overlay.material
 	shader.set_shader_parameter("intensity", 1.0 - (oxygen / max_oxygen))
+
+# documentables
+
+func can_player_take_photo(zone: DocumentableZone) -> bool:
+	return zone != null \
+		and is_on_floor() \
+		and not want_moving() \
+		and not is_taking_photo \
+		and not zones.has(zone.id)
+
+func on_photo_zone_player_entered(zone: DocumentableZone, _player: Player) -> void:
+	current_photo_zone = zone
+
+func on_photo_zone_player_exited(zone: DocumentableZone, _player: Player) -> void:
+	if current_photo_zone == zone: 
+		current_photo_zone = null
+		can_take_photo = false
+		if not is_taking_photo and is_on_floor():
+			play_animation("idle")
+
+# Se llama en _physics_process cada frame
+func _update_photo_zone_state() -> void:
+	if current_photo_zone == null:
+		can_take_photo = false
+		return
+
+	if is_taking_photo:
+		return
+
+	var should_enable = can_player_take_photo(current_photo_zone)
+
+	if should_enable and not can_take_photo:
+		can_take_photo = true
+		_show_ready_to_shoot_pose()
+	elif not should_enable and can_take_photo:
+		can_take_photo = false
+		if is_on_floor() and not want_moving() and not is_dashing and not is_dead():
+			play_animation("idle")
+
+func _show_ready_to_shoot_pose() -> void:
+	# Pose estática con la cámara abajo (último frame de can_shoot)
+	if not animated_player.sprite_frames.has_animation("can_shoot"):
+		return
+	var last_frame := animated_player.sprite_frames.get_frame_count("can_shoot") - 1
+	if last_frame < 0:
+		return
+	animated_player.animation = "can_shoot"
+	animated_player.frame = last_frame
+	animated_player.pause()
+
+func _try_take_photo() -> void:
+	if not can_player_take_photo(current_photo_zone):
+		return
+	zones.append(current_photo_zone.id)
+	can_take_photo = false
+	is_taking_photo = true
+	
+	play_animation("shoot_camera")
+
+func _on_animated_player_animation_finished() -> void:
+	match animated_player.animation: 
+		"shoot_camera":
+			_on_photo_shoot_finished()
+
+func _on_photo_shoot_finished() -> void: 
+	is_taking_photo = false
+	can_take_photo = false
+	if is_on_floor():
+		if want_moving():
+			play_animation("walk")
+		else:
+			play_animation("idle")
+	else:
+		if velocity.y < 0.0:
+			play_animation("jump")
+		else:
+			play_animation("fall")
+	inventory.document_registered.emit()
