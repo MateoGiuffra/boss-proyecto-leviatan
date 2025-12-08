@@ -53,13 +53,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 44
 
-[node name="ExitButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_cxws0")
-theme_override_font_sizes/font_size = 29
-text = "Atras
-"
-
 [node name="VolumeButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_cxws0")
@@ -74,7 +67,15 @@ theme_override_font_sizes/font_size = 29
 text = "Controles
 "
 
+[node name="ExitButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_cxws0")
+theme_override_font_sizes/font_size = 29
+text = "Atras
+"
+
 [node name="Controls" type="MarginContainer" parent="OptionsMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,11 +101,10 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 60
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_constants/separation = 0
 
 [node name="ActionInput" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("5_hdl5g")]
 layout_mode = 2
@@ -131,6 +131,7 @@ theme_override_font_sizes/font_size = 29
 text = "Atras"
 
 [node name="Volume" type="MarginContainer" parent="OptionsMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -191,8 +192,8 @@ theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 29
 text = "Atras"
 
-[connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/VolumeButton" to="." method="_on_volume_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/ControlBackButton" to="." method="_on_control_back_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VolumeBackButton" to="." method="_on_volume_back_button_pressed"]

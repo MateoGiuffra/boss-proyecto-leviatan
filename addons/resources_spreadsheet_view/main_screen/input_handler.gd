@@ -1,148 +1,192 @@
-@tool
+# InputMapLoader.gd
 extends Node
 
-const TablesPluginEditorViewClass := preload("res://addons/resources_spreadsheet_view/editor_view.gd")
-const TablesPluginSelectionManagerClass := preload("res://addons/resources_spreadsheet_view/main_screen/selection_manager.gd")
-const TextEditingUtilsClass := preload("res://addons/resources_spreadsheet_view/text_editing_utils.gd")
-
-@onready var editor_view : TablesPluginEditorViewClass = get_parent()
-@onready var selection : TablesPluginSelectionManagerClass = get_node("../SelectionManager")
+const CONFIG_FILE_PATH = "user://controls.cfg"
+const INPUT_SECTION = "InputBindings"
 
 
-func _on_cell_gui_input(event : InputEvent, cell_node : Control):
-	var cell := selection.get_cell_node_position(cell_node)
-	if event is InputEventMouseButton:
-		editor_view.grab_focus()
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			if !cell in selection.edited_cells:
-				selection.deselect_all_cells()
-				selection.select_cell(cell)
-
-			selection.rightclick_cells()
-
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if event.is_command_or_control_pressed():
-				if cell in selection.edited_cells:
-					selection.deselect_cell(cell)
-
-				else:
-					selection.select_cell(cell)
-
-			elif Input.is_key_pressed(KEY_SHIFT):
-				selection.select_cells_to(cell)
-
-			else:
-				selection.deselect_all_cells()
-				selection.select_cell(cell)
+func _ready() -> void:
+	# Opcional: cargar al inicio automáticamente
+	load_input_map()
 
 
-func _gui_input(event : InputEvent):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
-			selection.rightclick_cells()
-
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			editor_view.grab_focus()
-			if !event.pressed:
-				selection.deselect_all_cells()
-
-
-func _input(event : InputEvent):
-	if !event is InputEventKey or !event.pressed:
+# =====================================================
+# CARGAR TODO EL INPUTMAP DESDE ARCHIVO
+# =====================================================
+func load_input_map() -> void:
+	var config = ConfigFile.new()
+	var err = config.load(CONFIG_FILE_PATH)
+	if err != OK:
 		return
 	
-	if !editor_view.has_focus() or selection.edited_cells.size() == 0:
-		return
+	var actions = InputMap.get_actions()
+	for action in actions:
+		var key = String(action)
+		if not config.has_section_key(INPUT_SECTION, key):
+			continue
+		
+		var raw_array = config.get_value(INPUT_SECTION, key, [])
+		if typeof(raw_array) != TYPE_ARRAY:
+			continue
+		
+		var new_events = []
+		for raw_entry in raw_array:
+			# Soporte por si alguna vez guardaste un InputEvent crudo
+			if raw_entry is InputEvent:
+				new_events.append(raw_entry)
+			elif typeof(raw_entry) == TYPE_DICTIONARY:
+				var ev = _deserialize_event(raw_entry)
+				if ev:
+					new_events.append(ev)
+		
+		if new_events.is_empty():
+			continue
+		
+		InputMap.action_erase_events(action)
+		for ev in new_events:
+			InputMap.action_add_event(action, ev)
 
-	if event.keycode == KEY_CTRL or event.keycode == KEY_SHIFT or event.keycode == KEY_META:
-		# Modifier keys do not get processed.
-		return
+
+# =====================================================
+# APLICAR BINDING ÚNICO Y GUARDAR TODO
+# (llamado desde el botón)
+# =====================================================
+func apply_binding_and_save(action_name: String, event: InputEvent) -> void:
+	var target = String(action_name)
 	
-	# Ctrl + Z (before, and instead of, committing the action!)
-	if event.is_command_or_control_pressed():
-		if event.keycode == KEY_Z or event.keycode == KEY_Y:
-			return
-
-	_key_specific_action(event)
-	editor_view.grab_focus()
-	editor_view.editor_interface.get_resource_filesystem().scan()
-
-
-func _key_specific_action(event : InputEvent):
-	var column := selection.get_cell_column(selection.edited_cells[0])
-	var ctrl_pressed : bool = event.is_command_or_control_pressed()
-
-	# BETWEEN-CELL NAVIGATION
-	var grid_move_offset := (10 if ctrl_pressed else 1)
-	if event.keycode == KEY_UP:
-		_move_selection_on_grid(0, -grid_move_offset)
-
-	elif event.keycode == KEY_DOWN:
-		_move_selection_on_grid(0, +grid_move_offset)
-
-	elif Input.is_key_pressed(KEY_SHIFT) and event.keycode == KEY_TAB:
-		_move_selection_on_grid(-grid_move_offset, 0)
+	# 1) Sacar ese mismo evento de TODAS las otras acciones
+	var actions = InputMap.get_actions()
+	for other_action in actions:
+		var events = InputMap.action_get_events(other_action)
+		for e in events:
+			if _events_equal(e, event):
+				InputMap.action_erase_event(other_action, e)
 	
-	elif event.keycode == KEY_TAB:
-		_move_selection_on_grid(+grid_move_offset, 0)
-
-	elif ctrl_pressed and event.keycode == KEY_C:
-		TextEditingUtilsClass.multi_copy(selection.edited_cells_text)
-		get_viewport().set_input_as_handled()
-
-	# Ctrl + V
-	elif ctrl_pressed and event.keycode == KEY_V and editor_view.columns[column] != "resource_path":
-		selection.clipboard_paste()
-		get_viewport().set_input_as_handled()
-
-	# TEXT CARET MOVEMENT
-	var caret_move_offset := TextEditingUtilsClass.get_caret_movement_from_key(event.keycode)
-	if TextEditingUtilsClass.multi_move_caret(caret_move_offset, selection.edited_cells_text, selection.edit_cursor_positions, ctrl_pressed):
-		selection.queue_redraw()
-		return
-
-	# The following actions do not work on non-editable cells.
-	if !selection.column_editors[column].is_text() or editor_view.columns[column] == "resource_path":
-		return
+	# 2) Asignar SOLO ese evento a la acción seleccionada
+	if InputMap.has_action(target):
+		InputMap.action_erase_events(target)
+	InputMap.action_add_event(target, event)
 	
-	# ERASING
-	elif event.keycode == KEY_BACKSPACE:
-		editor_view.set_edited_cells_values_text(TextEditingUtilsClass.multi_erase_left(
-			selection.edited_cells_text, selection.edit_cursor_positions, ctrl_pressed
-		))
-
-	elif event.keycode == KEY_DELETE:
-		editor_view.set_edited_cells_values_text(TextEditingUtilsClass.multi_erase_right(
-			selection.edited_cells_text, selection.edit_cursor_positions, ctrl_pressed
-		))
-		get_viewport().set_input_as_handled()
-
-	# And finally, text typing.
-	elif event.keycode == KEY_ENTER:
-		editor_view.set_edited_cells_values_text(TextEditingUtilsClass.multi_input(
-			"\n", selection.edited_cells_text, selection.edit_cursor_positions
-		))
-
-	elif event.unicode != 0 and event.unicode != 127:
-		editor_view.set_edited_cells_values_text(TextEditingUtilsClass.multi_input(
-			char(event.unicode), selection.edited_cells_text, selection.edit_cursor_positions
-		))
-
-	selection.queue_redraw()
+	# 3) Guardar TODAS las acciones al archivo
+	_save_entire_input_map()
 
 
-func _move_selection_on_grid(move_h : int, move_v : int):
-	var selected_cells := selection.edited_cells.duplicate()
-	var num_columns := editor_view.columns.size()
-	var num_rows := editor_view.rows.size()
-	var new_child_pos := Vector2i(0, 0)
-	for i in selected_cells.size():
-		new_child_pos = Vector2i(
-			clamp(selected_cells[i].x + move_h, 0, num_columns - 1),
-			clamp(selected_cells[i].y + move_v, 0, num_rows - 1),
-		)
-		selected_cells[i] = new_child_pos
+# =====================================================
+# GUARDADO COMPLETO
+# =====================================================
+func _save_entire_input_map() -> void:
+	var config = ConfigFile.new()
+	var actions = InputMap.get_actions()
+	
+	for action in actions:
+		var events = InputMap.action_get_events(action)
+		var serialized_list = []
+		for ev in events:
+			if ev is InputEvent:
+				serialized_list.append(_serialize_event(ev))
+		
+		config.set_value(INPUT_SECTION, String(action), serialized_list)
+	
+	config.save(CONFIG_FILE_PATH)
 
-	editor_view.grab_focus()
-	selection.deselect_all_cells()
-	selection.select_cells(selected_cells)
+
+# =====================================================
+# COMPARAR EVENTOS (para evitar duplicados)
+# =====================================================
+func _events_equal(a: InputEvent, b: InputEvent) -> bool:
+	# Activados por la misma cosa física
+	if a is InputEventKey and b is InputEventKey:
+		return a.physical_keycode == b.physical_keycode and a.keycode == b.keycode
+	
+	if a is InputEventMouseButton and b is InputEventMouseButton:
+		return a.button_index == b.button_index
+	
+	if a is InputEventJoypadButton and b is InputEventJoypadButton:
+		return a.button_index == b.button_index
+	
+	if a is InputEventJoypadMotion and b is InputEventJoypadMotion:
+		return a.axis == b.axis and sign(a.axis_value) == sign(b.axis_value)
+	
+	return false
+
+
+# =====================================================
+# SERIALIZACIÓN
+# =====================================================
+func _serialize_event(event: InputEvent) -> Dictionary:
+	var data = {}
+	
+	if event is InputEventKey:
+		var e = event as InputEventKey
+		data.type = "key"
+		data.keycode = e.keycode
+		data.physical_keycode = e.physical_keycode
+		data.alt = e.alt_pressed
+		data.shift = e.shift_pressed
+		data.ctrl = e.ctrl_pressed
+		data.meta = e.meta_pressed
+	
+	elif event is InputEventMouseButton:
+		var e_mb = event as InputEventMouseButton
+		data.type = "mouse_button"
+		data.button_index = e_mb.button_index
+		data.double_click = e_mb.double_click
+		data.alt = e_mb.alt_pressed
+		data.shift = e_mb.shift_pressed
+		data.ctrl = e_mb.ctrl_pressed
+		data.meta = e_mb.meta_pressed
+	
+	elif event is InputEventJoypadButton:
+		var e_jb = event as InputEventJoypadButton
+		data.type = "joypad_button"
+		data.button_index = e_jb.button_index
+	
+	elif event is InputEventJoypadMotion:
+		var e_jm = event as InputEventJoypadMotion
+		data.type = "joypad_motion"
+		data.axis = e_jm.axis
+		data.axis_value = e_jm.axis_value
+	
+	else:
+		data.type = "unknown"
+	
+	return data
+
+
+func _deserialize_event(data: Dictionary) -> InputEvent:
+	var t = data.get("type", "")
+	
+	match t:
+		"key":
+			var e = InputEventKey.new()
+			e.keycode = data.get("keycode", 0)
+			e.physical_keycode = data.get("physical_keycode", 0)
+			e.alt_pressed = data.get("alt", false)
+			e.shift_pressed = data.get("shift", false)
+			e.ctrl_pressed = data.get("ctrl", false)
+			e.meta_pressed = data.get("meta", false)
+			return e
+		
+		"mouse_button":
+			var e_mb = InputEventMouseButton.new()
+			e_mb.button_index = data.get("button_index", 0)
+			e_mb.double_click = data.get("double_click", false)
+			e_mb.alt_pressed = data.get("alt", false)
+			e_mb.shift_pressed = data.get("shift", false)
+			e_mb.ctrl_pressed = data.get("ctrl", false)
+			e_mb.meta_pressed = data.get("meta", false)
+			return e_mb
+		
+		"joypad_button":
+			var e_jb = InputEventJoypadButton.new()
+			e_jb.button_index = data.get("button_index", 0)
+			return e_jb
+		
+		"joypad_motion":
+			var e_jm = InputEventJoypadMotion.new()
+			e_jm.axis = data.get("axis", 0)
+			e_jm.axis_value = data.get("axis_value", 0.0)
+			return e_jm
+		
+		_:
+			return null
