@@ -12,6 +12,5 @@ func _on_body_entered(body: Node2D) -> void:
 func delete() -> void:
 	queue_free()	
 
-
 func _on_delete_timer_timeout() -> void:
 	delete()

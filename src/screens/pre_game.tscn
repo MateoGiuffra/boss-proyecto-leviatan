@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="1_mxmr8"]
 [ext_resource type="PackedScene" uid="uid://ba6uwpdy60qt7" path="res://src/screens/level_manager.tscn" id="2_3uidd"]
 [ext_resource type="AudioStream" uid="uid://dnfjbb28dmq2p" path="res://assets/sound/soundtracks/ambiental.mp3" id="3_f3au3"]
-[ext_resource type="Texture2D" uid="uid://ck8lx3g0527a5" path="res://assets/textures/story/story_first_image.png" id="3_o2i82"]
+[ext_resource type="Texture2D" uid="uid://ck8lx3g0527a5" path="res://assets/textures/images/story/story_first_image.png" id="3_o2i82"]
 [ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/next_scene.gd" id="4_0mrxt"]
 [ext_resource type="AudioStream" uid="uid://bvp6jbpfq66cv" path="res://assets/sound/soundtracks/horror-sound-monster-breath-189934.mp3" id="5_ncgvx"]
 [ext_resource type="Texture2D" uid="uid://ci0hlvggbgudi" path="res://assets/textures/images/tutorial.png" id="6_i06jm"]

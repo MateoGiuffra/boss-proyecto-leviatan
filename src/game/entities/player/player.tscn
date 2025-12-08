@@ -1,10 +1,10 @@
-[gd_scene load_steps=48 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=47 format=3 uid="uid://b5s2xjtsrnukx"]
 
-[ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not_enemies/player.gd" id="1_4ohmj"]
+[ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/player/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://vu10a0th7ncl" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
 [ext_resource type="Texture2D" uid="uid://cfwiuemgtx7tc" path="res://assets/textures/player/dash/dash_01.png" id="2_10jiy"]
 [ext_resource type="AudioStream" uid="uid://cg5mcs7cy8juh" path="res://assets/sound/player/swim_with_bubles.mp3" id="2_483nw"]
-[ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/not_enemies/player.gdshader" id="3_b6hsd"]
+[ext_resource type="Shader" uid="uid://by26gmulm0sd1" path="res://src/game/entities/player/player.gdshader" id="3_b6hsd"]
 [ext_resource type="Texture2D" uid="uid://bpec3id1vcjpa" path="res://assets/textures/player/walk/walk_01.png" id="3_bnhqw"]
 [ext_resource type="Texture2D" uid="uid://d3g0nexd5nwkf" path="res://assets/textures/player/dash/dash_02.png" id="3_kn6pg"]
 [ext_resource type="Texture2D" uid="uid://dkgni46biq0y" path="res://assets/textures/player/jump/jump.png" id="4_10jiy"]
@@ -23,19 +23,19 @@
 [ext_resource type="Texture2D" uid="uid://cyohupgn5f1i7" path="res://assets/textures/player/walk/walk_09.png" id="11_vf103"]
 [ext_resource type="Texture2D" uid="uid://b2dabngvxsw0h" path="res://assets/textures/player/walk/walk_10.png" id="12_2x24p"]
 [ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/textures/player/walk/walk_11.png" id="13_f0kc4"]
-[ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://src/game/entities/not_enemies/state_machine.gd" id="17_753ju"]
+[ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://src/game/entities/player/state_machine.gd" id="17_753ju"]
 [ext_resource type="Script" uid="uid://bn1uk83fgflr8" path="res://src/game/scripts/states/player/player_idle_state.gd" id="18_mwgf3"]
 [ext_resource type="PackedScene" uid="uid://cxs653sqc2cfa" path="res://assets/utility/point_light.tscn" id="19_7ruc6"]
 [ext_resource type="Texture2D" uid="uid://cjjf82obnpjxm" path="res://assets/textures/bubbles/bubble_4.png" id="19_fdc7v"]
 [ext_resource type="Script" uid="uid://b8jgpxj1ccsss" path="res://src/game/scripts/states/player/player_walk_state.gd" id="19_obrgw"]
 [ext_resource type="Script" uid="uid://dfcjh1w7f8hl2" path="res://src/game/scripts/states/player/player_jump_state.gd" id="20_3a8uq"]
 [ext_resource type="AudioStream" uid="uid://bp6vc1rq50aw5" path="res://assets/sound/player/swoop1_108087.mp3" id="20_05p3n"]
-[ext_resource type="Shader" uid="uid://8is6bqc6ijd7" path="res://src/game/entities/not_enemies/player_oxygen.gdshader" id="21_11uyg"]
+[ext_resource type="Shader" uid="uid://8is6bqc6ijd7" path="res://src/game/entities/player/player_oxygen.gdshader" id="21_11uyg"]
 [ext_resource type="Script" uid="uid://b2lscshlwxjx5" path="res://src/game/scripts/states/player/player_dash_state.gd" id="21_jis8g"]
 [ext_resource type="AudioStream" uid="uid://deix1e76jw1pu" path="res://assets/sound/player/only_step.ogg" id="21_kycvn"]
 [ext_resource type="AudioStream" uid="uid://vhg4vjk2w1ew" path="res://assets/sound/player/jumping_1_6452.mp3" id="22_05p3n"]
 [ext_resource type="PackedScene" uid="uid://c8ekq2vk56rn6" path="res://src/game/inventory/Inventory.tscn" id="22_73mqe"]
-[ext_resource type="Shader" uid="uid://dqfcxwn6wq876" path="res://src/game/entities/not_enemies/player_damage.gdshader" id="22_mdyrr"]
+[ext_resource type="Shader" uid="uid://dqfcxwn6wq876" path="res://src/game/entities/player/player_damage.gdshader" id="22_mdyrr"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="24_vf103"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10jiy"]
@@ -75,7 +75,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("6_dx5q4")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -191,9 +191,6 @@ shader_parameter/intensity = 0.0
 shader = ExtResource("22_mdyrr")
 shader_parameter/intensity = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqekh"]
-size = Vector2(1043.3333, 958)
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 2
 collision_layer = 12
@@ -225,7 +222,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"idle"
+animation = &"die"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
@@ -372,6 +369,10 @@ autostart = true
 wait_time = 7.0
 autostart = true
 
+[node name="DieTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("17_753ju")
 initial_state = NodePath("PlayerWalkState")
@@ -407,14 +408,6 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
-[node name="LightLoader" type="Area2D" parent="."]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LightLoader"]
-position = Vector2(-29.000011, -103)
-scale = Vector2(1.2, 1.2)
-shape = SubResource("RectangleShape2D_qqekh")
-
 [connection signal="animation_finished" from="Pivot/AnimatedPlayer" to="." method="_on_animated_player_animation_finished"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
@@ -424,8 +417,7 @@ shape = SubResource("RectangleShape2D_qqekh")
 [connection signal="timeout" from="Timers/ParticlesTimer" to="." method="_on_particles_timer_timeout"]
 [connection signal="timeout" from="Timers/MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="timeout" from="Timers/H20Timer" to="." method="_on_h_20_timer_timeout"]
+[connection signal="timeout" from="Timers/DieTimer" to="." method="_on_die_timer_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]
-[connection signal="body_entered" from="LightLoader" to="." method="_on_light_loader_body_entered"]
-[connection signal="body_exited" from="LightLoader" to="." method="_on_light_loader_body_exited"]

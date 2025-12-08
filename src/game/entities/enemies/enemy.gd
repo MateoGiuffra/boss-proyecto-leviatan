@@ -21,6 +21,9 @@ var on_ceiling := false
 @export var follow_distance:float = 200
 @export var max_jumps: int = 2
 
+@export var stop_distance_from_player: float = 2.0
+
+
 var jumps_left: int = max_jumps
 
 var movement_direction: int
@@ -79,16 +82,28 @@ func navigate(delta):
 		movement_direction = 0
 		velocity.x = lerp(velocity.x, 0.0, delta * 8.0)
 		return
-		
+
+	# Si hay player y estoy muy cerca, me freno para no empujarlo
+	if player_target:
+		var dist_to_player := global_position.distance_to(player_target.global_position)
+		if dist_to_player <= stop_distance_from_player:
+			movement_direction = 0
+			velocity.x = lerp(velocity.x, 0.0, delta * 8.0)
+			return
+
 	var next_path_point = nav_agent.get_next_path_position()
 	var dir = (next_path_point - global_position).normalized()
-	
-	# Movimiento horizontal solamente
+
+	# Dirección de movimiento (para animaciones)
+	movement_direction = int(sign(dir.x))
+
+	# Movimiento horizontal
 	velocity.x = dir.x * movement_speed_limit
-	
-	# Movimiento vertical → dejarlo a la física
+
+	# Movimiento vertical → lo maneja la física
 	if not is_on_floor():
 		velocity.y += gravity * delta
+
 
 
 func aim_to_player():
@@ -134,7 +149,6 @@ func _on_collision_area_body_entered(body: Node2D) -> void:
 		# Aplica el primer tick de daño y ENCIENDE el Timer
 		if damage_timer.is_stopped():
 			player_target.beaten()
-			GameState.current_player_changed.emit()
 			damage_timer.start()
 
 # NUEVA FUNCIÓN NECESARIA: Detiene el daño recurrente
@@ -149,4 +163,4 @@ func _on_damage_timer_timeout() -> void:
 	# Verificamos si la referencia al jugador todavía existe
 	if player_target:
 		player_target.beaten()
-		GameState.current_player_changed.emit()
+		

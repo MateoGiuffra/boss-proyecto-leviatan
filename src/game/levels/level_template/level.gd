@@ -19,21 +19,14 @@ func _ready() -> void:
 	randomize()
 
 # Funciones que hacen de interfaz para las señales
-func _on_level_won() -> void:
-	next_level_requested.emit()
-
-
 func _on_return_requested() -> void:
 	return_requested.emit()
-
 
 func on_level_won() -> void:
 	next_level_requested.emit()
 
-
 func on_return_requested() -> void:
 	return_requested.emit()
-
 
 func _on_defeat_menu_retry_selected() -> void:
 	next_level_requested.emit()

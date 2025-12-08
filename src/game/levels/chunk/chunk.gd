@@ -6,6 +6,7 @@ extends Area2D
 # exports 
 @export var area_shape: Shape2D
 @export var initially_active := false
+var dynamic_entities: Array[CharacterBody2D] = []
 
 func _ready() -> void:
 	if area_shape:
@@ -19,8 +20,6 @@ func turn_all(node, active: bool) -> void:
 	if not node is Node2D or not node.has_method("get_children"):
 		return 
 	var children: Array[Node] = node.get_children()
-	if children.is_empty():
-		return 
 	var final_process_mode: Node.ProcessMode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
 	
 	for child in children: 
@@ -29,11 +28,25 @@ func turn_all(node, active: bool) -> void:
 		if child is PointLight2D:
 			child.enabled = active
 		child.process_mode = final_process_mode
-		turn_all(child, active)	
-
+		turn_all(child, active)
+	
 func _on_body_entered(body: Node2D) -> void:
-	print(body)
-	turn_all(self.entities_container, true)
+	if not body.is_in_group("Player"):
+		add_dynamic_entity_to_list(body)
+	turn_all(self.entities_container, true) 
+	turn_all_dynamic_entities(true)
+	
+func turn_all_dynamic_entities(active: bool) -> void: 
+	for entity in dynamic_entities: 
+		turn_all(entity, active)
+
+func add_dynamic_entity_to_list(body: Node2D) -> void: 
+	if body is CharacterBody2D and not dynamic_entities.has(body) : 
+		print("agregu un emigo a la lista")
+		dynamic_entities.append(body)
 
 func _on_body_exited(body: Node2D) -> void:
-	turn_all(self.entities_container, false)
+	if body.is_in_group("Player"):
+		turn_all(self.entities_container, false)
+		turn_all_dynamic_entities(true)
+	

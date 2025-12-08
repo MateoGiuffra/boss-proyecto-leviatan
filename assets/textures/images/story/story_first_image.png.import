@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdqa4d2xua8lj"
-path="res://.godot/imported/stoty_fourth_image.png-0159d54e1ab1b338e842f14fe9f0f498.ctex"
+uid="uid://ck8lx3g0527a5"
+path="res://.godot/imported/story_first_image.png-b83ae32435ba7052318fef9923a21faf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/story/stoty_fourth_image.png"
-dest_files=["res://.godot/imported/stoty_fourth_image.png-0159d54e1ab1b338e842f14fe9f0f498.ctex"]
+source_file="res://assets/textures/images/story/story_first_image.png"
+dest_files=["res://.godot/imported/story_first_image.png-b83ae32435ba7052318fef9923a21faf.ctex"]
 
 [params]
 

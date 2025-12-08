@@ -40,12 +40,11 @@ var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 # timers
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
+@onready var die_timer: Timer = $Timers/DieTimer
+@onready var h20_timer: Timer = $Timers/H20Timer
 
 # sounds
 @onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
-
-# timers
-@onready var h20_timer: Timer = $Timers/H20Timer
 
 # shaders
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -65,6 +64,13 @@ var finish_colddown_swim_boost: bool = true
 signal hp_changed(current_hp: int, max_hp: int)
 
 func _ready():
+	activate()
+
+func activate():
+	set_process(true)
+	set_physics_process(true)
+	set_process_input(true)
+	show()
 	if inventory_ui == null:
 		var ui_nodes: Array = get_tree().get_nodes_in_group("ui_layer")
 		if !ui_nodes.is_empty():
@@ -81,8 +87,10 @@ func _ready():
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
 	set_oxygen_bar_initial_values()
+	if camera:
+		camera.enabled = true
 	GameState.set_current_player(self)
-
+	
 func set_oxygen_bar_initial_values() -> void:
 	self.oxygen_bar.min_value = 0
 	self.oxygen_bar.max_value = self.max_oxygen
@@ -109,8 +117,6 @@ func _physics_process(_delta: float) -> void:
 
 	move_and_slide()
 	
-		
-
 func desactivate():
 	set_process(false)
 	set_physics_process(false)
@@ -119,13 +125,6 @@ func desactivate():
 	if camera:
 		camera.enabled = false
 
-func activate():
-	set_process(true)
-	set_physics_process(true)
-	set_process_input(true)
-	show()
-	if camera:
-		camera.enabled = true
 
 func _on_item_detector_area_entered(area: Area2D):
 	if area.has_method("get_item_data"):
@@ -190,6 +189,10 @@ func move_player(delta: float) -> void:
 	var current_movement_speed = velocity.x + (movement_direction * acceleration * delta)
 	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
 	
+	if is_dead():
+		play_animation("die")
+		return
+	
 	if is_dashing:
 		play_animation("dash")
 		return
@@ -207,6 +210,9 @@ func move_player(delta: float) -> void:
 
 func stop_player(delta: float) -> void:
 	velocity.x = lerp(velocity.x, 0.0, friction_weight * delta) if abs(velocity.x) > 1 else 0
+	if is_dead():
+		play_animation("die")
+		return
 
 	if is_dashing:
 		play_animation("dash")
@@ -267,32 +273,26 @@ func win() -> void:
 func is_dead():
 	return hp <= 0 or oxygen <= 0
 
-func die_finish() -> void: 
-	var new_parent = get_parent()
-	remove_child(camera)
-	new_parent.add_child(camera) 
-	remove_child(point_light_2d) 
-	new_parent.add_child(point_light_2d)
-	animated_player.scale.x = 8
-	animated_player.scale.y = 8
-	oxygen_bar.hide()
-	play_animation("die")
-
-func _on_animated_player_animation_finished() -> void:
-	# --- Lógica de Muerte del Player ---
-	hp = 0
-	hide()
-	queue_free() 
-
 func beaten() -> void:
+	if is_dead():
+		return
 	hp -= 1
 	damage_flash()
-	print("sacar vida")
-	#var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
-	#life_to_remove.queue_free()
-	
+	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
+	life_to_remove.queue_free()
 	if hp <= 0:
 		die_finish()
+		die_timer.start()
+		
+func _on_die_timer_timeout() -> void:
+	GameState.current_player_changed.emit()
+
+func die_finish() -> void: 
+	oxygen_bar.hide()
+	animated_player.scale.x = 8
+	animated_player.scale.y = 8
+	play_animation("die")
+	
 
 func damage_flash():
 	var mat = damage_overlay.material

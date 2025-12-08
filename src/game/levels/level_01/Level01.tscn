@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://src/game/inventory/world_item/world_item.tscn" id="7_5rfnw"]
-[ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/not_enemies/player.tscn" id="7_e2p1h"]
+[ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/player/player.tscn" id="7_e2p1h"]
 [ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="8_behuu"]
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
@@ -36,7 +36,7 @@ boss = NodePath("../Boss")
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
 
-[node name="Player" parent="." index="4" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
+[node name="Player" parent="." index="3" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
 position = Vector2(56.00002, 351)
 scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
@@ -50,6 +50,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 
 [node name="MarginContainer" type="MarginContainer" parent="UILife/VBoxContainer" index="0"]
 layout_mode = 2
@@ -88,12 +89,14 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 position = Vector2(-1175, 611)
 
 [node name="CanvasModulate" parent="." index="8"]
+visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
 [node name="Chunks" type="Node2D" parent="." index="9"]
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
 position = Vector2(1345, 417)
+initially_active = true
 
 [node name="CollisionShape2D" parent="Chunks/Chunk01" index="0"]
 position = Vector2(641.5, -512.5)
@@ -111,28 +114,25 @@ position = Vector2(2416, -363)
 
 [node name="EnemiesContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="1"]
 
-[node name="Enemy" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
-position = Vector2(636, -59)
+[node name="Enemy_01" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="0" instance=ExtResource("6_i5t0w")]
+position = Vector2(675, -14)
 
-[node name="Enemy2" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
-position = Vector2(1396, -593)
+[node name="Enemy_02" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
+position = Vector2(1074, -239)
 
-[node name="Enemy3" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
-position = Vector2(1059, -772)
-
-[node name="Enemy22" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("6_i5t0w")]
-position = Vector2(1074, -251)
+[node name="Enemy_03" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
+position = Vector2(1096, -753.00006)
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="2"]
 
 [node name="OxygenTank_01" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
-position = Vector2(558, -269)
+position = Vector2(543, -280)
 
 [node name="OxygenTank_02" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
 position = Vector2(591, -1043)
 
 [node name="OxygenTank_03" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
-position = Vector2(1243, -236)
+position = Vector2(1291, -247)
 
 [node name="OxygenTank_04" parent="Chunks/Chunk01/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
 position = Vector2(1874, -721)
