@@ -6,6 +6,7 @@
 size = Vector2(3691, 1215.5)
 
 [node name="Chunk" type="Area2D"]
+collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_dvfqy")
 

@@ -52,9 +52,7 @@ func save_input_map(action_name: StringName) -> void:
 	config.save(CONFIG_FILE_PATH)
 
 
-# =======================
-#   SERIALIZACIÓN
-# =======================
+# serializacion
 
 func _serialize_event(event: InputEvent) -> Dictionary:
 	var data = {}

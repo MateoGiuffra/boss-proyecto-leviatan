@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=48 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/not_enemies/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://vu10a0th7ncl" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
@@ -191,6 +191,9 @@ shader_parameter/intensity = 0.0
 shader = ExtResource("22_mdyrr")
 shader_parameter/intensity = 0.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqekh"]
+size = Vector2(1043.3333, 958)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 2
 collision_layer = 12
@@ -222,7 +225,7 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"die"
+animation = &"idle"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
@@ -289,9 +292,9 @@ grow_vertical = 2
 
 [node name="Camera" parent="." instance=ExtResource("24_vf103")]
 offset = Vector2(0, -100)
+position_smoothing_speed = 7.0
 
-[node name="Sounds" type="Node2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
+[node name="Sounds" type="Node" parent="."]
 
 [node name="StepSound" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("21_kycvn")
@@ -404,6 +407,14 @@ shape = SubResource("CapsuleShape2D_i87q2")
 
 [node name="Inventory" parent="." instance=ExtResource("22_73mqe")]
 
+[node name="LightLoader" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightLoader"]
+position = Vector2(-29.000011, -103)
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_qqekh")
+
 [connection signal="animation_finished" from="Pivot/AnimatedPlayer" to="." method="_on_animated_player_animation_finished"]
 [connection signal="timeout" from="Timers/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="_on_dash_timer_timeout"]
@@ -416,3 +427,5 @@ shape = SubResource("CapsuleShape2D_i87q2")
 [connection signal="area_entered" from="ItemDetector" to="." method="_on_item_detector_area_entered"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="ItemDetector" to="." method="_on_item_detector_body_exited"]
+[connection signal="body_entered" from="LightLoader" to="." method="_on_light_loader_body_entered"]
+[connection signal="body_exited" from="LightLoader" to="." method="_on_light_loader_body_exited"]

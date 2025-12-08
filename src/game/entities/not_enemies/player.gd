@@ -11,9 +11,12 @@ class_name Player
 @export var swim_boost: int = 3
 @export var inventory_ui: InventoryUI
 @export var goal: Area2D
+@onready var state_machine = $StateMachine
+
 # salud
 @export var max_hp: int = 3
 var hp: int = max_hp
+
 # oxigeno
 @export var max_oxygen: float = 100
 var oxygen: float = 100
@@ -22,31 +25,34 @@ var oxygen: float = 100
 # visual
 @onready var pivot: Node2D = $Pivot
 @onready var animated_player: AnimatedSprite2D = $Pivot/AnimatedPlayer
-
-
-@onready var state_machine = $StateMachine
-@onready var inventory: Inventory = $Inventory
-@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
-@onready var dash_timer: Timer = $Timers/DashTimer
-@onready var point_light_2d: PointLight2D = $PointLight2D
-@onready var canvas_layer: CanvasLayer = $CanvasLayer
-@onready var camera: Camera2D = $Camera
-@onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
-@onready var particles: CPUParticles2D = $CPUParticles2D
-@onready var particles_timer: Timer = $Timers/ParticlesTimer
-@onready var message: Label = $Message/Label
-@onready var come_back_label: Label = $Message/ComeBackLabel
-@onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
-# timers
-@onready var h20_timer: Timer = $Timers/H20Timer
-# shaders
-@onready var oxygen_overlay: ColorRect = $CanvasLayer/ColorRectOxygenMark
-@onready var damage_overlay: ColorRect = $CanvasLayer/ColorRectDamage
 const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
 const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
 var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
+@onready var point_light_2d: PointLight2D = $PointLight2D
+@onready var inventory: Inventory = $Inventory
+@onready var particles_timer: Timer = $Timers/ParticlesTimer
+@onready var camera: Camera2D = $Camera
+@onready var message: Label = $Message/Label
+@onready var come_back_label: Label = $Message/ComeBackLabel
+@onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
+@onready var particles: CPUParticles2D = $CPUParticles2D
 
-# Variables para la lógica del dash y swim boost (si no se mueven al State Machine)
+# timers
+@onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
+@onready var dash_timer: Timer = $Timers/DashTimer
+
+# sounds
+@onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
+
+# timers
+@onready var h20_timer: Timer = $Timers/H20Timer
+
+# shaders
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var oxygen_overlay: ColorRect = $CanvasLayer/ColorRectOxygenMark
+@onready var damage_overlay: ColorRect = $CanvasLayer/ColorRectDamage
+
+# Variables para la logica del dash y swim boost
 var movement_direction: int
 var count_swim_boost = swim_boost
 var jump: bool
@@ -95,7 +101,6 @@ func _physics_process(_delta: float) -> void:
 	
 	if is_dead():
 		GameState.level_lost.emit()
-	# La logica de animación y movimiento debe ser gestionada por el State Machine.
 	
 	get_input()
 	
@@ -184,7 +189,7 @@ func want_moving() -> bool:
 func move_player(delta: float) -> void:
 	var current_movement_speed = velocity.x + (movement_direction * acceleration * delta)
 	velocity.x = clamp(current_movement_speed, -movement_speed_limit, movement_speed_limit)
-
+	
 	if is_dashing:
 		play_animation("dash")
 		return
@@ -201,7 +206,7 @@ func move_player(delta: float) -> void:
 			play_animation("idle")
 
 func stop_player(delta: float) -> void:
-	velocity.x = move_toward(velocity.x, 0.0, friction_weight * delta)
+	velocity.x = lerp(velocity.x, 0.0, friction_weight * delta) if abs(velocity.x) > 1 else 0
 
 	if is_dashing:
 		play_animation("dash")

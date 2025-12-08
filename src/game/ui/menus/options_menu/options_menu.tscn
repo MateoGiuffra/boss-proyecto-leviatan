@@ -75,7 +75,6 @@ text = "Atras
 "
 
 [node name="Controls" type="MarginContainer" parent="OptionsMenu"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,15 +130,18 @@ theme_override_font_sizes/font_size = 29
 text = "Atras"
 
 [node name="Volume" type="MarginContainer" parent="OptionsMenu"]
-visible = false
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -162.5
-offset_right = 162.5
-offset_bottom = 341.0
+anchor_bottom = 0.5
+offset_left = -281.0
+offset_top = -295.5
+offset_right = 281.0
+offset_bottom = 295.5
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_top = 100
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="OptionsMenu/Volume"]
@@ -148,6 +150,7 @@ theme_override_constants/separation = 150
 
 [node name="Label" type="Label" parent="OptionsMenu/Volume/VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 64
 text = "VOLUMEN"

@@ -6,7 +6,6 @@ const INPUT_SECTION = "InputBindings"
 
 
 func _ready() -> void:
-	# Opcional: cargar al inicio automáticamente
 	load_input_map()
 
 
@@ -110,9 +109,7 @@ func _events_equal(a: InputEvent, b: InputEvent) -> bool:
 	return false
 
 
-# =====================================================
-# SERIALIZACIÓN
-# =====================================================
+# serializacion
 func _serialize_event(event: InputEvent) -> Dictionary:
 	var data = {}
 	

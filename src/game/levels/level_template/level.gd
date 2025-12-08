@@ -17,26 +17,6 @@ signal next_level_requested()
 
 func _ready() -> void:
 	randomize()
-	for light in get_tree().get_nodes_in_group("dynamic_light"):
-		if light is Light2D:
-			light.enabled = false
-			lights.append(light)
-	print("size: " + str(lights.size()))
-	print("2size: " + str(get_tree().get_nodes_in_group("dynamic_light").size()))
-
-
-func _process(_delta: float) -> void:
-	if GameState.current_player: 
-		var camera := GameState.current_player.camera
-		if camera == null:
-			return
-
-		var cam_pos := camera.global_position
-
-		for light in lights:
-			if light: 
-				var dist := cam_pos.distance_to(light.global_position)
-				light.enabled = dist <= enable_distance
 
 # Funciones que hacen de interfaz para las señales
 func _on_level_won() -> void:
