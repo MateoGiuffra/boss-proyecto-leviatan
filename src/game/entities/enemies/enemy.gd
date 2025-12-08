@@ -2,165 +2,137 @@ extends CharacterBody2D
 class_name Enemy
 
 @onready var animated_enemy_2d: AnimatedSprite2D = $AnimatedEnemy2D
-@onready var state_machine: Node = $StateMachine
-@onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-# raycasts: 
-@onready var always_up_ray_cast_2d: RayCast2D = $DetectionArea/AlwaysUpRayCast2D
-@onready var ray_cast_2d: RayCast2D = $DetectionArea/RayCast2D
-# timers
+@onready var always_up_ray_cast_2d: RayCast2D = $AlwaysUpRayCast2D
 @onready var damage_timer: Timer = $Timers/DamageTimer
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
-
-#movements
+# Movimiento
 var on_ceiling := false
-@export var acceleration: float = 3750.0
-@export var movement_speed_limit: float = 300.0
-@export var friction_weight: float = 6.25 	
+@export var movement_speed: float = 150.0
+@export var friction_weight: float = 6.25
 @export var gravity: float = 725.0
-@export var jump_speed: int = 450
-@export var follow_distance:float = 200
-@export var max_jumps: int = 2
+@export var stop_distance_from_player: float = 8.0
 
-@export var stop_distance_from_player: float = 2.0
-
-
-var jumps_left: int = max_jumps
-
-var movement_direction: int
+var movement_direction: int = 0
 var player_target: Player = null
-
-const JUMP_HEIGHT_THRESHOLD: float = -30.0
-const JUMP_DIST_THRESHOLD: float = 300.0
 
 func _ready() -> void:
 	ray_cast_2d.enabled = true
-	if player_target:
-		makepath()
+	ray_cast_2d.exclude_parent = true   # que no se pegue a sí mismo
 
-func _physics_process(_delta: float) -> void:
+
+func _physics_process(delta: float) -> void:
 	update_orientation()
-	if want_moving():
-		_play_animation("walk")
-		animated_enemy_2d.flip_h = movement_direction < 0
-	else:
-		_play_animation("idle")
-	
-	aim_to_player()
-	move_and_slide()
 
-func update_orientation() -> void:
-	var colliding_ceiling := is_colliding_up()
-	
-	if colliding_ceiling and not on_ceiling:
-		on_ceiling = true
-		# Opción A: flip vertical
-		animated_enemy_2d.flip_v = true
-		# Si preferís rotación en vez de flip:
-		# animated_enemy_2d.rotation_degrees = 180
-		
-	elif not colliding_ceiling and on_ceiling:
-		on_ceiling = false
-		animated_enemy_2d.flip_v = false
-		# animated_enemy_2d.rotation_degrees = 0
-
-	
-func is_colliding_up() -> bool: 
-	return always_up_ray_cast_2d.is_colliding()	
-
-func want_moving():
-	return movement_direction != 0
-	
-func _on_timer_make_path_timeout() -> void:
-	makepath()
-
-func makepath() -> void:
-	if player_target:
-		nav_agent.target_position = player_target.global_position
-
-func navigate(delta):
-	if nav_agent.is_navigation_finished():
-		movement_direction = 0
-		velocity.x = lerp(velocity.x, 0.0, delta * 8.0)
-		return
-
-	# Si hay player y estoy muy cerca, me freno para no empujarlo
-	if player_target:
-		var dist_to_player := global_position.distance_to(player_target.global_position)
-		if dist_to_player <= stop_distance_from_player:
-			movement_direction = 0
-			velocity.x = lerp(velocity.x, 0.0, delta * 8.0)
-			return
-
-	var next_path_point = nav_agent.get_next_path_position()
-	var dir = (next_path_point - global_position).normalized()
-
-	# Dirección de movimiento (para animaciones)
-	movement_direction = int(sign(dir.x))
-
-	# Movimiento horizontal
-	velocity.x = dir.x * movement_speed_limit
-
-	# Movimiento vertical → lo maneja la física
+	# gravedad
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-
-
-func aim_to_player():
-	if player_target:
-		var player_position_local_to_raycast = ray_cast_2d.to_local(player_target.global_position)
-		ray_cast_2d.target_position = player_position_local_to_raycast
-
-func _play_animation(animation_name: StringName) -> void:
-	if animated_enemy_2d.sprite_frames.has_animation(animation_name):
-		animated_enemy_2d.play(animation_name)
+	if player_target and _ray_sees_player():
+		_follow_player(delta)
 	else:
-		print("unrecognized animation name " + str(animation_name))
+		_idle(delta)
 
-func can_follow() -> bool:
+	_update_animation()
+	move_and_slide()
+
+
+# --- techo ---
+func update_orientation() -> void:
+	var col := always_up_ray_cast_2d.is_colliding()
+	if col and not on_ceiling:
+		on_ceiling = true
+		animated_enemy_2d.flip_v = true
+	elif not col and on_ceiling:
+		on_ceiling = false
+		animated_enemy_2d.flip_v = false
+
+
+# --- visión con RayCast ---
+@export var min_view_distance_when_close: float = 120.0
+
+@export var ray_vertical_offset: float = -20.0  # -Y = hacia arriba en Godot
+
+func _ray_sees_player() -> bool:
 	if player_target == null:
 		return false
-	
-	# Usamos la distancia como criterio de 'seguir', ya que quitamos la dependencia del RayCast
-	var distance_sq = global_position.distance_squared_to(player_target.global_position)
-	var follow_sq = follow_distance * follow_distance
-	
-	# Si el jugador está demasiado lejos, deja de seguir
-	if distance_sq > follow_sq * 2.0:
-		return false
-	
-	return true
 
-func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):	
-		player_target = body
-		makepath()
-		state_machine.on_child_transition(state_machine.current_state, "EnemyAttackState")
-	
+	# Posición global del "pecho" del player
+	var target_global := player_target.global_position + Vector2(0.0, ray_vertical_offset)
+
+	# Convertimos ese punto al espacio local del RayCast2D
+	var local_target := ray_cast_2d.to_local(target_global)
+	ray_cast_2d.target_position = local_target
+	ray_cast_2d.force_raycast_update()
+
+	if not ray_cast_2d.is_colliding():
+		return false
+
+	var collider := ray_cast_2d.get_collider()
+	return collider == player_target
+
+
+
+
+@export var close_speed_factor: float = 0.1  # 10% de la velocidad normal
+
+
+# --- seguir al player sin pathfinding ---
+func _follow_player(delta: float) -> void:
+	# diferencia en X con el player
+	var dx := player_target.global_position.x - global_position.x
+	var dist_x = abs(dx)
+	var dir_x = sign(dx)
+
+	# Siempre está "en modo seguir" mientras te vea
+	movement_direction = int(dir_x)
+	velocity.x = dir_x * movement_speed
+
+
+
+# --- idle ---
+func _idle(delta: float) -> void:
+	movement_direction = 0
+	velocity.x = move_toward(velocity.x, 0.0, friction_weight * movement_speed * delta)
+
+
+# --- animaciones ---
+func _update_animation() -> void:
+	if movement_direction != 0:
+		animated_enemy_2d.play("walk")
+	else:
+		animated_enemy_2d.play("idle")
+
+	animated_enemy_2d.flip_h = movement_direction < 0
+
 func _on_animated_enemy_2d_animation_looped() -> void:
 	if animated_enemy_2d.animation == "idle":
 		animated_enemy_2d.flip_h = !animated_enemy_2d.flip_h
 
-	
+
+# --- rango (DetectionArea) ---
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		player_target = body as Player
+
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body == player_target:
+		player_target = null
+
+
+# --- daño ---
 func _on_collision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		player_target = body 
-		
-		# Aplica el primer tick de daño y ENCIENDE el Timer
+		player_target = body as Player
 		if damage_timer.is_stopped():
 			player_target.beaten()
 			damage_timer.start()
 
-# NUEVA FUNCIÓN NECESARIA: Detiene el daño recurrente
 func _on_collision_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		# ¡IMPORTANTE! Detiene el contador de daño cuando el jugador se va
+		player_target = null
 		damage_timer.stop()
-		player_target = null # Opcional: limpiar la referencia
 
-# La función del Timer se mantiene simple, ya que el Timer solo corre cuando el jugador está dentro
 func _on_damage_timer_timeout() -> void:
-	# Verificamos si la referencia al jugador todavía existe
 	if player_target:
 		player_target.beaten()
-		

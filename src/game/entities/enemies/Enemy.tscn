@@ -1,10 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cey4wuep5drty"]
+[gd_scene load_steps=18 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
 [ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
-[ext_resource type="Script" uid="uid://01pqqw6btnti" path="res://src/game/entities/enemies/state_machine.gd" id="2_82qr8"]
-[ext_resource type="Script" uid="uid://d3qnj6jfrg2on" path="res://src/game/scripts/states/enemy/enemy_idle_state.gd" id="3_rfvys"]
-[ext_resource type="Script" uid="uid://yvg04b8a34fn" path="res://src/game/scripts/states/enemy/enemy_attack_state.gd" id="4_i8idp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
 size = Vector2(25.333334, 22.666668)
@@ -97,7 +94,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_im7nu"]
-radius = 131.24405
+radius = 180.03087
 
 [sub_resource type="Gradient" id="Gradient_phf73"]
 interpolation_mode = 2
@@ -119,10 +116,8 @@ scale = Vector2(1.5, 1.5)
 collision_layer = 17
 collision_mask = 5
 script = ExtResource("1_i8idp")
-acceleration = 1500.0
-movement_speed_limit = 200.0
 gravity = 600.0
-jump_speed = 250
+min_view_distance_when_close = 250.0
 
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_mask = 4
@@ -144,34 +139,17 @@ frame = 1
 frame_progress = 0.77476984
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 4
 
 [node name="CollisionDetectionAreaShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_im7nu")
-debug_color = Color(0.35058236, 0.48370993, 1, 0.41960785)
-
-[node name="RayCast2D" type="RayCast2D" parent="DetectionArea"]
-target_position = Vector2(0, 135)
-collision_mask = 7
-
-[node name="AlwaysUpRayCast2D" type="RayCast2D" parent="DetectionArea"]
-target_position = Vector2(0, -23)
-collision_mask = 5
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_82qr8")
-initial_state = NodePath("EnemyIdleState")
-
-[node name="EnemyIdleState" type="Node" parent="StateMachine"]
-script = ExtResource("3_rfvys")
-
-[node name="EnemyAttackState" type="Node" parent="StateMachine"]
-script = ExtResource("4_i8idp")
+debug_color = Color(0.9129193, 0.12392347, 0.6461564, 0.41960785)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
 
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
+visible = false
 texture_filter = 1
 position = Vector2(0.6666667, -4.666667)
 enabled = false
@@ -191,6 +169,14 @@ one_shot = true
 [node name="TimerMakePath" type="Timer" parent="Timers"]
 wait_time = 0.5
 autostart = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 5
+collide_with_areas = true
+
+[node name="AlwaysUpRayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -23)
+collision_mask = 5
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]
