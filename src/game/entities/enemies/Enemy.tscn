@@ -1,7 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://cey4wuep5drty"]
+[gd_scene load_steps=17 format=3 uid="uid://cey4wuep5drty"]
 
 [ext_resource type="Script" uid="uid://br4ul5x3t6hnp" path="res://src/game/entities/enemies/enemy.gd" id="1_i8idp"]
-[ext_resource type="Texture2D" uid="uid://dkrfip6ir6mvx" path="res://assets/textures/enemies/slime/Slime_Spiked_Full.png" id="1_paah2"]
+[ext_resource type="Texture2D" uid="uid://o2kfitqox0gc" path="res://assets/textures/enemies/slime/idle/idle.png" id="2_xvonl"]
+[ext_resource type="Texture2D" uid="uid://djiufnfymgwxt" path="res://assets/textures/enemies/slime/idle/idle_02.png" id="3_y2dqm"]
+[ext_resource type="Texture2D" uid="uid://b8408wpw36fnk" path="res://assets/textures/enemies/slime/idle/idle_03.png" id="4_oubyw"]
+[ext_resource type="Texture2D" uid="uid://p1khskhdu2gj" path="res://assets/textures/enemies/slime/jump/jump_01.png" id="5_gdo7j"]
+[ext_resource type="Texture2D" uid="uid://cbtgra34xy4eu" path="res://assets/textures/enemies/slime/jump/jump_03.png" id="6_kugo5"]
+[ext_resource type="Texture2D" uid="uid://bg34tnh18hopb" path="res://assets/textures/enemies/slime/jump/jump_02.png" id="7_tc3fq"]
+[ext_resource type="Texture2D" uid="uid://dchpu581q6xmu" path="res://assets/textures/enemies/slime/walk/walk_01.png" id="8_6aixj"]
+[ext_resource type="Texture2D" uid="uid://bgbb3061opmbh" path="res://assets/textures/enemies/slime/walk/walk_02.png" id="9_0kb5n"]
+[ext_resource type="Texture2D" uid="uid://g5p0knapaps4" path="res://assets/textures/enemies/slime/walk/walk_03.png" id="10_esiwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfvys"]
 size = Vector2(25.333334, 22.666668)
@@ -9,84 +17,60 @@ size = Vector2(25.333334, 22.666668)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phf73"]
 size = Vector2(19.833334, 16.5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i8idp"]
-atlas = ExtResource("1_paah2")
-region = Rect2(0, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ae7xc"]
-atlas = ExtResource("1_paah2")
-region = Rect2(64, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iplvi"]
-atlas = ExtResource("1_paah2")
-region = Rect2(128, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg1dj"]
-atlas = ExtResource("1_paah2")
-region = Rect2(192, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxdrg"]
-atlas = ExtResource("1_paah2")
-region = Rect2(256, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kppe4"]
-atlas = ExtResource("1_paah2")
-region = Rect2(320, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ijm5m"]
-atlas = ExtResource("1_paah2")
-region = Rect2(64, 128, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_im7nu"]
-atlas = ExtResource("1_paah2")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qyjmi"]
-atlas = ExtResource("1_paah2")
-region = Rect2(320, 0, 64, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_ijm5m"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i8idp")
+"texture": ExtResource("2_xvonl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ae7xc")
+"texture": ExtResource("3_y2dqm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iplvi")
+"texture": ExtResource("4_oubyw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kg1dj")
+"texture": ExtResource("3_y2dqm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oxdrg")
+"texture": ExtResource("3_y2dqm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kppe4")
+"texture": ExtResource("2_xvonl")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ijm5m")
+"texture": ExtResource("5_gdo7j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ijm5m")
+"texture": ExtResource("6_kugo5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tc3fq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tc3fq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kugo5")
 }],
 "loop": true,
 "name": &"jump",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_im7nu")
+"texture": ExtResource("8_6aixj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qyjmi")
+"texture": ExtResource("9_0kb5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_esiwl")
 }],
 "loop": true,
 "name": &"walk",
@@ -112,7 +96,6 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
 
 [node name="Enemy" type="CharacterBody2D"]
-scale = Vector2(1.5, 1.5)
 collision_layer = 17
 collision_mask = 5
 script = ExtResource("1_i8idp")
@@ -131,12 +114,12 @@ position = Vector2(0.6666667, -0.6666667)
 shape = SubResource("RectangleShape2D_phf73")
 
 [node name="AnimatedEnemy2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -9.000001)
+position = Vector2(1, -2.3333342)
 scale = Vector2(1.0234377, 1.0390625)
 sprite_frames = SubResource("SpriteFrames_ijm5m")
 animation = &"idle"
 frame = 1
-frame_progress = 0.77476984
+frame_progress = 0.96515286
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_mask = 4
@@ -149,12 +132,11 @@ debug_color = Color(0.9129193, 0.12392347, 0.6461564, 0.41960785)
 path_max_distance = 200.0
 
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
-visible = false
 texture_filter = 1
 position = Vector2(0.6666667, -4.666667)
 enabled = false
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
-energy = 0.33
+energy = 0.69
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1

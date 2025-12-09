@@ -29,6 +29,7 @@ var can_change_direction = true
 var dir_change_cooldown_left: float = 0.0
 
 var movement_direction: int = 0
+var facing_direction: int = 1      # 1 = derecha, -1 = izquierda
 var player_target: Player = null
 
 
@@ -114,6 +115,7 @@ func _follow_player(delta: float) -> void:
 	# solo permitimos cambiar de lado cada X segundos
 	if new_dir != 0 and new_dir != movement_direction and can_change_direction:
 		movement_direction = int(new_dir)
+		facing_direction = movement_direction
 		can_change_direction = false
 		dir_change_cooldown_left = dir_change_cooldown
 
@@ -128,17 +130,14 @@ func _idle(delta: float) -> void:
 
 # --- animaciones ---
 func _update_animation() -> void:
-	if movement_direction != 0:
+	if velocity.y < 0: 
+		animated_enemy_2d.play("jump")
+	elif movement_direction != 0:
 		animated_enemy_2d.play("walk")
 	else:
 		animated_enemy_2d.play("idle")
 
-	animated_enemy_2d.flip_h = movement_direction < 0
-
-
-func _on_animated_enemy_2d_animation_looped() -> void:
-	if animated_enemy_2d.animation == "idle":
-		animated_enemy_2d.flip_h = not animated_enemy_2d.flip_h
+	animated_enemy_2d.flip_h = facing_direction < 0
 
 
 # --- rango (DetectionArea) ---

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh3dqka3buk5t"
-path="res://.godot/imported/Slime_Spiked_Run.png-20bc15392effff2381c6b662a3822037.ctex"
+uid="uid://dchpu581q6xmu"
+path="res://.godot/imported/walk_01.png-770ce69f50cf7a0a3611f168578779bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/Slime_Spiked_Run.png"
-dest_files=["res://.godot/imported/Slime_Spiked_Run.png-20bc15392effff2381c6b662a3822037.ctex"]
+source_file="res://assets/textures/enemies/slime/walk/walk_01.png"
+dest_files=["res://.godot/imported/walk_01.png-770ce69f50cf7a0a3611f168578779bf.ctex"]
 
 [params]
 

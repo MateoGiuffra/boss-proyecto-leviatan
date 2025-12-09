@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwry86hqb8iwo"
-path="res://.godot/imported/Slime_Spiked_Jump.png-a4bd4d6fc358bb3ec4ec198d324d2f77.ctex"
+uid="uid://djiufnfymgwxt"
+path="res://.godot/imported/idle_02.png-666741a157e57fa5f6e4f37c8797a3a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/Slime_Spiked_Jump.png"
-dest_files=["res://.godot/imported/Slime_Spiked_Jump.png-a4bd4d6fc358bb3ec4ec198d324d2f77.ctex"]
+source_file="res://assets/textures/enemies/slime/idle/idle_02.png"
+dest_files=["res://.godot/imported/idle_02.png-666741a157e57fa5f6e4f37c8797a3a4.ctex"]
 
 [params]
 

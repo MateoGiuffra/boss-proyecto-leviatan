@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pvcjh02ryu0r"
-path="res://.godot/imported/Slime_Spiked_Hit.png-36f32650e095851876adfa09995e6cf9.ctex"
+uid="uid://cbtgra34xy4eu"
+path="res://.godot/imported/jump_03.png-aaf163443eb4aa02fa44331854329087.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies/slime/Slime_Spiked_Hit.png"
-dest_files=["res://.godot/imported/Slime_Spiked_Hit.png-36f32650e095851876adfa09995e6cf9.ctex"]
+source_file="res://assets/textures/enemies/slime/jump/jump_03.png"
+dest_files=["res://.godot/imported/jump_03.png-aaf163443eb4aa02fa44331854329087.ctex"]
 
 [params]
 

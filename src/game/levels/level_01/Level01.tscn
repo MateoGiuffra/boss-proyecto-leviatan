@@ -96,7 +96,6 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 position = Vector2(77, 246)
 
 [node name="CanvasModulate" parent="." index="9"]
-visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
 [node name="Chunks" type="Node2D" parent="." index="10"]
