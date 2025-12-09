@@ -32,10 +32,12 @@ var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 @onready var inventory: Inventory = $Inventory
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
 @onready var camera: Camera2D = $Camera
-@onready var message: Label = $Message/Label
-@onready var come_back_label: Label = $Message/ComeBackLabel
 @onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
 @onready var particles: CPUParticles2D = $CPUParticles2D
+
+# labels
+@onready var message: Label = $Message/Label
+@onready var come_back_label: Label = $Message/ComeBackLabel
 
 # timers
 @onready var double_tap_timer: Timer = $Timers/DoubleTapTimer
@@ -85,7 +87,7 @@ func activate():
 	if inventory_ui != null:
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
-	
+	hide_label(come_back_label)
 	oxygen_bar.show()
 	animated_player.scale = Vector2(4, 4)
 	particles.emitting = false
@@ -123,11 +125,12 @@ func _physics_process(_delta: float) -> void:
 
 	move_and_slide()
 	
-func desactivate():
+func desactivate(hide_player = true):
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
-	hide()
+	if hide_player:
+		hide()
 	if camera:
 		camera.enabled = false
 
@@ -289,14 +292,18 @@ func beaten() -> void:
 	life_to_remove.queue_free()
 	if hp <= 0:
 		die_finish()
-		die_timer.start()
+		
 		
 func _on_die_timer_timeout() -> void:
 	GameState.current_player_changed.emit()
 
 func die_finish() -> void: 
+	hp = 0
+	oxygen = 0
 	oxygen_bar.hide()
 	animated_player.scale = Vector2(8, 8)
+	hide_label(come_back_label)
+	die_timer.start()
 	play_animation("die")
 	
 func damage_flash():
@@ -414,3 +421,4 @@ func _on_photo_shoot_finished() -> void:
 		else:
 			play_animation("fall")
 	inventory.document_registered.emit()
+	inventory.inventory_changed.emit()

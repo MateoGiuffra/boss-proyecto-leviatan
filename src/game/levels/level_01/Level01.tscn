@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=18 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
+[ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="2_i53je"]
 [ext_resource type="PackedScene" uid="uid://cjmuskb8u4ges" path="res://src/game/levels/level_01/my_tail_map.tscn" id="3_5rfnw"]
 [ext_resource type="PackedScene" uid="uid://bldqwktb618w7" path="res://src/game/inventory/ui/inventory_ui.tscn" id="3_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://bvmo3x0lj3fqv" path="res://src/game/levels/chunk/chunk.tscn" id="3_yrqp0"]
@@ -28,22 +29,27 @@ size = Vector2(3718.5, 1387.75)
 [node name="Level01" node_paths=PackedStringArray("initial_player_position") instance=ExtResource("1_f30rv")]
 initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 
+[node name="CineCam" parent="." index="0" instance=ExtResource("2_i53je")]
+offset = Vector2(0, -100)
+position_smoothing_speed = 7.0
+
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
-[node name="Goal" parent="." index="1" node_paths=PackedStringArray("boss")]
+[node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
 position = Vector2(1, 349)
+level = NodePath("..")
 boss = NodePath("../Boss")
 
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
 
-[node name="Player" parent="." index="3" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
+[node name="Player" parent="." index="4" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
 position = Vector2(56.00002, 351)
 scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
 
-[node name="UILife" type="CanvasLayer" parent="." index="5"]
+[node name="UILife" type="CanvasLayer" parent="." index="6"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILife" index="0"]
 anchors_preset = 15
@@ -80,20 +86,20 @@ layout_mode = 2
 texture = ExtResource("8_behuu")
 expand_mode = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 
 [node name="InventoryUi" parent="CanvasLayer" index="0" instance=ExtResource("3_i5t0w")]
 size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
-[node name="Boss" parent="." index="7" instance=ExtResource("9_ctuea")]
-position = Vector2(-1175, 611)
+[node name="Boss" parent="." index="8" instance=ExtResource("9_ctuea")]
+position = Vector2(77, 246)
 
-[node name="CanvasModulate" parent="." index="8"]
+[node name="CanvasModulate" parent="." index="9"]
 visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
-[node name="Chunks" type="Node2D" parent="." index="9"]
+[node name="Chunks" type="Node2D" parent="." index="10"]
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
 position = Vector2(1345, 417)
@@ -267,6 +273,8 @@ position = Vector2(3861, 155)
 position = Vector2(5384, -6)
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
+
+[connection signal="can_win_level" from="." to="." method="_on_can_win_level"]
 
 [editable path="Chunks/Chunk01"]
 [editable path="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable"]

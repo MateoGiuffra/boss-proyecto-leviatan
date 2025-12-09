@@ -1,17 +1,13 @@
 class_name Inventory extends Node
 
 var items: Dictionary[String, ItemData] = {} # Key: Item ID (String)
-var documentables: Array[String] = []
 @export var inventory_size: int = 10
 
 signal inventory_changed
 signal document_registered
 
-func register_documentable(documentable_id: String) -> void:
-	pass
+func register_documentable(_documentable_id: String) -> void:
 	document_registered.emit()
-
-
 
 func pick_up_item(world_item_data: ItemData) -> bool:
 	var item_id: String = world_item_data.id
@@ -38,6 +34,6 @@ func get_items() -> Array[ItemData]:
 
 func items_amount() -> int:
 	var result = 0
-	for val in  items.values():
+	for val in items.values():
 		result += val.actual_amount
 	return result 

@@ -35,20 +35,7 @@ func _update_slot_text(slot: Slot, total: int):
 	slot.update_text(str(total) + "/" + str(slot.get_text()))
 
 func _update_ui():
-	for slot in slots: 
-		slot.queue_free()
-	slots = []
-	for item in player_inventory.get_items():
-		var slot = SLOT_SCENE.instantiate()
-		
-		var icon_node: TextureRect = slot.get_node("Icon")
-		var amount_node: Label = slot.get_node("Amount")
-		
-		icon_node.texture = item.icon
-		amount_node.text = str(item.actual_amount) + "/10"
-		
-		self._config_dimensions(icon_node, amount_node, slot)
-		self._add(slot)
+	pass
 
 func _add(slot ):
 	slots.append(slot)
