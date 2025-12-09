@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=19 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="2_i53je"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="8_behuu"]
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
+[ext_resource type="PackedScene" uid="uid://b1ec4aqwmhkjh" path="res://src/game/entities/enemies/turret_enemy/enemy_turret.tscn" id="12_bat37"]
 [ext_resource type="PackedScene" uid="uid://3nkrnf665rv2" path="res://src/game/environment/documentables/documentable.tscn" id="12_pdsmj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqwp2"]
@@ -96,6 +97,7 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 position = Vector2(77, 246)
 
 [node name="CanvasModulate" parent="." index="9"]
+visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
 [node name="Chunks" type="Node2D" parent="." index="10"]
@@ -131,6 +133,9 @@ position = Vector2(1074, -239)
 
 [node name="Enemy_03" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
 position = Vector2(1096, -753.00006)
+
+[node name="EnemyTurret" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("12_bat37")]
+position = Vector2(117, -286)
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="2"]
 

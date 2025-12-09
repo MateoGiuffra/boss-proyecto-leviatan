@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1ec4aqwmhkjh"]
+
+[ext_resource type="Script" uid="uid://681ttq1dfpoh" path="res://src/game/entities/enemies/turret_enemy/enemy_turret.gd" id="1_1xawl"]
+[ext_resource type="PackedScene" uid="uid://dx0xmqw1tn3eh" path="res://src/game/entities/enemies/ammo/ammo.tscn" id="2_4s8kf"]
+[ext_resource type="Texture2D" uid="uid://b2573wbkusrnp" path="res://assets/textures/enemies/turret_enemy/idle.png" id="2_e8lrk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x4won"]
+radius = 2.1213202
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e4qyc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e8lrk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e8lrk")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lc1km"]
+radius = 108.0
+
+[node name="EnemyTurret" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_1xawl")
+projectile_scene = ExtResource("2_4s8kf")
+
+[node name="Pivot" type="Area2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot"]
+position = Vector2(-5.5, 3)
+target_position = Vector2(-32.5, 31)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="OriginZone" type="CollisionShape2D" parent="Pivot"]
+position = Vector2(-6, 3)
+shape = SubResource("CircleShape2D_x4won")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot"]
+sprite_frames = SubResource("SpriteFrames_e4qyc")
+animation = &"shoot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lc1km")
+debug_color = Color(0.8007278, 0.4206606, 0.002920189, 0.41960785)
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="animation_finished" from="Pivot/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
