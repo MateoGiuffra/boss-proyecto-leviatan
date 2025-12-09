@@ -25,15 +25,17 @@ var oxygen: float = 100
 # visual
 @onready var pivot: Node2D = $Pivot
 @onready var animated_player: AnimatedSprite2D = $Pivot/AnimatedPlayer
-const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
-const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
-var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 @onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var inventory: Inventory = $Inventory
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
 @onready var camera: Camera2D = $Camera
 @onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
 @onready var particles: CPUParticles2D = $CPUParticles2D
+# oxygen bar visuals
+const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
+const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
+const OXYGEN_JUMP_OFFSET := Vector2(25.278, -39.656)
+var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 
 # labels
 @onready var message: Label = $Message/Label
@@ -129,6 +131,10 @@ func desactivate(hide_player = true):
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
+	canvas_layer.set_physics_process(true)
+	oxygen_overlay.set_physics_process(true)
+	damage_overlay.set_physics_process(true)
+
 	if hide_player:
 		hide()
 	if camera:
@@ -156,12 +162,17 @@ func play_animation(animation_name: StringName)-> void:
 		animated_player.play(animation_name)
 	
 func _update_visuals(direction: int) -> void:
-	if direction != 0:
+	if direction != 0 or animated_player.animation == "shoot_camera" or animated_player.animation == "can_shoot":
 		var is_left := direction < 0
 		pivot.scale.x = -1.0 if is_left else 1.0
-		oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
+		if position.y < 0: 
+			oxygen_bar.position.y = OXYGEN_JUMP_OFFSET.y
+		else:
+			oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
 	else: 
-		oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
+		match animated_player.animation: 
+			"idle":
+				oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
 		
 # dash
 func _check_double_tap(is_dashing: bool) -> void:
@@ -422,3 +433,20 @@ func _on_photo_shoot_finished() -> void:
 			play_animation("fall")
 	inventory.document_registered.emit()
 	inventory.inventory_changed.emit()
+	
+# camera
+func screen_shake(duration: float = 0.3, magnitude: float = 12.0) -> void:
+	var tween := get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+
+	for i in range(6):
+		var random_offset := Vector2(
+			randf_range(-magnitude, magnitude),
+			randf_range(-magnitude, magnitude)
+		)
+		tween.tween_property(self, "offset", random_offset, duration / 6.0)
+
+	# volver a offset 0 al final
+	tween.tween_property(self, "offset", Vector2.ZERO, duration / 6.0)
+	await tween.finished

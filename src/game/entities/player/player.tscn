@@ -256,6 +256,7 @@ acceleration = 100.0
 dash_speed = 600.0
 gravity = 200.0
 jump_speed = 200
+max_hp = 5
 metadata/_edit_group_ = true
 
 [node name="Pivot" type="Node2D" parent="."]
@@ -278,7 +279,9 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"shoot_camera"
+animation = &"jump"
+frame = 2
+frame_progress = 0.86648387
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

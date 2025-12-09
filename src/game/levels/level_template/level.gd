@@ -81,7 +81,7 @@ func start_boss_intro() -> void:
 	if in_cinematic:
 		return
 	in_cinematic = true
-
+	
 	cine_cam.enabled = true
 	player.desactivate(false)
 
@@ -98,5 +98,6 @@ func start_boss_intro() -> void:
 	cine_cam.enabled = false
 	player.activate()
 	in_cinematic = false
+	# await player.screen_shake(0.4, 18.0)
 	boss.init_attack()
 	
