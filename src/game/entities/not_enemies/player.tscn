@@ -208,8 +208,8 @@ anim_speed_max = 5.28
 anim_speed_curve = SubResource("Curve_05p3n")
 
 [node name="PointLight2D" parent="." instance=ExtResource("19_7ruc6")]
-position = Vector2(5.000025, -20.500008)
-scale = Vector2(2.7, 2.7)
+position = Vector2(-2.1000345, -1.35004)
+scale = Vector2(1.883203, 1.7123047)
 color = Color(0.8324709, 0.8887561, 1, 1)
 energy = 1.0
 
@@ -242,6 +242,7 @@ grow_vertical = 2
 
 [node name="Camera" parent="." instance=ExtResource("24_vf103")]
 offset = Vector2(0, -100)
+zoom = Vector2(1.2, 1.2)
 
 [node name="Sounds" type="Node2D" parent="."]
 scale = Vector2(1e-05, 1e-05)

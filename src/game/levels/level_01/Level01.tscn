@@ -28,16 +28,20 @@ size = Vector2(3718.5, 1387.75)
 initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
 
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
+metadata/_edit_vertical_guides_ = [4961.0]
 
 [node name="Goal" parent="." index="1" node_paths=PackedStringArray("boss")]
 position = Vector2(1, 349)
 boss = NodePath("../Boss")
 
+[node name="InitialPlayerPosition" parent="." index="2"]
+visible = false
+
 [node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
 position = Vector2(-130, -426)
 
 [node name="Player" parent="." index="4" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(56.00002, 351)
+position = Vector2(118, 249)
 scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
@@ -79,18 +83,22 @@ texture = ExtResource("8_behuu")
 expand_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
+visible = false
 
 [node name="InventoryUi" parent="CanvasLayer" index="0" instance=ExtResource("3_i5t0w")]
 size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
 [node name="Boss" parent="." index="7" instance=ExtResource("9_ctuea")]
+visible = false
 position = Vector2(-1175, 611)
 
 [node name="CanvasModulate" parent="." index="8"]
-color = Color(0.015686275, 0, 0.1254902, 0.9764706)
+color = Color(0.102556355, 0.11008882, 0.19304341, 1)
 
 [node name="Chunks" type="Node2D" parent="." index="9"]
+process_mode = 4
+visible = false
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
 position = Vector2(1345, 417)
