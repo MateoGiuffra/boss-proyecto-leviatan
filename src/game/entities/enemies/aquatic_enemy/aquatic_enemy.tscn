@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://hvxge8cmomrn"]
+
+[ext_resource type="Script" uid="uid://du1rl2eh4vsbn" path="res://src/game/entities/enemies/aquatic_enemy/aquatic_enemy.gd" id="1_0qoyv"]
+[ext_resource type="Texture2D" uid="uid://bve2rr5yhoa30" path="res://assets/textures/enemies/verrugoso_squid/idle_07.png" id="2_i77eh"]
+[ext_resource type="Texture2D" uid="uid://bbmt1mjxvnks3" path="res://assets/textures/enemies/verrugoso_squid/idle_05.png" id="3_s3pcq"]
+[ext_resource type="Texture2D" uid="uid://dqm5oysnh21dr" path="res://assets/textures/enemies/verrugoso_squid/idle_06.png" id="4_4yx28"]
+[ext_resource type="Texture2D" uid="uid://dm8au5krpfwpm" path="res://assets/textures/enemies/verrugoso_squid/idle_04.png" id="5_t0885"]
+[ext_resource type="Texture2D" uid="uid://bwh68mgudallc" path="res://assets/textures/enemies/verrugoso_squid/idle_02.png" id="6_xvgnj"]
+[ext_resource type="Texture2D" uid="uid://dwfjn40kj3jiv" path="res://assets/textures/enemies/verrugoso_squid/estirado_completamente.png" id="7_gjra1"]
+[ext_resource type="Texture2D" uid="uid://d0xivuki83eo8" path="res://assets/textures/enemies/verrugoso_squid/idle_03.png" id="8_sei1t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i77eh"]
+radius = 4.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qoyv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i77eh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i77eh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s3pcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s3pcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4yx28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t0885")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t0885")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t0885")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t0885")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t0885")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xvgnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gjra1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gjra1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_sei1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s3pcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i77eh")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 10.0
+}]
+
+[node name="AquaticEnemy" type="Area2D"]
+rotation = -3.1415927
+scale = Vector2(2.5, 2.5)
+collision_mask = 4
+script = ExtResource("1_0qoyv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_i77eh")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot"]
+target_position = Vector2(-27.999998, -2.447838e-06)
+collide_with_areas = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot"]
+rotation = 3.9095376
+sprite_frames = SubResource("SpriteFrames_0qoyv")
+animation = &"swim"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

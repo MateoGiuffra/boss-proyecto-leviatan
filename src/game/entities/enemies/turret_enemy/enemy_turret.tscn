@@ -69,6 +69,8 @@ sprite_frames = SubResource("SpriteFrames_e4qyc")
 animation = &"shoot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 8
+visibility_layer = 8
 shape = SubResource("CircleShape2D_lc1km")
 debug_color = Color(0.8007278, 0.4206606, 0.002920189, 0.41960785)
 

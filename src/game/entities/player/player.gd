@@ -89,22 +89,39 @@ func activate():
 	if inventory_ui != null:
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
+
 	hide_label(come_back_label)
 	oxygen_bar.show()
 	animated_player.scale = Vector2(4, 4)
 	particles.emitting = false
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
-	set_oxygen_bar_initial_values()
+
+	set_oxygen_bar_initial_values()  
+	_reset_shaders()                 
+
 	if camera:
 		camera.enabled = true
 	GameState.set_current_player(self)
+
 	
 func set_oxygen_bar_initial_values() -> void:
+	oxygen = max_oxygen              
 	self.oxygen_bar.min_value = 0
 	self.oxygen_bar.max_value = self.max_oxygen
 	self.oxygen_bar.value = self.max_oxygen
+	update_oxygen_overlay()          
 	set_oxygen_bar_idle_position()
+
+func _reset_shaders() -> void:
+	var oxy_mat = oxygen_overlay.material
+	if oxy_mat:
+		oxy_mat.set_shader_parameter("intensity", 0.0)
+
+	var dmg_mat = damage_overlay.material
+	if dmg_mat:
+		dmg_mat.set_shader_parameter("intensity", 0.0)
+
 
 func set_oxygen_bar_idle_position() -> void:
 	pass
@@ -143,11 +160,9 @@ func desactivate(hide_player = true):
 func _on_item_detector_area_entered(area: Area2D):
 	if area.has_method("get_item_data"):
 		var world_item_data: ItemData = area.get_item_data()
-		print("¡Detectado! Item: " + world_item_data.id)
 		
 		if inventory.pick_up_item(world_item_data):
 			area.queue_free()
-			print("Recogido: ", world_item_data.id)
 
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
@@ -294,15 +309,26 @@ func win() -> void:
 func is_dead():
 	return hp <= 0 or oxygen <= 0
 
-func damage_player(damage: float = 1) -> void:
+func damage_player(damage: float = 1, apply_knockback: bool = false) -> void:
 	if is_dead():
 		return
 	hp -= damage
 	damage_flash()
 	if is_dead():
 		die_finish()
+	if apply_knockback:
+		_apply_hit_knockback()
 	hp_changed.emit(hp, max_hp)
-		
+
+func _apply_hit_knockback() -> void:
+	var facing_dir = pivot.scale.x
+	if facing_dir == 0.0:
+		facing_dir = 1.0
+
+	velocity.y = jump_speed if velocity.y < 0 else -jump_speed
+	velocity.x = -facing_dir * movement_speed_limit
+	is_dashing = false
+
 		
 func _on_die_timer_timeout() -> void:
 	GameState.current_player_changed.emit()

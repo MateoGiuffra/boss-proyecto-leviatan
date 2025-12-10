@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=21 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="2_i53je"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
 [ext_resource type="PackedScene" uid="uid://b1ec4aqwmhkjh" path="res://src/game/entities/enemies/turret_enemy/enemy_turret.tscn" id="12_bat37"]
+[ext_resource type="PackedScene" uid="uid://hvxge8cmomrn" path="res://src/game/entities/enemies/aquatic_enemy/aquatic_enemy.tscn" id="12_djtrt"]
 [ext_resource type="PackedScene" uid="uid://3nkrnf665rv2" path="res://src/game/environment/documentables/documentable.tscn" id="12_pdsmj"]
 [ext_resource type="PackedScene" uid="uid://cxpcg8fotkc26" path="res://src/game/environment/healing_zone.tscn" id="14_w6w87"]
 
@@ -101,6 +102,9 @@ position = Vector2(1096, -753.00006)
 [node name="EnemyTurret" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("12_bat37")]
 position = Vector2(16, -286)
 flip = true
+
+[node name="AquaticEnemy" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="4" instance=ExtResource("12_djtrt")]
+position = Vector2(653, -607)
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="2"]
 
