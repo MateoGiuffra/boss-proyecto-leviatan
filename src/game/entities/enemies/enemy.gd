@@ -156,7 +156,7 @@ func _on_collision_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_target = body as Player
 		if damage_timer.is_stopped():
-			player_target.beaten()
+			player_target.damage_player()
 			apply_knockback_from(player_target.global_position)
 			damage_timer.start()
 
@@ -169,7 +169,7 @@ func _on_collision_area_body_exited(body: Node2D) -> void:
 
 func _on_damage_timer_timeout() -> void:
 	if player_target != null:
-		player_target.beaten()
+		player_target.damage_player()
 
 
 # --- knockback ---

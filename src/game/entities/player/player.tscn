@@ -256,7 +256,6 @@ acceleration = 100.0
 dash_speed = 600.0
 gravity = 200.0
 jump_speed = 200
-max_hp = 5
 metadata/_edit_group_ = true
 
 [node name="Pivot" type="Node2D" parent="."]

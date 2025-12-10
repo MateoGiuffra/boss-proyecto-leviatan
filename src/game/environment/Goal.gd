@@ -45,8 +45,6 @@ func verify_win() -> void:
 			trying_to_win = true
 			boss._activate()	
 			level.can_win_level.emit()
-	else:
-		print("but no hay level")
 
 func _on_portal_animation_finished() -> void:
 	if portal.animation == "open":

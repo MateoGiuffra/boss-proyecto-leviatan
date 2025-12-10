@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://src/game/inventory/world_item/world_item.tscn" id="7_5rfnw"]
+[ext_resource type="PackedScene" uid="uid://dxyrmjtfkamqu" path="res://src/game/ui/player/ui_life.tscn" id="7_bat37"]
 [ext_resource type="PackedScene" uid="uid://b5s2xjtsrnukx" path="res://src/game/entities/player/player.tscn" id="7_e2p1h"]
-[ext_resource type="Texture2D" uid="uid://cel3xbd51l2ft" path="res://assets/textures/inventory/life.png" id="8_behuu"]
 [ext_resource type="PackedScene" uid="uid://du5h20jsf0svy" path="res://src/game/entities/enemies/boss.tscn" id="9_ctuea"]
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
 [ext_resource type="PackedScene" uid="uid://b1ec4aqwmhkjh" path="res://src/game/entities/enemies/turret_enemy/enemy_turret.tscn" id="12_bat37"]
@@ -50,57 +50,19 @@ scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
 
-[node name="UILife" type="CanvasLayer" parent="." index="6"]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UILife" index="0"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.5, 1.5)
-
-[node name="MarginContainer" type="MarginContainer" parent="UILife/VBoxContainer" index="0"]
-layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UILife/VBoxContainer/MarginContainer" index="0"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UILife/VBoxContainer/MarginContainer/HBoxContainer" index="0"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-
-[node name="TextureRect" type="TextureRect" parent="UILife/VBoxContainer/MarginContainer/HBoxContainer" index="1"]
-layout_mode = 2
-texture = ExtResource("8_behuu")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="UILife/VBoxContainer/MarginContainer/HBoxContainer" index="2"]
-layout_mode = 2
-texture = ExtResource("8_behuu")
-expand_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="UILife/VBoxContainer/MarginContainer/HBoxContainer" index="3"]
-layout_mode = 2
-texture = ExtResource("8_behuu")
-expand_mode = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
 [node name="InventoryUi" parent="CanvasLayer" index="0" instance=ExtResource("3_i5t0w")]
 size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
-[node name="Boss" parent="." index="8" instance=ExtResource("9_ctuea")]
+[node name="Boss" parent="." index="7" instance=ExtResource("9_ctuea")]
 position = Vector2(77, 246)
 
-[node name="CanvasModulate" parent="." index="9"]
-visible = false
+[node name="CanvasModulate" parent="." index="8"]
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
-[node name="Chunks" type="Node2D" parent="." index="10"]
+[node name="Chunks" type="Node2D" parent="." index="9"]
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
 position = Vector2(1345, 417)
@@ -135,7 +97,8 @@ position = Vector2(1074, -239)
 position = Vector2(1096, -753.00006)
 
 [node name="EnemyTurret" parent="Chunks/Chunk01/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("12_bat37")]
-position = Vector2(117, -286)
+position = Vector2(16, -286)
+flip = true
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="2"]
 
@@ -277,6 +240,8 @@ position = Vector2(3861, 155)
 position = Vector2(5384, -6)
 
 [node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
+
+[node name="UILife" parent="." index="10" instance=ExtResource("7_bat37")]
 
 [connection signal="can_win_level" from="." to="." method="_on_can_win_level"]
 

@@ -14,8 +14,8 @@ class_name Player
 @onready var state_machine = $StateMachine
 
 # salud
-@export var max_hp: int = 3
-var hp: int = max_hp
+@export var max_hp: float = 5
+var hp: float = max_hp
 
 # oxigeno
 @export var max_oxygen: float = 100
@@ -29,7 +29,7 @@ var oxygen: float = 100
 @onready var inventory: Inventory = $Inventory
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
 @onready var camera: Camera2D = $Camera
-@onready var items_life: HBoxContainer = $"../UILife/VBoxContainer/MarginContainer/HBoxContainer"
+
 @onready var particles: CPUParticles2D = $CPUParticles2D
 # oxygen bar visuals
 const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
@@ -71,7 +71,8 @@ var current_photo_zone: DocumentableZone = null
 var zones: Array[String] = []
 
 # signals 
-signal hp_changed(current_hp: int, max_hp: int)
+signal hp_changed(current_hp: float, max_hp: float)
+
 
 func _ready():
 	activate()
@@ -285,7 +286,7 @@ func show_come_back_message() -> void:
 	var tween = create_tween()
 	tween.tween_property(come_back_label, "modulate:a", 1.0, 0.5)
 
-# funciones claves como win, lost, beaten etc
+# funciones claves como win, lost, damage_player etc
 func win() -> void:
 	hide_label(come_back_label)
 	hide()
@@ -294,15 +295,16 @@ func win() -> void:
 func is_dead():
 	return hp <= 0 or oxygen <= 0
 
-func beaten() -> void:
+func damage_player(damage: float = 1) -> void:
 	if is_dead():
 		return
-	hp -= 1
+	hp -= damage
 	damage_flash()
-	var life_to_remove = items_life.get_child(items_life.get_child_count() - 1)
-	life_to_remove.queue_free()
-	if hp <= 0:
+	#var life_to_remove = ui_life.get_child(ui_life.get_child_count() - 1)
+	#life_to_remove.queue_free()
+	if is_dead():
 		die_finish()
+	hp_changed.emit(hp, max_hp)
 		
 		
 func _on_die_timer_timeout() -> void:
@@ -327,7 +329,7 @@ func damage_flash():
 		1.0, 0.0, 0.75
 	)
 
-func sum_hp(amount: int) -> void:
+func sum_hp(amount: float) -> void:
 	hp = clamp(hp + amount, 0, max_hp)
 	hp_changed.emit(hp, max_hp)
 	print("hp_changed %s %s" % [hp, max_hp])	

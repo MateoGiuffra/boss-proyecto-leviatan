@@ -1,10 +1,10 @@
 extends Area2D
 class_name EnemyTurret
-@onready var origin_zone: CollisionShape2D = $OriginZone
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var pivot: Area2D = $Pivot
-@onready var ray_cast_2d: RayCast2D = $Pivot/RayCast2D
 @onready var animated_sprite: AnimatedSprite2D = $Pivot/AnimatedSprite2D
+@onready var origin_zone: CollisionShape2D = $Pivot/OriginZone
+@onready var ray_cast_2d: RayCast2D = $Pivot/OriginZone/RayCast2D
 
 @export var ray_vertical_offset: float = -40.0
 var target_player: Player
@@ -30,7 +30,7 @@ func _play_animation(animation_name: StringName)-> void:
 
 func aim_to_player() -> void: 
 	var target_global = target_player.global_position + Vector2(0.0, ray_vertical_offset)
-	ray_cast_2d.target_position = to_local(target_global)
+	ray_cast_2d.target_position = ray_cast_2d.to_local(target_global)
 	if can_shoot():
 		shoot()
 		_play_animation("shoot")
@@ -43,19 +43,18 @@ func can_shoot() -> bool:
 
 func shoot() -> void: 
 	if not projectile_scene:
-		return 
+		return
+
 	var projectile_instance = projectile_scene.instantiate()
 	get_parent().add_child(projectile_instance)
-	projectile_instance.position = origin_zone.position
-		
+	projectile_instance.global_position = origin_zone.global_position
 	var collision_point = ray_cast_2d.get_collision_point()
-	var shoot_direction = (collision_point - projectile_instance.position).normalized()
+	var shoot_direction = (collision_point - projectile_instance.global_position).normalized()
 	projectile_instance.set_shoot_direction(shoot_direction)
-	is_shooting = true
 	shoot_timer.start()
+	is_shooting = true
 
 func _on_body_entered(body: Node2D) -> void:
-	print("player detectadoo")
 	target_player = body as Player
 
 func _on_body_exited(_body: Node2D) -> void:
@@ -63,7 +62,6 @@ func _on_body_exited(_body: Node2D) -> void:
 
 func _on_shoot_timer_timeout() -> void:
 	is_shooting = false
-
 
 func _on_animated_sprite_animation_finished() -> void:
 	match animated_sprite.animation: 
