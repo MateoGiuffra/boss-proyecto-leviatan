@@ -15,12 +15,12 @@ func get_normalized_action_name() -> String:
 	return normalize_input(action_name)
 
 
-func normalize_input(text: String) -> String:
+func normalize_input(_text: String) -> String:
 	var result = text.to_snake_case().to_lower().strip_escapes().replace("(physical)", "")
 	return result
 
 
-func normalize_text(text: String) -> String:
+func normalize_text(_text: String) -> String:
 	var result = text.replace("_", " ").strip_escapes().replace("(physical)", "").capitalize()
 	return result
 

@@ -9,9 +9,9 @@ var lights: Array[Light2D] = []
 @onready var boss: Area2D = $Boss
 var in_cinematic: bool = false
 
-func start(player: Player) -> void:
-	player.activate()
-	player.global_position = initial_player_position.global_position
+func start(_player: Player) -> void:
+	_player.activate()
+	_player.global_position = initial_player_position.global_position
 
 signal return_requested()
 # Reinicia el nivel
@@ -25,7 +25,7 @@ func _ready() -> void:
 	randomize()
 	cine_cam.enabled = true
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player and not in_cinematic: 
 		cine_cam.global_position = player.global_position
 	

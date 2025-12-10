@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
 		healing_player()
 		
 func can_healing_player() -> bool:
-	return not is_healing and target_player
+	return not is_healing and target_player 
 	
 func healing_player() -> void:
 	is_healing = true

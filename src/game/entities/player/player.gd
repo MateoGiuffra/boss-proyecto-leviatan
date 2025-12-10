@@ -35,7 +35,6 @@ var oxygen: float = 100
 const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
 const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
 const OXYGEN_JUMP_OFFSET := Vector2(25.278, -39.656)
-var _oxygen_current_offset: Vector2 = OXYGEN_IDLE_OFFSET
 
 # labels
 @onready var message: Label = $Message/Label
@@ -176,8 +175,8 @@ func _update_visuals(direction: int) -> void:
 				oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
 		
 # dash
-func _check_double_tap(is_dashing: bool) -> void:
-	if is_dashing && finish_colddown_dash && want_moving():
+func _check_double_tap(_is_dashing: bool) -> void:
+	if _is_dashing && finish_colddown_dash && want_moving():
 		_start_dash()
 
 func _start_dash()-> void:
@@ -262,7 +261,7 @@ func _on_swim_boost_cold_down_timeout() -> void:
 func change_absolute_direction(angle: float):
 	particles.rotation = deg_to_rad(angle)
 
-func emit_particles(angle: float) -> void:
+func emit_particles(_angle: float) -> void:
 	particles.emitting = true
 	particles_timer.start()
 
@@ -277,7 +276,7 @@ func _on_particles_general_timer_timeout() -> void:
 # mensajes
 func hide_label(label: Label) -> void: 
 	var tween = create_tween()
-	tween.tween_property(message, "modulate:a", 0.0, 0.5)
+	tween.tween_property(label, "modulate:a", 0.0, 0.5)
 
 func _on_message_timer_timeout() -> void:
 	hide_label(message)
@@ -300,8 +299,6 @@ func damage_player(damage: float = 1) -> void:
 		return
 	hp -= damage
 	damage_flash()
-	#var life_to_remove = ui_life.get_child(ui_life.get_child_count() - 1)
-	#life_to_remove.queue_free()
 	if is_dead():
 		die_finish()
 	hp_changed.emit(hp, max_hp)
@@ -340,8 +337,8 @@ func _on_h_20_timer_timeout() -> void:
 	h20_timer.start()
 	print(oxygen)
 
-func lose_oxygen(oxygen: int )-> void: 
-	self.oxygen -= 10 
+func lose_oxygen(_oxygen: int = 10)-> void: 
+	self.oxygen -= _oxygen
 	update_oxygen_bar()
 	
 func add_oxygen(new_oxygen: int) -> void:

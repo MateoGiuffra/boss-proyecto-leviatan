@@ -26,7 +26,7 @@ func _ready() -> void:
 	connect("value_changed", Callable(self, "_on_value_changed"))
 
 
-func _on_value_changed(value: float) -> void:
+func _on_value_changed(_value: float) -> void:
 	var bus_index := AudioServer.get_bus_index(bus_name)
 	if bus_index == -1:
 		return

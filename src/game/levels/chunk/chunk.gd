@@ -1,18 +1,12 @@
 extends Area2D
 
 @onready var entities_container: Node2D = $EntitiesContainer
-@onready var shape_node: CollisionShape2D = $CollisionShape2D
 
 # exports 
-@export var area_shape: Shape2D
-@export var initially_active := false
+@export var initially_active = false
 var dynamic_entities: Array[CharacterBody2D] = []
 
 func _ready() -> void:
-	if area_shape:
-		shape_node.shape = area_shape
-	else:
-		push_warning("Chunk sin shape configurada")
 	turn_all(entities_container, initially_active)
 	self.visible = true 
 
