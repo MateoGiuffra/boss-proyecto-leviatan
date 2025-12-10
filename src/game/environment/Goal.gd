@@ -1,7 +1,6 @@
 extends Area2D
 class_name Goal
 @onready var portal: AnimatedSprite2D = $Portal
-@onready var inventory: Inventory = $Inventory
 # esta variable es para asignar desde afuera. El valor minimo de items a agarrar para ganar
 @export var min_items_amount: int = 1
 @export var min_documentables_amount: int = 1

@@ -36,7 +36,7 @@ func _on_value_changed(_value: float) -> void:
 
 
 # --- Conversiones ---
-func linear_to_db(value: float) -> float:
+func linear_to_db(_value: float) -> float:
 	if value <= 0.0:
 		return -80.0
 	return 20.0 * log(value)

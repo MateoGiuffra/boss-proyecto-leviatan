@@ -18,7 +18,7 @@ const TARGET_SIZE: Vector2 = Vector2(32, 32)
 func _ready() -> void:
 	item_data.play_pickup_sound.connect(pick_up_sound.play)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	animation_player.play("idle")
 
 # Función para que el Player obtenga los datos del ítem
