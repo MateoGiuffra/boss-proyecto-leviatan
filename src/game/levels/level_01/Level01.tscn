@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=20 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="2_i53je"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b72el8mfxgrj" path="res://src/game/inventory/oxygen/oxygen_tank.tscn" id="11_yrqp0"]
 [ext_resource type="PackedScene" uid="uid://b1ec4aqwmhkjh" path="res://src/game/entities/enemies/turret_enemy/enemy_turret.tscn" id="12_bat37"]
 [ext_resource type="PackedScene" uid="uid://3nkrnf665rv2" path="res://src/game/environment/documentables/documentable.tscn" id="12_pdsmj"]
+[ext_resource type="PackedScene" uid="uid://cxpcg8fotkc26" path="res://src/game/environment/healing_zone.tscn" id="14_w6w87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqwp2"]
 size = Vector2(3302, 1135.75)
@@ -60,6 +61,7 @@ SLOT_SCENE = ExtResource("4_e2p1h")
 position = Vector2(77, 246)
 
 [node name="CanvasModulate" parent="." index="8"]
+visible = false
 color = Color(0.015686275, 0, 0.1254902, 0.9764706)
 
 [node name="Chunks" type="Node2D" parent="." index="9"]
@@ -128,6 +130,14 @@ id = "2"
 
 [node name="CollisionShape2D" parent="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable2" index="0"]
 position = Vector2(265, -65)
+
+[node name="HealingZonesContainer" type="Node2D" parent="Chunks/Chunk01/EntitiesContainer" index="4"]
+
+[node name="HealingZone" parent="Chunks/Chunk01/EntitiesContainer/HealingZonesContainer" index="0" instance=ExtResource("14_w6w87")]
+position = Vector2(127, -90)
+
+[node name="CollisionShape2D" parent="Chunks/Chunk01/EntitiesContainer/HealingZonesContainer/HealingZone" index="0"]
+position = Vector2(206, -132)
 
 [node name="Chunk02" parent="Chunks" index="1" instance=ExtResource("3_yrqp0")]
 
@@ -248,6 +258,7 @@ position = Vector2(5384, -6)
 [editable path="Chunks/Chunk01"]
 [editable path="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable"]
 [editable path="Chunks/Chunk01/EntitiesContainer/Documentables/Documentable2"]
+[editable path="Chunks/Chunk01/EntitiesContainer/HealingZonesContainer/HealingZone"]
 [editable path="Chunks/Chunk02"]
 [editable path="Chunks/Chunk03"]
 [editable path="Chunks/Chunk04"]
