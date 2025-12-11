@@ -1,9 +1,9 @@
-[gd_scene load_steps=48 format=4 uid="uid://cjmuskb8u4ges"]
+[gd_scene load_steps=49 format=4 uid="uid://cjmuskb8u4ges"]
 
 [ext_resource type="Script" uid="uid://bfhqm387uvex5" path="res://src/game/levels/level_01/my_tail_map.gd" id="1_dppts"]
-[ext_resource type="Texture2D" uid="uid://bbq5vyu1qejw1" path="res://assets/textures/background/tileset/elements/tileset_backgroun2.png" id="1_i35yj"]
-[ext_resource type="Texture2D" uid="uid://qwqq8oa8lk5y" path="res://assets/textures/background/tileset/elements/tileset_background.png" id="1_iae7d"]
-[ext_resource type="Texture2D" uid="uid://v8adjfkabpgt" path="res://assets/textures/background/tileset/level_tileset.png" id="1_wpgf1"]
+[ext_resource type="Texture2D" uid="uid://yy761xan83oy" path="res://assets/textures/background/tileset/elements/tileset_backgroun2.png" id="1_i35yj"]
+[ext_resource type="Texture2D" uid="uid://di4buyjlu4fe7" path="res://assets/textures/background/tileset/elements/tileset_background.png" id="1_iae7d"]
+[ext_resource type="Texture2D" uid="uid://0v1bbsfmmpic" path="res://assets/textures/background/tileset/level_tileset.png" id="1_wpgf1"]
 [ext_resource type="PackedScene" uid="uid://biachfyf1mrx0" path="res://src/game/levels/level_01/point_light_2d_red_effect.tscn" id="6_dppts"]
 [ext_resource type="Script" uid="uid://coiwu3ldos170" path="res://src/game/levels/level_01/point_light_2d_red.gd" id="7_8bbr4"]
 
@@ -911,6 +911,10 @@ texture = ExtResource("1_wpgf1")
 14:4/next_alternative_id = 3
 14:4/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dppts"]
+texture = ExtResource("1_iae7d")
+texture_region_size = Vector2i(32, 32)
+
 [sub_resource type="TileSet" id="TileSet_e2p1h"]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
@@ -927,6 +931,7 @@ terrain_set_0/terrain_3/color = Color(0.3764706, 0.79607844, 0.2509804, 1)
 terrain_set_0/terrain_4/name = "Subida der"
 terrain_set_0/terrain_4/color = Color(0.44313726, 0.3137255, 0.8117647, 1)
 sources/0 = SubResource("TileSetAtlasSource_i5t0w")
+sources/1 = SubResource("TileSetAtlasSource_dppts")
 
 [sub_resource type="Gradient" id="Gradient_76raa"]
 offsets = PackedFloat32Array(0.1953125, 0.2890625)

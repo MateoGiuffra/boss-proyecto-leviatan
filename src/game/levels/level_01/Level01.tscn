@@ -283,7 +283,7 @@ position = Vector2(2990, -657)
 position = Vector2(2346, -1452)
 
 [node name="WorldItem_02" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
-position = Vector2(1490, -924)
+position = Vector2(1481, -913)
 
 [node name="WorldItem_03" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
 position = Vector2(1920, -1463)

@@ -94,6 +94,7 @@ _data = {
 [node name="WorldItem" type="Area2D" groups=["item"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_xf8jy")
 item_data = SubResource("Resource_v1rui")
 

@@ -180,7 +180,7 @@ func _on_item_detector_area_entered(area: Area2D):
 		var world_item_data: ItemData = area.get_item_data()
 		
 		if inventory.pick_up_item(world_item_data):
-			area.queue_free()
+			area.pick_up()
 
 func get_input() -> void:
 	movement_direction = int(Input.is_action_pressed("derecha")) - int(Input.is_action_pressed("izquierda"))	
