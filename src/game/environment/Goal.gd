@@ -19,7 +19,6 @@ func initialize(inventory: Inventory):
 	
 func _ready() -> void:	
 	_play_animation("idle")
-	body_entered.connect(_on_body_entered)
 	
 func _on_body_entered(_body: Node) -> void:
 	if won:
@@ -41,9 +40,9 @@ func can_win() -> bool:
 	
 func verify_win() -> void: 
 	if can_win():
-			trying_to_win = true
-			boss._activate()	
-			level.can_win_level.emit()
+		trying_to_win = true
+		boss._activate()	
+		level.can_win_level.emit()
 
 func _on_portal_animation_finished() -> void:
 	if portal.animation == "open":

@@ -79,10 +79,10 @@ debug_color = Color(0.8007278, 0.4206606, 0.002920189, 0.41960785)
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
 position = Vector2(0.6666667, -4.666667)
+scale = Vector2(0.3, 0.3)
 enabled = false
 color = Color(0.7201324, 0.3888003, 0.004268235, 1)
 energy = 0.69
-shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_e8lrk")

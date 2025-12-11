@@ -387,4 +387,5 @@ position = Vector2(0, -32)
 shape = SubResource("1")
 debug_color = Color(0.8847119, 0.17871156, 0.6946472, 0.41960785)
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="Portal" to="." method="_on_portal_animation_finished"]

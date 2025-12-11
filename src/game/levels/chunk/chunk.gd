@@ -4,7 +4,7 @@ extends Area2D
 
 # exports 
 @export var initially_active = false
-var dynamic_entities: Array[CharacterBody2D] = []
+var dynamic_entities: Array[Node2D] = []
 
 func _ready() -> void:
 	turn_all(entities_container, initially_active)
@@ -27,6 +27,7 @@ func turn_all(node, active: bool) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Player"):
 		add_dynamic_entity_to_list(body)
+		return
 	turn_all(self.entities_container, true) 
 	turn_all_dynamic_entities(true)
 	
@@ -35,7 +36,7 @@ func turn_all_dynamic_entities(active: bool) -> void:
 		turn_all(entity, active)
 
 func add_dynamic_entity_to_list(body: Node2D) -> void: 
-	if body is CharacterBody2D and not dynamic_entities.has(body) : 
+	if body is Node2D and not dynamic_entities.has(body) : 
 		print("agregu un emigo a la lista")
 		dynamic_entities.append(body)
 

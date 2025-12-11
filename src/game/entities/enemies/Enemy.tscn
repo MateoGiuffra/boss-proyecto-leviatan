@@ -134,10 +134,10 @@ path_max_distance = 200.0
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
 position = Vector2(0.6666667, -4.666667)
+scale = Vector2(0.7, 0.7)
 enabled = false
 color = Color(0.83560866, 0.22103363, 0.3614848, 1)
-energy = 0.69
-shadow_enabled = true
+energy = 2.4
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_7phyx")

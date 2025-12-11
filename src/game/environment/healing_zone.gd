@@ -23,6 +23,7 @@ func _on_timer_timeout() -> void:
 	is_healing = false
 
 func _on_body_entered(body: Node2D) -> void:
+	print("entro el player")
 	target_player = body as Player
 
 func _on_body_exited(_body: Node2D) -> void:

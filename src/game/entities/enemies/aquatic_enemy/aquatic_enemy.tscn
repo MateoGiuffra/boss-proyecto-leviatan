@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hvxge8cmomrn"]
+[gd_scene load_steps=13 format=3 uid="uid://hvxge8cmomrn"]
 
 [ext_resource type="Script" uid="uid://du1rl2eh4vsbn" path="res://src/game/entities/enemies/aquatic_enemy/aquatic_enemy.gd" id="1_0qoyv"]
 [ext_resource type="Texture2D" uid="uid://bve2rr5yhoa30" path="res://assets/textures/enemies/verrugoso_squid/idle_07.png" id="2_i77eh"]
@@ -68,6 +68,21 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_phf73"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.9099099)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i77eh"]
+gradient = SubResource("Gradient_phf73")
+width = 512
+height = 512
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
 [node name="AquaticEnemy" type="Area2D"]
 rotation = -3.1415927
 scale = Vector2(2.5, 2.5)
@@ -88,6 +103,18 @@ collide_with_areas = true
 rotation = 3.9095376
 sprite_frames = SubResource("SpriteFrames_0qoyv")
 animation = &"swim"
+
+[node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
+texture_filter = 1
+position = Vector2(0.6666667, -4.666667)
+scale = Vector2(0.2, 0.2)
+enabled = false
+color = Color(0.7744092, 0.20013908, 0.29153174, 1)
+energy = 0.69
+shadow_color = Color(0, 0, 0, 0.9254902)
+shadow_filter = 1
+texture = SubResource("GradientTexture2D_i77eh")
+metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

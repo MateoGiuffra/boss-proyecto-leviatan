@@ -34,6 +34,10 @@ GameState="*res://src/game/singletons/game_state.gd"
 InputMapLoader="*res://src/game/singletons/input_map_loader.gd"
 SoundManager="*res://src/game/singletons/sound_manager.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/viewport_width=1280
@@ -120,11 +124,13 @@ sacar_foto={
 2d_render/layer_4="chunks"
 2d_render/layer_5="enemies"
 2d_render/layer_6="documentables"
+2d_render/layer_7="point_ligts"
 2d_physics/layer_2="items"
 2d_physics/layer_3="player"
 2d_physics/layer_4="chunks"
 2d_physics/layer_5="enemies"
 2d_physics/layer_6="documentables"
+2d_physics/layer_7="point_ligts"
 
 [rendering]
 

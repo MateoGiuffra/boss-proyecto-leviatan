@@ -51,6 +51,7 @@ one_shot = true
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
 position = Vector2(0, -4)
+enabled = false
 color = Color(0.46464473, 0.52422297, 0, 1)
 energy = 0.22
 shadow_enabled = true
