@@ -21,7 +21,7 @@ func notify_zone_documented(documentable_zone_scene: DocumentableZone) -> void:
 
 ## Señal y variable de ayuda que permite notificar la existencia
 ## del jugador actual a cualquiera interesado
-signal current_player_changed(player)
+signal current_player_changed
 
 var current_player: Player
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbwbjwm0awfg1"]
 
 [ext_resource type="Texture2D" uid="uid://c4yl5u100gtl3" path="res://assets/textures/texture_light1.png" id="1_grjub"]
-[ext_resource type="Script" uid="uid://bc1tj3graudls" path="res://src/game/levels/level_01/point_light_2d.gd" id="2_mpibs"]
+[ext_resource type="Script" uid="uid://dfuanip23sqqd" path="res://src/game/levels/level_01/point_light_2d.gd" id="2_mpibs"]
 
 [node name="PointLight2D" type="PointLight2D"]
 scale = Vector2(0.6119999, 0.868)

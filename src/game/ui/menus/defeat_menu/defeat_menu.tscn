@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=3 format=3 uid="uid://7o8w0bk4iaf8"]
 
-[ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="2_ml0es"]
 [ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/defeat_menu.gd" id="3"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="3_x3cpf"]
 
@@ -14,16 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_ml0es")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

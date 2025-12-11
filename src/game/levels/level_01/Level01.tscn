@@ -78,9 +78,6 @@ scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
 
-[node name="PauseMenu" parent="UILayerMenu" index="0"]
-visible = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
 [node name="InventoryUi" parent="CanvasLayer" index="0" instance=ExtResource("3_i5t0w")]

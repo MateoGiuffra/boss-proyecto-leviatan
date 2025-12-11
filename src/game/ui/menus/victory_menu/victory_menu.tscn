@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgf8nxut0nbdv"]
+[gd_scene load_steps=4 format=3 uid="uid://cgf8nxut0nbdv"]
 
 [ext_resource type="Script" uid="uid://duris6wq6e2vy" path="res://src/game/ui/menus/victory_menu/victory_menu.gd" id="3"]
 [ext_resource type="Theme" uid="uid://btc130konr2b" path="res://assets/themes/my_theme.tres" id="3_56ova"]
-[ext_resource type="Texture2D" uid="uid://b13jdpjo1ctay" path="res://assets/textures/images/wallpaper_nofocus.png" id="3_k6ui4"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="4_5ol1w"]
 
 [node name="VictoryMenu" type="Control"]
@@ -23,13 +22,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 1344.0
-offset_bottom = 847.0
-texture = ExtResource("3_k6ui4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
