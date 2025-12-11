@@ -4,8 +4,8 @@ class_name PlayerJumpState extends State
 @onready var swim_boost_cold_down: Timer = $"../../Timers/SwimBoostColdDown"
 
 @export var player: Player
-@onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
-@onready var jump_sound: AudioStreamPlayer2D = $"../../Sounds/JumpSound"
+@onready var step_sound: AudioStreamPlayer = $"../../Sounds/StepSound"
+@onready var jump_sound: AudioStreamPlayer = $"../../Sounds/JumpSound"
 
 var air_movement_direction: int
 

@@ -37,7 +37,6 @@ func turn_all_dynamic_entities(active: bool) -> void:
 
 func add_dynamic_entity_to_list(body: Node2D) -> void: 
 	if body is Node2D and not dynamic_entities.has(body) : 
-		print("agregu un emigo a la lista")
 		dynamic_entities.append(body)
 
 func _on_body_exited(body: Node2D) -> void:

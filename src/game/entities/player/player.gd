@@ -16,19 +16,20 @@ class_name Player
 # salud
 @export var max_hp: float = 5
 var hp: float = max_hp
+@onready var healing_sound: AudioStreamPlayer = $Sounds/HealingSound
 
 # oxigeno
 @export var max_oxygen: float = 100
 var oxygen: float = 100
 @onready var oxygen_bar: ProgressBar = $Pivot/OxygenBar
-
+@export var oxygen_damage: float = 10
 # visual
 @onready var pivot: Node2D = $Pivot
 @onready var animated_player: AnimatedSprite2D = $Pivot/AnimatedPlayer
-@onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var inventory: Inventory = $Inventory
 @onready var particles_timer: Timer = $Timers/ParticlesTimer
 @onready var camera: Camera2D = $Camera
+@onready var camera_point_light: PointLight2D = $Pivot/CameraPointLight
 
 @onready var particles: CPUParticles2D = $CPUParticles2D
 # oxygen bar visuals
@@ -47,7 +48,14 @@ const OXYGEN_JUMP_OFFSET := Vector2(25.278, -39.656)
 @onready var h20_timer: Timer = $Timers/H20Timer
 
 # sounds
-@onready var swimming_sound: AudioStreamPlayer2D = $Sounds/SwimmingSound
+@onready var swimming_sound: AudioStreamPlayer = $Sounds/SwimmingSound
+@onready var idle_sound: AudioStreamPlayer = $Sounds/IdleSound
+@onready var hard_breathing_sound: AudioStreamPlayer = $Sounds/HardBreathingSound
+@onready var sounds: Node = $Sounds
+@onready var can_shoot_sound: AudioStreamPlayer = $Sounds/CanShootSound
+@onready var shoot_camera_sound: AudioStreamPlayer = $Sounds/ShootCameraSound
+@onready var documentable_sound: AudioStreamPlayer = $Sounds/DocumentableSound
+@onready var damage_sound: AudioStreamPlayer = $Sounds/DamageSound
 
 # shaders
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -76,7 +84,7 @@ signal hp_changed(current_hp: float, max_hp: float)
 func _ready():
 	activate()
 
-func activate():
+func activate(restart_level: bool = false):
 	set_process(true)
 	set_physics_process(true)
 	set_process_input(true)
@@ -97,7 +105,7 @@ func activate():
 	message.modulate.a = 1.0
 	come_back_label.modulate.a = 0.0
 
-	set_oxygen_bar_initial_values()  
+	set_oxygen_bar_initial_values(restart_level)  
 	_reset_shaders()                 
 
 	if camera:
@@ -105,11 +113,12 @@ func activate():
 	GameState.set_current_player(self)
 
 	
-func set_oxygen_bar_initial_values() -> void:
-	oxygen = max_oxygen              
+func set_oxygen_bar_initial_values(restart_level: bool = false) -> void:
+	if restart_level:
+		self.oxygen = max_oxygen              
 	self.oxygen_bar.min_value = 0
 	self.oxygen_bar.max_value = self.max_oxygen
-	self.oxygen_bar.value = self.max_oxygen
+	self.oxygen_bar.value = self.oxygen
 	update_oxygen_overlay()          
 	set_oxygen_bar_idle_position()
 
@@ -136,14 +145,23 @@ func _physics_process(_delta: float) -> void:
 	if is_dead():
 		GameState.level_lost.emit()
 	
+	_play_sounds()
 	get_input()
 	_update_photo_zone_state()
-	
 	if goal.can_win():
 		show_come_back_message()
 
 	move_and_slide()
 	
+func _play_sounds() -> void:
+	if has_low_oxygen():
+		hard_breathing_sound.play()
+	else:
+		idle_sound.play()	
+
+func has_low_oxygen() -> bool:
+	return max_oxygen / 4 <= oxygen
+
 func desactivate(hide_player = true):
 	set_process(false)
 	set_physics_process(false)
@@ -151,7 +169,7 @@ func desactivate(hide_player = true):
 	canvas_layer.set_physics_process(true)
 	oxygen_overlay.set_physics_process(true)
 	damage_overlay.set_physics_process(true)
-
+	stop_all_sounds(true)
 	if hide_player:
 		hide()
 	if camera:
@@ -177,17 +195,20 @@ func play_animation(animation_name: StringName)-> void:
 		animated_player.play(animation_name)
 	
 func _update_visuals(direction: int) -> void:
-	if direction != 0 or animated_player.animation == "shoot_camera" or animated_player.animation == "can_shoot":
+	if direction != 0:
 		var is_left := direction < 0
 		pivot.scale.x = -1.0 if is_left else 1.0
-		if position.y < 0: 
+
+	if direction != 0 or animated_player.animation == "shoot_camera" or animated_player.animation == "can_shoot":
+		if position.y < 0:
 			oxygen_bar.position.y = OXYGEN_JUMP_OFFSET.y
 		else:
 			oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
-	else: 
-		match animated_player.animation: 
+	else:
+		match animated_player.animation:
 			"idle":
 				oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
+
 		
 # dash
 func _check_double_tap(_is_dashing: bool) -> void:
@@ -309,15 +330,17 @@ func win() -> void:
 func is_dead():
 	return hp <= 0 or oxygen <= 0
 
+
 func damage_player(damage: float = 1, apply_knockback: bool = false) -> void:
 	if is_dead():
 		return
 	hp -= damage
+	damage_sound.play()
 	damage_flash()
-	if is_dead():
-		die_finish()
 	if apply_knockback:
 		_apply_hit_knockback()
+	if is_dead():
+		die_finish()
 	hp_changed.emit(hp, max_hp)
 
 func _apply_hit_knockback() -> void:
@@ -340,8 +363,25 @@ func die_finish() -> void:
 	animated_player.scale = Vector2(8, 8)
 	hide_label(come_back_label)
 	die_timer.start()
+	stop_all_sounds(true)
 	play_animation("die")
-	
+
+func stop_all_sounds(active: bool) -> void:
+	for sound in get_sounds():
+		if not active:
+			sound.play()
+		else:
+			sound.stop()
+			
+			
+func get_sounds() -> Array[AudioStreamPlayer]:
+	var result: Array[AudioStreamPlayer] = []
+	for child in sounds.get_children():
+		if child is AudioStreamPlayer:
+			result.append(child)
+	return result
+
+
 func damage_flash():
 	var mat = damage_overlay.material
 	mat.set_shader_parameter("intensity", 1.0)
@@ -353,22 +393,22 @@ func damage_flash():
 	)
 
 func sum_hp(amount: float) -> void:
+	if hp != max_hp:
+		healing_sound.play()
 	hp = clamp(hp + amount, 0, max_hp)
 	hp_changed.emit(hp, max_hp)
-	print("hp_changed %s %s" % [hp, max_hp])	
 
 # h20 
 func _on_h_20_timer_timeout() -> void:
-	lose_oxygen(10)
+	lose_oxygen(oxygen_damage)
 	h20_timer.start()
-	print(oxygen)
 
 func lose_oxygen(_oxygen: int = 10)-> void: 
 	self.oxygen -= _oxygen
 	update_oxygen_bar()
 	
-func add_oxygen(new_oxygen: int) -> void:
-	self.oxygen = min(self.oxygen + new_oxygen, max_oxygen)
+func add_oxygen(_new_oxygen: int) -> void:
+	self.oxygen = min(self.oxygen + oxygen_damage, max_oxygen)
 	update_oxygen_bar()
 
 func update_oxygen_bar() -> void: 
@@ -381,7 +421,6 @@ func update_oxygen_overlay() -> void:
 	shader.set_shader_parameter("intensity", 1.0 - (oxygen / max_oxygen))
 
 # documentables
-
 func can_player_take_photo(zone: DocumentableZone) -> bool:
 	return zone != null \
 		and is_on_floor() \
@@ -390,6 +429,7 @@ func can_player_take_photo(zone: DocumentableZone) -> bool:
 		and not zones.has(zone.id)
 
 func on_photo_zone_player_entered(zone: DocumentableZone, _player: Player) -> void:
+	documentable_sound.play()
 	current_photo_zone = zone
 
 func on_photo_zone_player_exited(zone: DocumentableZone, _player: Player) -> void:
@@ -425,6 +465,7 @@ func _show_ready_to_shoot_pose() -> void:
 	var last_frame := animated_player.sprite_frames.get_frame_count("can_shoot") - 1
 	if last_frame < 0:
 		return
+	can_shoot_sound.play()
 	animated_player.animation = "can_shoot"
 	animated_player.frame = last_frame
 	animated_player.pause()
@@ -435,7 +476,8 @@ func _try_take_photo() -> void:
 	zones.append(current_photo_zone.id)
 	can_take_photo = false
 	is_taking_photo = true
-	
+	shoot_camera_sound.play()
+	camera_point_light.enabled = true
 	play_animation("shoot_camera")
 
 func _on_animated_player_animation_finished() -> void:
@@ -444,6 +486,7 @@ func _on_animated_player_animation_finished() -> void:
 			_on_photo_shoot_finished()
 
 func _on_photo_shoot_finished() -> void: 
+	camera_point_light.enabled = false
 	is_taking_photo = false
 	can_take_photo = false
 	if is_on_floor():
@@ -457,7 +500,6 @@ func _on_photo_shoot_finished() -> void:
 		else:
 			play_animation("fall")
 	inventory.document_registered.emit()
-	inventory.inventory_changed.emit()
 	
 # camera
 func screen_shake(duration: float = 0.3, magnitude: float = 12.0) -> void:

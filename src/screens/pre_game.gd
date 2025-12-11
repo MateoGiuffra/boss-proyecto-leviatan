@@ -74,7 +74,6 @@ func _on_next_scene_pressed():
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("saltear"):
-		print("saltear clikced")
 		tutorial.play_fade()
 
 func _on_last_scene_pressed() -> void:
@@ -89,7 +88,6 @@ func _on_last_scene_pressed() -> void:
 	await monster_sea.finished
 	
 	tutorial.play_fade()
-	
-	
+		
 func _on_new_scene_pressed() -> void:
 	get_tree().change_scene_to_packed(level_manager_scene)

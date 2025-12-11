@@ -47,52 +47,31 @@ size = Vector2(3660, 1214.875)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i53je"]
 size = Vector2(1693, 874.875)
 
-[node name="Level01" node_paths=PackedStringArray("initial_player_position") instance=ExtResource("1_f30rv")]
-initial_player_position = NodePath("InitialPlayerPosition/CollisionShape2D")
+[node name="Level01" instance=ExtResource("1_f30rv")]
 
-[node name="Chunks_Chunk05_EntitiesContainer_PointsLightsContainer_Blue#PointLight2D61" parent="." index="0" instance=ExtResource("15_v1hbi")]
-position = Vector2(8228.25, 2892.5)
-scale = Vector2(0.60199875, 0.868)
-
-[node name="Chunks_Chunk05_EntitiesContainer_PointsLightsContainer_Blue#PointLight2D62" parent="." index="1" instance=ExtResource("15_v1hbi")]
-position = Vector2(8579.25, 2892.5)
-scale = Vector2(0.60199875, 0.868)
-
-[node name="CineCam" parent="." index="2" instance=ExtResource("2_i53je")]
+[node name="CineCam" parent="." index="0" instance=ExtResource("2_i53je")]
 offset = Vector2(0, -100)
 position_smoothing_speed = 7.0
 
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
-[node name="Goal" parent="." index="4" node_paths=PackedStringArray("level", "boss")]
+[node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
 position = Vector2(15, 246)
 level = NodePath("..")
 boss = NodePath("../Boss")
 
-[node name="CollisionShape2D" parent="InitialPlayerPosition" index="0"]
-position = Vector2(-130, -426)
+[node name="CanvasModulate" parent="." index="4"]
+color = Color(0.101960786, 0.10980392, 0.19215687, 1)
 
-[node name="Player" parent="." index="6" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(287, 258)
-scale = Vector2(0.6, 0.6)
-inventory_ui = NodePath("../CanvasLayer/InventoryUi")
-goal = NodePath("../Goal")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
 
 [node name="InventoryUi" parent="CanvasLayer" index="0" instance=ExtResource("3_i5t0w")]
 size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
-[node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
-position = Vector2(200, 109)
+[node name="UILife" parent="." index="6" instance=ExtResource("7_bat37")]
 
-[node name="UILife" parent="." index="10" instance=ExtResource("7_bat37")]
-
-[node name="CanvasModulate" parent="." index="11"]
-color = Color(0.101960786, 0.10980392, 0.19215687, 1)
-
-[node name="Chunks" type="Node2D" parent="." index="12"]
+[node name="Chunks" type="Node2D" parent="." index="7"]
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
 position = Vector2(1345, 417)
@@ -291,14 +270,11 @@ position = Vector2(891, -729)
 [node name="EnemyChunk03_02" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="1" instance=ExtResource("6_i5t0w")]
 position = Vector2(1804, -1478)
 
-[node name="EnemyChunk03_03" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("6_i5t0w")]
-position = Vector2(3011, -1488)
-
-[node name="AquaticEnemy" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("12_djtrt")]
+[node name="AquaticEnemy" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="2" instance=ExtResource("12_djtrt")]
 position = Vector2(2662, -789.0001)
 rotation = 3.1415925
 
-[node name="EnemyTurret" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="4" instance=ExtResource("12_bat37")]
+[node name="EnemyTurret" parent="Chunks/Chunk03/EntitiesContainer/EnemiesContainer" index="3" instance=ExtResource("12_bat37")]
 position = Vector2(2990, -657)
 
 [node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="1"]
@@ -924,6 +900,15 @@ energy = 5.0
 range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
+
+[node name="Player" parent="." index="8" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
+position = Vector2(3082, -1439)
+scale = Vector2(0.6, 0.6)
+inventory_ui = NodePath("../CanvasLayer/InventoryUi")
+goal = NodePath("../Goal")
+
+[node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
+position = Vector2(200, 109)
 
 [connection signal="can_win_level" from="." to="." method="_on_can_win_level"]
 

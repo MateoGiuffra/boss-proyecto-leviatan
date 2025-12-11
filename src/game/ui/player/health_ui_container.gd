@@ -3,14 +3,16 @@ class_name HealthUI
 
 @export var hp_per_heart: float = 1.0
 @export var heart_scene: PackedScene
+@onready var hearts_wiggle_timer: Timer = $"../../../HeartsWiggleTimer"
 
 var hearts: Array[HeartIcon] = []
 
+func ready() -> void:
+	randomize()
+
 func set_health(current_hp: float, max_hp: float, flash_on_change: bool = false) -> void:
-	# Cuántos corazones necesito
 	var hearts_needed := int(ceil(max_hp / hp_per_heart))
 
-	# Asegurar cantidad de corazones
 	while hearts.size() < hearts_needed:
 		var h: HeartIcon = heart_scene.instantiate()
 		add_child(h)
@@ -20,7 +22,6 @@ func set_health(current_hp: float, max_hp: float, flash_on_change: bool = false)
 		var h = hearts.pop_back()
 		h.queue_free()
 
-	# Actualizar estado de cada corazón
 	for i in range(hearts_needed):
 		var remaining := current_hp - float(i) * hp_per_heart
 		var desired_state: HeartIcon.State
@@ -38,3 +39,14 @@ func set_health(current_hp: float, max_hp: float, flash_on_change: bool = false)
 
 		if flash_on_change and changed:
 			heart.flash_outline()
+
+
+func _on_hearts_wiggle_timer_timeout() -> void:
+	for heart in hearts:
+		var tween := heart.play_idle_wiggle()
+		await tween.finished
+
+	# elegir un nuevo valor entre 5 y 10 segundos
+	var new_wait_time := randf_range(5.0, 10.0)
+	hearts_wiggle_timer.wait_time = new_wait_time
+	hearts_wiggle_timer.start()

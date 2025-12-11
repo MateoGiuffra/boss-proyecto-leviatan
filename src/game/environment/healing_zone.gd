@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
 		healing_player()
 		
 func can_healing_player() -> bool:
-	return not is_healing and target_player 
+	return not is_healing and target_player and target_player.hp != target_player.max_hp
 	
 func healing_player() -> void:
 	is_healing = true
@@ -23,7 +23,6 @@ func _on_timer_timeout() -> void:
 	is_healing = false
 
 func _on_body_entered(body: Node2D) -> void:
-	print("entro el player")
 	target_player = body as Player
 
 func _on_body_exited(_body: Node2D) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://du5h20jsf0svy"]
+[gd_scene load_steps=14 format=3 uid="uid://du5h20jsf0svy"]
 
 [ext_resource type="Texture2D" uid="uid://bedargd7t4lsn" path="res://assets/textures/enemies/boss/idle/idle1.png" id="1_3ckac"]
 [ext_resource type="Script" uid="uid://beylk53qjewu1" path="res://src/game/entities/enemies/boss.gd" id="1_oaedp"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://olo0lely30md" path="res://assets/textures/enemies/boss/idle/idle3.png" id="3_nkwy1"]
 [ext_resource type="Texture2D" uid="uid://cvrwsl6uqgfp2" path="res://assets/textures/enemies/boss/idle/idle4.png" id="4_851k4"]
 [ext_resource type="AudioStream" uid="uid://dkqpfu0r6mkq8" path="res://assets/sound/enemy/deep-sea-monster-roar-329857.mp3" id="6_nkwy1"]
+[ext_resource type="AudioStream" uid="uid://gykqlkkyuu15" path="res://assets/sound/enemy/leviatan/leviatan_01.mp3" id="7_h1alv"]
+[ext_resource type="AudioStream" uid="uid://iv5bh1vbbb26" path="res://assets/sound/enemy/leviatan/leviatan_02.mp3" id="8_i7nke"]
+[ext_resource type="AudioStream" uid="uid://dnp7b7ekyerru" path="res://assets/sound/enemy/leviatan/leviatan_03.mp3" id="9_ywrh1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6pnuj"]
 animations = [{
@@ -41,7 +44,7 @@ fill_to = Vector2(0.9433962, 0.30503145)
 radius = 2433.2502
 
 [node name="Boss" type="Area2D"]
-scale = Vector2(4, 4)
+scale = Vector2(3.5, 3.5)
 collision_layer = 8
 collision_mask = 13
 script = ExtResource("1_oaedp")
@@ -71,11 +74,31 @@ polygon = PackedVector2Array(4.5, 15.5, 9.25, 12.75, 12.75, 10.75, 14.5, 17.25, 
 stream = ExtResource("6_nkwy1")
 volume_db = -6.75
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_nkwy1")
+[node name="Sounds" type="Node" parent="."]
+
+[node name="01" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("7_h1alv")
 autoplay = true
 parameters/looping = true
+
+[node name="02" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("8_i7nke")
+volume_db = -4.039
+autoplay = true
+parameters/looping = true
+
+[node name="03" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("9_ywrh1")
+volume_db = -4.039
+autoplay = true
+parameters/looping = true
+
+[node name="SoundTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]

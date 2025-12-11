@@ -122,6 +122,7 @@ frame = 1
 frame_progress = 0.96515286
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 collision_mask = 4
 
 [node name="CollisionDetectionAreaShape2D" type="CollisionShape2D" parent="DetectionArea"]
@@ -133,11 +134,10 @@ path_max_distance = 200.0
 
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
-position = Vector2(0.6666667, -4.666667)
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.4, 0.4)
 enabled = false
-color = Color(0.83560866, 0.22103363, 0.3614848, 1)
-energy = 2.4
+color = Color(0.25662944, 0.5648489, 0.2925983, 1)
+energy = 1.16
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_7phyx")
@@ -157,10 +157,6 @@ autostart = true
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 5
 collide_with_areas = true
-
-[node name="AlwaysUpRayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, -23)
-collision_mask = 5
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="animation_finished" from="AnimatedEnemy2D" to="." method="_on_animated_enemy_2d_animation_finished"]
