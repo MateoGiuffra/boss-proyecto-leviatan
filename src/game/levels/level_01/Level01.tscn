@@ -88,19 +88,16 @@ size_flags_horizontal = 4
 SLOT_SCENE = ExtResource("4_e2p1h")
 
 [node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
-visible = false
 position = Vector2(200, 109)
 
 [node name="UILife" parent="." index="10" instance=ExtResource("7_bat37")]
 
 [node name="CanvasModulate" parent="." index="11"]
-visible = false
 color = Color(0.101960786, 0.10980392, 0.19215687, 1)
 
 [node name="Chunks" type="Node2D" parent="." index="12"]
 
 [node name="Chunk01" parent="Chunks" index="0" instance=ExtResource("3_yrqp0")]
-visible = false
 position = Vector2(1345, 417)
 initially_active = true
 
@@ -227,7 +224,6 @@ range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
 [node name="Chunk02" parent="Chunks" index="1" instance=ExtResource("3_yrqp0")]
-visible = false
 
 [node name="CollisionShape2D" parent="Chunks/Chunk02" index="0"]
 position = Vector2(4463.5, -105)
@@ -549,7 +545,6 @@ position = Vector2(-160, -782.5)
 shape = SubResource("RectangleShape2D_ocb4m")
 
 [node name="Chunk04" parent="Chunks" index="3" instance=ExtResource("3_yrqp0")]
-visible = false
 position = Vector2(-1816, -1709)
 
 [node name="CollisionShape2D" parent="Chunks/Chunk04" index="0"]
@@ -707,7 +702,6 @@ range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
 [node name="Chunk05" parent="Chunks" index="4" instance=ExtResource("3_yrqp0")]
-visible = false
 position = Vector2(-1540, -2650)
 
 [node name="CollisionShape2D" parent="Chunks/Chunk05" index="0"]
