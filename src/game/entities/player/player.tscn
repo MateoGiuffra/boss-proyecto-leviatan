@@ -306,9 +306,9 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"jump"
-frame = 2
-frame_progress = 0.86648387
+animation = &"shoot_camera"
+frame = 8
+frame_progress = 1.0
 
 [node name="CameraPointLight" parent="Pivot" instance=ExtResource("19_7ruc6")]
 position = Vector2(-24, -40)
@@ -401,6 +401,7 @@ parameters/looping = true
 
 [node name="HardBreathingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("43_gccwp")
+volume_db = -9.541
 bus = &"SFX"
 parameters/looping = true
 

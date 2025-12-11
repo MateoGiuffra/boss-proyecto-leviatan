@@ -33,9 +33,9 @@ var oxygen: float = 100
 
 @onready var particles: CPUParticles2D = $CPUParticles2D
 # oxygen bar visuals
-const OXYGEN_IDLE_OFFSET   := Vector2(25.278, -28.656)
-const OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
-const OXYGEN_JUMP_OFFSET := Vector2(25.278, -39.656)
+@export var OXYGEN_IDLE_OFFSET   := Vector2(25.278, -29.656)
+@export var OXYGEN_MOVING_OFFSET := Vector2(25.278, -37.656)
+@export var OXYGEN_JUMP_OFFSET := Vector2(25.278, -39.656)
 
 # labels
 @onready var message: Label = $Message/Label
@@ -199,15 +199,14 @@ func _update_visuals(direction: int) -> void:
 		var is_left := direction < 0
 		pivot.scale.x = -1.0 if is_left else 1.0
 
-	if direction != 0 or animated_player.animation == "shoot_camera" or animated_player.animation == "can_shoot":
-		if position.y < 0:
-			oxygen_bar.position.y = OXYGEN_JUMP_OFFSET.y
-		else:
-			oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
+	# offsets por estado físico real
+	if not is_on_floor():
+		oxygen_bar.position.y = OXYGEN_JUMP_OFFSET.y if (velocity.y < 0.0) else OXYGEN_MOVING_OFFSET.y
+	elif want_moving() or animated_player.animation in ["shoot_camera", "can_shoot"]:
+		oxygen_bar.position.y = OXYGEN_MOVING_OFFSET.y
 	else:
-		match animated_player.animation:
-			"idle":
-				oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
+		oxygen_bar.position.y = OXYGEN_IDLE_OFFSET.y
+
 
 		
 # dash
