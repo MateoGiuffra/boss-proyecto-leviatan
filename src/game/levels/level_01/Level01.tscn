@@ -56,10 +56,8 @@ position_smoothing_speed = 7.0
 
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
-
-[node name="Goal" parent="." index="4" node_paths=PackedStringArray("level", "boss")]
+[node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
 visible = false
-
 position = Vector2(15, 246)
 min_items_amount = 10
 min_documentables_amount = 5
@@ -309,27 +307,78 @@ position = Vector2(2990, -657)
 
 [node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="1"]
 
-[node name="WorldItem_01" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem_04" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
+position = Vector2(-368, -759)
+
+[node name="WorldItem_05" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
+position = Vector2(1590, -1141)
+
+[node name="WorldItem_06" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
+position = Vector2(3633, -1524)
+
+[node name="WorldItem_01" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="3" instance=ExtResource("7_5rfnw")]
 position = Vector2(2346, -1452)
 
-[node name="WorldItem_02" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem_02" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="4" instance=ExtResource("7_5rfnw")]
 position = Vector2(1481, -913)
 
-[node name="WorldItem_03" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
+[node name="WorldItem_03" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="5" instance=ExtResource("7_5rfnw")]
 position = Vector2(1920, -1463)
 
-[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="2"]
+[node name="HealingZonesContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="2"]
+
+[node name="HealingZone" parent="Chunks/Chunk03/EntitiesContainer/HealingZonesContainer" index="0" instance=ExtResource("14_w6w87")]
+
+[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/HealingZonesContainer/HealingZone" index="0"]
+position = Vector2(-160, -782.5)
+shape = SubResource("RectangleShape2D_ocb4m")
+
+[node name="ItemsContainer2" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="3"]
+
+[node name="OxygenTanksContainer2" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="4"]
 position = Vector2(-170, -712)
 
-[node name="Documentable2" parent="Chunks/Chunk03/EntitiesContainer" index="3" instance=ExtResource("12_pdsmj")]
+[node name="Documentables" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="5"]
+
+[node name="Documentable2" parent="Chunks/Chunk03/EntitiesContainer/Documentables" index="0" instance=ExtResource("12_pdsmj")]
 position = Vector2(1341, 409)
 id = "2"
 
-[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/Documentable2" index="0"]
-position = Vector2(2191.5, -1955.5)
+[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/Documentables/Documentable2" index="0"]
+position = Vector2(2234.875, -1955.5)
 shape = SubResource("RectangleShape2D_v1hbi")
 
-[node name="PointLightsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="4"]
+[node name="Documentable3" parent="Chunks/Chunk03/EntitiesContainer/Documentables" index="1" instance=ExtResource("12_pdsmj")]
+position = Vector2(1341, 409)
+id = "2"
+
+[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/Documentables/Documentable3" index="0"]
+position = Vector2(2164.9375, -1382)
+shape = SubResource("RectangleShape2D_v1hbi")
+
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="6"]
+position = Vector2(-170, -712)
+
+[node name="OxygenTank_01" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
+position = Vector2(3263, -189)
+
+[node name="OxygenTank_02" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
+position = Vector2(541, -50)
+
+[node name="OxygenTank_03" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
+position = Vector2(2912, -784)
+
+[node name="OxygenTank_04" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
+position = Vector2(2020, -770)
+
+[node name="OxygenTank_05" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="4" instance=ExtResource("11_yrqp0")]
+position = Vector2(3641, -817)
+
+[node name="Documentable2" parent="Chunks/Chunk03/EntitiesContainer" index="7" instance=ExtResource("12_pdsmj")]
+position = Vector2(1341, 409)
+id = "2"
+
+[node name="PointLightsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="8"]
 
 [node name="Blues" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer/PointLightsContainer" index="0"]
 
@@ -538,61 +587,6 @@ energy = 5.0
 range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="HealingZonesContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="2"]
-
-[node name="HealingZone" parent="Chunks/Chunk03/EntitiesContainer/HealingZonesContainer" index="0" instance=ExtResource("14_w6w87")]
-
-[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/HealingZonesContainer/HealingZone" index="0"]
-position = Vector2(-160, -782.5)
-shape = SubResource("RectangleShape2D_ocb4m")
-
-[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="3"]
-
-[node name="WorldItem_01" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
-position = Vector2(-368, -759)
-
-[node name="WorldItem_02" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="1" instance=ExtResource("7_5rfnw")]
-position = Vector2(1590, -1141)
-
-[node name="WorldItem_03" parent="Chunks/Chunk03/EntitiesContainer/ItemsContainer" index="2" instance=ExtResource("7_5rfnw")]
-position = Vector2(3633, -1524)
-
-[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="4"]
-position = Vector2(-170, -712)
-
-[node name="OxygenTank_01" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
-position = Vector2(3263, -189)
-
-[node name="OxygenTank_02" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
-position = Vector2(541, -50)
-
-[node name="OxygenTank_03" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
-position = Vector2(2912, -784)
-
-[node name="OxygenTank_04" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
-position = Vector2(2020, -770)
-
-[node name="OxygenTank_05" parent="Chunks/Chunk03/EntitiesContainer/OxygenTanksContainer" index="4" instance=ExtResource("11_yrqp0")]
-position = Vector2(3641, -817)
-
-[node name="Documentables" type="Node2D" parent="Chunks/Chunk03/EntitiesContainer" index="5"]
-
-[node name="Documentable2" parent="Chunks/Chunk03/EntitiesContainer/Documentables" index="0" instance=ExtResource("12_pdsmj")]
-position = Vector2(1341, 409)
-id = "2"
-
-[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/Documentables/Documentable2" index="0"]
-position = Vector2(2234.875, -1955.5)
-shape = SubResource("RectangleShape2D_v1hbi")
-
-[node name="Documentable3" parent="Chunks/Chunk03/EntitiesContainer/Documentables" index="1" instance=ExtResource("12_pdsmj")]
-position = Vector2(1341, 409)
-id = "2"
-
-[node name="CollisionShape2D" parent="Chunks/Chunk03/EntitiesContainer/Documentables/Documentable3" index="0"]
-position = Vector2(2164.9375, -1382)
-shape = SubResource("RectangleShape2D_v1hbi")
 
 [node name="Chunk04" parent="Chunks" index="3" instance=ExtResource("3_yrqp0")]
 position = Vector2(-1816, -1709)
@@ -809,7 +803,36 @@ flip = true
 position = Vector2(7853, 2198)
 flip = true
 
-[node name="PointsLightsContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
+[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="1"]
+
+[node name="WorldItem_01" parent="Chunks/Chunk05/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
+position = Vector2(8404, 2603)
+
+[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="2"]
+
+[node name="OxygenTank_01" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
+position = Vector2(8663, 2691)
+
+[node name="OxygenTank_02" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
+position = Vector2(8893, 2518)
+
+[node name="OxygenTank_03" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
+position = Vector2(8184, 2979)
+
+[node name="OxygenTank_04" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
+position = Vector2(7570, 2308)
+
+[node name="Documentables" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="3"]
+
+[node name="Documentable2" parent="Chunks/Chunk05/EntitiesContainer/Documentables" index="0" instance=ExtResource("12_pdsmj")]
+position = Vector2(6732, 769)
+id = "2"
+
+[node name="CollisionShape2D" parent="Chunks/Chunk05/EntitiesContainer/Documentables/Documentable2" index="0"]
+position = Vector2(821, 1515)
+shape = SubResource("RectangleShape2D_v1hbi")
+
+[node name="PointsLightsContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="4"]
 
 [node name="Min" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer" index="0"]
 
@@ -839,25 +862,7 @@ scale = Vector2(0.26400006, 0.868)
 
 [node name="Tubes" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer" index="1"]
 
-[node name="PointLight2D20" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="0"]
-position = Vector2(7732, 2298.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D21" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="1"]
-position = Vector2(7733, 2361.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D22" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="2"]
+[node name="PointLight2D22" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="0"]
 position = Vector2(7701, 2361.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -866,25 +871,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D23" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="3"]
-position = Vector2(7701, 2298.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D24" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="4"]
-position = Vector2(7669, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D25" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="5"]
+[node name="PointLight2D25" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="1"]
 position = Vector2(7669, 2361.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -893,7 +880,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D26" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="6"]
+[node name="PointLight2D26" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="2"]
 position = Vector2(7637, 2361.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -902,25 +889,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D27" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="7"]
-position = Vector2(7637, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D28" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="8"]
-position = Vector2(7605, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D29" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="9"]
+[node name="PointLight2D29" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="3"]
 position = Vector2(7605, 2361.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -929,16 +898,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D30" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="10"]
-position = Vector2(7509, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D31" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="11"]
+[node name="PointLight2D31" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="4"]
 position = Vector2(7509, 2362.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -947,7 +907,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D32" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="12"]
+[node name="PointLight2D32" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="5"]
 position = Vector2(7477, 2362.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -956,7 +916,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D33" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="13"]
+[node name="PointLight2D33" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="6"]
 position = Vector2(7445, 2361.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -965,52 +925,7 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="PointLight2D34" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="14"]
-position = Vector2(7445, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D36" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="15"]
-position = Vector2(7413, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D35" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="16"]
-position = Vector2(7477, 2298.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D37" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="17"]
-position = Vector2(7381, 2297.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D38" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="18"]
-position = Vector2(7381, 2361.5)
-scale = Vector2(0.28125265, 0.7343751)
-color = Color(0.22877565, 0.33855528, 0.9999526, 1)
-energy = 5.0
-range_z_min = -4096
-range_z_max = 4096
-texture = SubResource("GradientTexture2D_djtrt")
-
-[node name="PointLight2D39" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="19"]
+[node name="PointLight2D39" type="PointLight2D" parent="Chunks/Chunk05/EntitiesContainer/PointsLightsContainer/Tubes" index="7"]
 position = Vector2(7413, 2362.5)
 scale = Vector2(0.28125265, 0.7343751)
 color = Color(0.22877565, 0.33855528, 0.9999526, 1)
@@ -1019,36 +934,8 @@ range_z_min = -4096
 range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
-[node name="ItemsContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="2"]
-
-[node name="WorldItem_01" parent="Chunks/Chunk05/EntitiesContainer/ItemsContainer" index="0" instance=ExtResource("7_5rfnw")]
-position = Vector2(8404, 2603)
-
-[node name="OxygenTanksContainer" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="3"]
-
-[node name="OxygenTank_01" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="0" instance=ExtResource("11_yrqp0")]
-position = Vector2(8663, 2691)
-
-[node name="OxygenTank_02" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="1" instance=ExtResource("11_yrqp0")]
-position = Vector2(8893, 2518)
-
-[node name="OxygenTank_03" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="2" instance=ExtResource("11_yrqp0")]
-position = Vector2(8184, 2979)
-
-[node name="OxygenTank_04" parent="Chunks/Chunk05/EntitiesContainer/OxygenTanksContainer" index="3" instance=ExtResource("11_yrqp0")]
-position = Vector2(7570, 2308)
-
-[node name="Documentables" type="Node2D" parent="Chunks/Chunk05/EntitiesContainer" index="4"]
-
-[node name="Documentable2" parent="Chunks/Chunk05/EntitiesContainer/Documentables" index="0" instance=ExtResource("12_pdsmj")]
-position = Vector2(6732, 769)
-id = "2"
-
-[node name="CollisionShape2D" parent="Chunks/Chunk05/EntitiesContainer/Documentables/Documentable2" index="0"]
-position = Vector2(821, 1515)
-shape = SubResource("RectangleShape2D_v1hbi")
 [node name="Player" parent="." index="8" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(3082, -1439)
+position = Vector2(122.00001, 247)
 scale = Vector2(0.6, 0.6)
 inventory_ui = NodePath("../CanvasLayer/InventoryUi")
 goal = NodePath("../Goal")
