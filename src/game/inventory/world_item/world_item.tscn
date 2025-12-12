@@ -107,12 +107,10 @@ texture = ExtResource("3_4m1vd")
 
 [node name="PointLight2D" type="PointLight2D" parent="." groups=["dynamic_light"]]
 texture_filter = 1
-position = Vector2(30, 16)
-scale = Vector2(2, 2)
+scale = Vector2(0.6, 0.6)
 enabled = false
 color = Color(0.4284438, 0.61765736, 0.2724268, 1)
 energy = 0.81
-shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.9254902)
 shadow_filter = 1
 shadow_filter_smooth = 2.0

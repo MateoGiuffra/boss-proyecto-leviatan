@@ -1,22 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://do518bgl3jbe"]
+[gd_scene load_steps=12 format=3 uid="uid://do518bgl3jbe"]
 
 [ext_resource type="Script" uid="uid://busu77ord1l5j" path="res://src/screens/tutorial/tutorial.gd" id="1_36w3r"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_ejcdf"]
 [ext_resource type="PackedScene" uid="uid://ba6uwpdy60qt7" path="res://src/screens/level_manager.tscn" id="2_ohlq4"]
 [ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/tutorial/next_scene.gd" id="3_ohlq4"]
+[ext_resource type="StyleBox" uid="uid://6i15xwt8beow" path="res://assets/utility/gradient.tres" id="4_152ie"]
 [ext_resource type="PackedScene" uid="uid://bt8hbslvj0sft" path="res://src/screens/tutorial/action_and_keys.tscn" id="4_ejcdf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqrla"]
-bg_color = Color(0.043137256, 0.08627451, 0.12941177, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[ext_resource type="StyleBox" uid="uid://b1fp8xevt1iqh" path="res://assets/utility/rounded_card.tres" id="5_1cv8q"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ohlq4"]
 color = Color(0.10980392, 0.18431373, 0.2509804, 1)
@@ -89,14 +79,16 @@ script = ExtResource("1_36w3r")
 level_manager_scene = ExtResource("2_ohlq4")
 action_and_keys_scene = ExtResource("4_ejcdf")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.043137256, 0.06666667, 0.09411765, 1)
+theme_override_styles/panel = ExtResource("4_152ie")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -106,13 +98,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 60
+theme_override_constants/margin_bottom = 30
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qqrla")
+theme_override_styles/panel = ExtResource("5_1cv8q")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
@@ -144,17 +136,17 @@ theme_override_constants/margin_bottom = 42
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/CardsContainer"]
 layout_mode = 2
-theme_override_constants/separation = 120
+theme_override_constants/separation = 80
 
 [node name="ActionsAndKeysContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer/VBoxContainer/CardsContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
+theme_override_constants/h_separation = 64
 alignment = 1
 last_wrap_alignment = 2
 
 [node name="StaticText" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/CardsContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 58
 
 [node name="ObjectiveHeader" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/CardsContainer/VBoxContainer/StaticText"]
 layout_mode = 2

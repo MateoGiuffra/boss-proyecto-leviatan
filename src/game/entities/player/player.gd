@@ -365,12 +365,12 @@ func die_finish() -> void:
 	stop_all_sounds(true)
 	play_animation("die")
 
-func stop_all_sounds(active: bool) -> void:
+func stop_all_sounds(stop_all: bool) -> void:
 	for sound in get_sounds():
-		if not active:
-			sound.play()
-		else:
+		if stop_all:
 			sound.stop()
+		else:
+			sound.play()
 			
 			
 func get_sounds() -> Array[AudioStreamPlayer]:
@@ -428,8 +428,9 @@ func can_player_take_photo(zone: DocumentableZone) -> bool:
 		and not zones.has(zone.id)
 
 func on_photo_zone_player_entered(zone: DocumentableZone, _player: Player) -> void:
-	documentable_sound.play()
 	current_photo_zone = zone
+	if not zones.has(zone.id):
+		documentable_sound.play()
 
 func on_photo_zone_player_exited(zone: DocumentableZone, _player: Player) -> void:
 	if current_photo_zone == zone: 
@@ -468,6 +469,7 @@ func _show_ready_to_shoot_pose() -> void:
 	animated_player.animation = "can_shoot"
 	animated_player.frame = last_frame
 	animated_player.pause()
+
 
 func _try_take_photo() -> void:
 	if not can_player_take_photo(current_photo_zone):

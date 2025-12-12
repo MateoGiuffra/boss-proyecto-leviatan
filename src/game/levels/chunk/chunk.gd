@@ -20,6 +20,8 @@ func turn_all(node, active: bool) -> void:
 		if child.has_meta("visible"):
 			child.visible = active
 		if child is PointLight2D:
+			if child.energy == 5:
+				child.energy = 3
 			child.enabled = active
 		child.process_mode = final_process_mode
 		turn_all(child, active)
