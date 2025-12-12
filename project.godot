@@ -26,7 +26,9 @@ resources_spreadsheet_view/freeze_first_column=true
 config/name="Proyecto Leviatan"
 run/main_scene="uid://daovg62hm8gdh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+run/max_fps=100
+boot_splash/image="uid://bmh536501vf3n"
+config/icon="uid://c2pxj0umfupfq"
 
 [autoload]
 
@@ -37,6 +39,7 @@ SoundManager="*res://src/game/singletons/sound_manager.gd"
 [debug]
 
 settings/stdout/print_fps=true
+settings/size/mode=3
 
 [display]
 

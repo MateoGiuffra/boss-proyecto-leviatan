@@ -23,7 +23,6 @@ func pick_up_item(world_item_data: ItemData) -> bool:
 		items[item_id] = new_item_copy
 		inventory_changed.emit()
 		return true
-		
 	return false
 
 func _can_add_new_type() -> bool:

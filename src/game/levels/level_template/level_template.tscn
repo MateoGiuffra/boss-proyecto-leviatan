@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://0j7qne8c1m10"]
+[gd_scene load_steps=6 format=3 uid="uid://0j7qne8c1m10"]
 
 [ext_resource type="Script" uid="uid://6xbufgn4qhbf" path="res://src/game/levels/level_template/level.gd" id="1_b1heh"]
 [ext_resource type="PackedScene" uid="uid://d0wl53hsyfl8g" path="res://src/game/ui/menus/pause_menu/pause_menu.tscn" id="2_xh6xx"]
 [ext_resource type="PackedScene" uid="uid://7o8w0bk4iaf8" path="res://src/game/ui/menus/defeat_menu/defeat_menu.tscn" id="3_qnwyr"]
 [ext_resource type="PackedScene" uid="uid://cgf8nxut0nbdv" path="res://src/game/ui/menus/victory_menu/victory_menu.tscn" id="4_1qle4"]
 [ext_resource type="PackedScene" uid="uid://d24f418usmrj5" path="res://src/game/environment/Goal.tscn" id="5_1qle4"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_11ywe"]
-radius = 40.0
-height = 80.0
 
 [node name="LevelTemplate" type="Node"]
 script = ExtResource("1_b1heh")
@@ -19,13 +15,6 @@ script = ExtResource("1_b1heh")
 z_index = 1
 position = Vector2(2, 32)
 collision_layer = 1
-collision_mask = 4
-
-[node name="InitialPlayerPosition" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InitialPlayerPosition"]
-position = Vector2(-2, 0)
-shape = SubResource("CapsuleShape2D_11ywe")
 
 [node name="UILayerMenu" type="CanvasLayer" parent="."]
 layer = 101

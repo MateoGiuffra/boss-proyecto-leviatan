@@ -65,6 +65,12 @@ theme_override_fonts/font = ExtResource("3_5a146")
 theme_override_font_sizes/font_size = 29
 text = "Opciones"
 
+[node name="RetryButton" type="Button" parent="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 29
+text = "Reiniciar Nivel"
+
 [node name="ReturnButton" type="Button" parent="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_5a146")
@@ -79,11 +85,13 @@ theme_override_font_sizes/font_size = 29
 text = "Atras"
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_rabgt")]
+visible = false
 z_index = 100
 
 [node name="HoverButton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_luajn")
 
 [connection signal="pressed" from="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginPause/VBoxContainer2/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

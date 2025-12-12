@@ -2,7 +2,7 @@ class_name PlayerIdleState extends State
 
 @onready var player: CharacterBody2D = $"../.."
 @onready var animated_player: AnimatedSprite2D = $"../../Pivot/AnimatedPlayer"
-@onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
+@onready var step_sound: AudioStreamPlayer = $"../../Sounds/StepSound"
 
 var movement_direction: int
 

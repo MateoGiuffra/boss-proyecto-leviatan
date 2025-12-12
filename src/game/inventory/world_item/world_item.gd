@@ -60,3 +60,8 @@ func _update_visuals():
 		if collision_shape:
 			# Desactivar la colisión si no hay ítem
 			collision_shape.set_deferred("disabled", true)
+
+func pick_up() -> void:
+	pick_up_sound.play()
+	await pick_up_sound.finished
+	queue_free()

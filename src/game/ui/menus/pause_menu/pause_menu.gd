@@ -4,6 +4,7 @@ extends CanvasLayer
 ## (por default la tecla Esc).
 @onready var options_menu: Control = $OptionsMenu
 signal return_selected()
+signal retry_selected()
 @onready var hover_button: AudioStreamPlayer = $HoverButton
 
 func _ready() -> void:
@@ -32,3 +33,6 @@ func _on_return_button_pressed() -> void:
 
 func _on_options_button_pressed() -> void:
 	options_menu.show()
+
+func _on_retry_button_pressed() -> void:
+	retry_selected.emit()

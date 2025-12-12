@@ -3,8 +3,8 @@ class_name PlayerDashState extends State
 @export var player: Player
 @export var dash_speed: float = 1200.0
 @onready var dash_cold_down: Timer = $"../../Timers/DashColdDown"
-@onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
-@onready var wash_sound: AudioStreamPlayer2D = $"../../Sounds/WashSound"
+@onready var step_sound: AudioStreamPlayer = $"../../Sounds/StepSound"
+@onready var wash_sound: AudioStreamPlayer = $"../../Sounds/WashSound"
 
 func get_input() -> void:
 	pass

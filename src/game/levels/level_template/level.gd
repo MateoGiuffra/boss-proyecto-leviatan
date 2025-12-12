@@ -1,6 +1,5 @@
 class_name GameLevel extends Node
 
-@export var initial_player_position: CollisionShape2D
 var lights: Array[Light2D] = []
 @export var enable_distance := 600
 
@@ -10,8 +9,7 @@ var lights: Array[Light2D] = []
 var in_cinematic: bool = false
 
 func start(_player: Player) -> void:
-	_player.activate()
-	_player.global_position = initial_player_position.global_position
+	_player.activate(true)
 
 signal return_requested()
 # Reinicia el nivel
@@ -94,10 +92,9 @@ func start_boss_intro() -> void:
 		2.0,     # duración ida/vuelta
 		1.5      # pausa sobre el boss
 	)
-
-	cine_cam.enabled = false
 	player.activate()
+	cine_cam.enabled = false
 	in_cinematic = false
-	# await player.screen_shake(0.4, 18.0)
+	await player.screen_shake(0.4, 18.0)
 	boss.init_attack()
 	

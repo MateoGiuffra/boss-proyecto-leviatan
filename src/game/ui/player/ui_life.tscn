@@ -28,3 +28,9 @@ layout_mode = 2
 theme_override_constants/separation = 37
 script = ExtResource("2_acs1h")
 heart_scene = ExtResource("3_acs1h")
+
+[node name="HeartsWiggleTimer" type="Timer" parent="."]
+wait_time = 3.057
+autostart = true
+
+[connection signal="timeout" from="HeartsWiggleTimer" to="VBoxContainer/MarginContainer/HealthUIContainer" method="_on_hearts_wiggle_timer_timeout"]

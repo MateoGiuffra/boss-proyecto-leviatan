@@ -5,7 +5,7 @@ extends State
 
 @onready var double_tap_timer: Timer = $"../../Timers/DoubleTapTimer"
 @onready var dash_timer: Timer = $"../../Timers/DashTimer"
-@onready var step_sound: AudioStreamPlayer2D = $"../../Sounds/StepSound"
+@onready var step_sound: AudioStreamPlayer = $"../../Sounds/StepSound"
 @onready var animated_player: AnimatedSprite2D = $"../../Pivot/AnimatedPlayer"
 
 # Lista de sonidos posibles (asignar en el editor)
