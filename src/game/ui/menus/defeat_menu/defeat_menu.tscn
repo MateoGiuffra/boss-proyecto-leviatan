@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://7o8w0bk4iaf8"]
+[gd_scene load_steps=4 format=3 uid="uid://7o8w0bk4iaf8"]
 
 [ext_resource type="Script" uid="uid://d4c2324tk5dwb" path="res://src/game/ui/menus/defeat_menu/defeat_menu.gd" id="3"]
+[ext_resource type="StyleBox" uid="uid://q0u882okyqfw" path="res://assets/utility/default_pressed_button.tres" id="3_fyy4q"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="3_x3cpf"]
 
 [node name="DefeatMenu" type="Control"]
@@ -56,6 +57,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_x3cpf")
 theme_override_font_sizes/font_size = 29
+theme_override_styles/pressed = ExtResource("3_fyy4q")
+theme_override_styles/pressed_mirrored = ExtResource("3_fyy4q")
 text = "Reintentar"
 
 [node name="BackToMenuButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
@@ -63,6 +66,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_x3cpf")
 theme_override_font_sizes/font_size = 29
+theme_override_styles/pressed = ExtResource("3_fyy4q")
+theme_override_styles/pressed_mirrored = ExtResource("3_fyy4q")
 text = "Volver al Menú"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

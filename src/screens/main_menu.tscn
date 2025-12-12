@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://daovg62hm8gdh"]
+[gd_scene load_steps=12 format=3 uid="uid://daovg62hm8gdh"]
 
 [ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://src/screens/main_menu.gd" id="1_dsrv8"]
 [ext_resource type="PackedScene" uid="uid://bk2ii7xjcq01n" path="res://src/screens/pre_game.tscn" id="2_kdc2m"]
 [ext_resource type="Script" uid="uid://cw03618pq75iu" path="res://src/screens/init_menu.gd" id="3_5avgn"]
 [ext_resource type="PackedScene" uid="uid://c44oruvbbfvul" path="res://assets/utility/main_image.tscn" id="3_472iq"]
 [ext_resource type="FontFile" uid="uid://co7cfveh1blbm" path="res://assets/fonts/needleteehh/Needleteeth Regular.ttf" id="4_qdkrd"]
-[ext_resource type="PackedScene" uid="uid://m012tphmbg3w" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_xif3j"]
+[ext_resource type="PackedScene" uid="uid://dfu7j5cxfdtli" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_xif3j"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="5_b73ir"]
 [ext_resource type="VideoStream" uid="uid://cd7ctdbpemas0" path="res://assets/textures/background/main-video-1.ogv" id="5_kdc2m"]
 [ext_resource type="AudioStream" uid="uid://ck7ngcpkj17nv" path="res://assets/sound/enemy/menu.mp3" id="7_b73ir"]
+[ext_resource type="StyleBox" uid="uid://q0u882okyqfw" path="res://assets/utility/default_pressed_button.tres" id="8_5aiqe"]
 [ext_resource type="AudioStream" uid="uid://c2j28rs0482to" path="res://assets/sound/soundtracks/hover-button-287656.mp3" id="9_5avgn"]
 
 [node name="Game" type="Node"]
@@ -91,22 +92,27 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("5_b73ir")
 theme_override_font_sizes/font_size = 29
-text = "Jugar"
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Jugar "
 
 [node name="OptionsButton" type="Button" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons" groups=["ButtonUI"]]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("5_b73ir")
 theme_override_font_sizes/font_size = 29
-text = "Opciones"
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Opciones "
 
 [node name="ExitButton" type="Button" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons" groups=["ButtonUI"]]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("5_b73ir")
 theme_override_font_sizes/font_size = 29
-text = "Salir
-"
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Salir "
 
 [node name="FadeRect" type="ColorRect" parent="Menus/InitMenu/Container"]
 layout_mode = 1
