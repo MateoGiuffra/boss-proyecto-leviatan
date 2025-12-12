@@ -326,6 +326,34 @@ texture_filter = 1
 position = Vector2(-2, -60)
 shape = SubResource("CapsuleShape2D_i87q2")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_fdc7v")
+texture = ExtResource("19_fdc7v")
+lifetime = 1.97
+speed_scale = 0.4
+explosiveness = 0.5
+randomness = 1.0
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, 100)
+gravity = Vector2(0, -800)
+initial_velocity_min = 41.24
+initial_velocity_max = 82.48
+orbit_velocity_curve = SubResource("Curve_fdc7v")
+scale_amount_min = 0.3
+scale_amount_max = 0.6
+color = Color(0, 0.40392157, 0.4117647, 0.7882353)
+anim_speed_max = 5.28
+anim_speed_curve = SubResource("Curve_05p3n")
+
+[node name="PointLight2D" parent="." instance=ExtResource("19_7ruc6")]
+position = Vector2(5.000025, -20.500008)
+scale = Vector2(2.7, 2.7)
+color = Color(0.8324709, 0.8887561, 1, 1)
+energy = 1.0
+shadow_enabled = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRectWavy" type="ColorRect" parent="CanvasLayer"]

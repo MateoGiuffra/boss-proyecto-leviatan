@@ -6,7 +6,6 @@
 [node name="PointLight2D" type="PointLight2D"]
 scale = Vector2(0.6119999, 0.868)
 energy = 4.0
-shadow_enabled = true
 texture = ExtResource("1_grjub")
 script = ExtResource("2_mpibs")
 max_energy = 3.0
