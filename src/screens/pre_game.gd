@@ -2,7 +2,7 @@ extends Control
 @onready var music_history: AudioStreamPlayer = $MusicHistory
 @onready var monster_sea: AudioStreamPlayer = $MonsterSea
 @export var level_manager_scene: PackedScene
-@onready var story_image: Sprite2D = $StoryImage
+@onready var story_image: TextureRect = $StoryImage
 const STORY_FIRST_IMAGE = preload("uid://ck8lx3g0527a5")
 const STORY_SECOND_IMAGE = preload("uid://dwlqg7sx7rukj")
 const STORY_THIRD_IMAGE = preload("uid://citg5j5o6461o")
@@ -52,9 +52,11 @@ func show_fragment(index):
 	texts = fragments[index].get_node("VBoxTexts")
 	button = fragments[index].get_node("NextScene")
 	texts.play_fade()
+	story_image.play_fade()
 	
 func _on_next_scene_pressed():
 	await texts.play_fade_out()
+	await story_image.play_fade_out()
 	current_index += 1
 	if current_index < fragments.size():
 		show_fragment(current_index)
@@ -65,6 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_last_scene_pressed() -> void:
 	await texts.play_fade_out()
+	await story_image.play_fade_out()
 	if button.has_method("play_fade_out"): 
 		await button.play_fade_out()
 	
