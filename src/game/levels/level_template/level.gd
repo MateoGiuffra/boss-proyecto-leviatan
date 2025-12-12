@@ -5,8 +5,8 @@ var lights: Array[Light2D] = []
 
 @onready var player: Player = $Player
 @onready var cine_cam: Camera2D = $CineCam
-@onready var boss: Area2D = $Boss
 var in_cinematic: bool = false
+@onready var boss: Boss = $Boss
 
 func start(_player: Player) -> void:
 	_player.activate(true)
@@ -94,7 +94,7 @@ func start_boss_intro() -> void:
 	)
 	player.activate()
 	cine_cam.enabled = false
-	in_cinematic = false
-	await player.screen_shake(0.4, 18.0)
+	# await player.screen_shake(0.4, 18.0)
 	boss.init_attack()
+	in_cinematic = false
 	

@@ -1,4 +1,5 @@
 extends Area2D
+class_name Boss
 @onready var boss_animated: AnimatedSprite2D = $AnimatedSprite2D
 @onready var boss_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var roar_monster: AudioStreamPlayer = $RoarMonster
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 		_move_enemy(delta)
 
 func init_attack(): 
+	print("inicio ataque")
 	attack = true
 
 func _activate() -> void:
