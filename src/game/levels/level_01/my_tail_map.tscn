@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://cjmuskb8u4ges"]
+[gd_scene load_steps=52 format=4 uid="uid://cjmuskb8u4ges"]
 
 [ext_resource type="Script" uid="uid://bfhqm387uvex5" path="res://src/game/levels/level_01/my_tail_map.gd" id="1_dppts"]
 [ext_resource type="Texture2D" uid="uid://yy761xan83oy" path="res://assets/textures/background/tileset/elements/tileset_backgroun2.png" id="1_i35yj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://biachfyf1mrx0" path="res://src/game/levels/level_01/point_light_2d_red_effect.tscn" id="6_dppts"]
 [ext_resource type="Script" uid="uid://coiwu3ldos170" path="res://src/game/levels/level_01/point_light_2d_red.gd" id="7_8bbr4"]
 [ext_resource type="Texture2D" uid="uid://bb8hxmds4qdky" path="res://assets/textures/img_curacion.png" id="7_b6m51"]
+[ext_resource type="Texture2D" uid="uid://cdf2v2anmeilo" path="res://assets/textures/documentables/camera_graffiti.png" id="8_b6m51"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i35yj"]
 texture = ExtResource("1_iae7d")
@@ -1468,32 +1469,8 @@ energy = 16.0
 texture = SubResource("GradientTexture2D_8bbr4")
 script = ExtResource("7_8bbr4")
 
-[node name="PointLight2D40" type="PointLight2D" parent="PointLightGreen"]
-position = Vector2(3317.9998, -1579.9999)
-scale = Vector2(0.39843768, 0.3828125)
-color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
-energy = 16.0
-texture = SubResource("GradientTexture2D_8bbr4")
-script = ExtResource("7_8bbr4")
-
 [node name="PointLight2D41" type="PointLight2D" parent="PointLightGreen"]
 position = Vector2(3382, -1482.0001)
-scale = Vector2(0.39843768, 0.3828125)
-color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
-energy = 16.0
-texture = SubResource("GradientTexture2D_8bbr4")
-script = ExtResource("7_8bbr4")
-
-[node name="PointLight2D43" type="PointLight2D" parent="PointLightGreen"]
-position = Vector2(3408, -1587)
-scale = Vector2(0.39843768, 0.3828125)
-color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
-energy = 16.0
-texture = SubResource("GradientTexture2D_8bbr4")
-script = ExtResource("7_8bbr4")
-
-[node name="PointLight2D45" type="PointLight2D" parent="PointLightGreen"]
-position = Vector2(3473.9998, -1459)
 scale = Vector2(0.39843768, 0.3828125)
 color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
 energy = 16.0
@@ -1550,22 +1527,6 @@ script = ExtResource("7_8bbr4")
 
 [node name="PointLight2D54" type="PointLight2D" parent="PointLightGreen"]
 position = Vector2(3824, -1619.0001)
-scale = Vector2(0.39843768, 0.3828125)
-color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
-energy = 16.0
-texture = SubResource("GradientTexture2D_8bbr4")
-script = ExtResource("7_8bbr4")
-
-[node name="PointLight2D55" type="PointLight2D" parent="PointLightGreen"]
-position = Vector2(3951.9998, -1490)
-scale = Vector2(0.39843768, 0.3828125)
-color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
-energy = 16.0
-texture = SubResource("GradientTexture2D_8bbr4")
-script = ExtResource("7_8bbr4")
-
-[node name="PointLight2D56" type="PointLight2D" parent="PointLightGreen"]
-position = Vector2(4016.9998, -1523)
 scale = Vector2(0.39843768, 0.3828125)
 color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
 energy = 16.0
@@ -1827,3 +1788,35 @@ color = Color(0.06682676, 0.8068712, 1.92523e-06, 1)
 energy = 16.0
 texture = SubResource("GradientTexture2D_b6m51")
 script = ExtResource("7_8bbr4")
+
+[node name="Pictures" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pictures"]
+position = Vector2(3774.0002, -1614)
+rotation = 0.30019662
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_b6m51")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Pictures"]
+position = Vector2(4772.0005, -999.0001)
+rotation = -0.06632251
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_b6m51")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Pictures"]
+position = Vector2(5920.0005, -442)
+rotation = 0.23387411
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("8_b6m51")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Pictures"]
+position = Vector2(3583, -976.99994)
+rotation = -0.06632251
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("8_b6m51")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Pictures"]
+position = Vector2(3882.0002, 77.000015)
+rotation = 0.29496065
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("8_b6m51")

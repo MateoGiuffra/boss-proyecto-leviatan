@@ -27,6 +27,7 @@ config/name="Proyecto Leviatan"
 run/main_scene="uid://daovg62hm8gdh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 run/max_fps=100
+boot_splash/bg_color=Color(0.023970123, 0.040180366, 0.061688274, 1)
 boot_splash/image="uid://bmh536501vf3n"
 config/icon="uid://c2pxj0umfupfq"
 
@@ -45,7 +46,6 @@ settings/size/mode=3
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=3
 window/size/window_width_override=1360
 window/size/window_height_override=920
 window/stretch/mode="canvas_items"

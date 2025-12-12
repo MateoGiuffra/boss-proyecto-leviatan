@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://m012tphmbg3w"]
+[gd_scene load_steps=11 format=3 uid="uid://dfu7j5cxfdtli"]
 
 [ext_resource type="Script" uid="uid://mo1kl3s4i6gf" path="res://src/game/ui/menus/options_menu/options_menu.gd" id="1_kx632"]
-[ext_resource type="PackedScene" uid="uid://c44oruvbbfvul" path="res://assets/utility/main_image.tscn" id="2_m456g"]
-[ext_resource type="Texture2D" uid="uid://c6whqw1xiv0g" path="res://assets/textures/images/background-2.png" id="3_hdl5g"]
+[ext_resource type="StyleBox" uid="uid://6i15xwt8beow" path="res://assets/utility/gradient.tres" id="2_3leyp"]
+[ext_resource type="StyleBox" uid="uid://b1fp8xevt1iqh" path="res://assets/utility/rounded_card.tres" id="3_hdl5g"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="4_cxws0"]
-[ext_resource type="PackedScene" uid="uid://c1krst52fe87m" path="res://src/game/ui/sliders/slider.tscn" id="4_m456g"]
-[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="5_hdl5g"]
+[ext_resource type="PackedScene" uid="uid://4xgcbtjeu8gu" path="res://assets/utility/sub_menu_container.tscn" id="4_s0lbc"]
+[ext_resource type="PackedScene" uid="uid://c0o8rrhjxqj4f" path="res://src/game/ui/menus/volume/volume.tscn" id="5_3leyp"]
+[ext_resource type="StyleBox" uid="uid://b3aa8kfkg57s2" path="res://assets/utility/normal_button.tres" id="5_oh00c"]
+[ext_resource type="StyleBox" uid="uid://dk2380ptpabm8" path="res://assets/utility/pressed_button.tres" id="6_s0lbc"]
+[ext_resource type="StyleBox" uid="uid://6t158asqvdsh" path="res://assets/utility/hover_button.tres" id="7_5u4ya"]
+[ext_resource type="PackedScene" uid="uid://dpjk7mn0ulwlf" path="res://src/game/ui/menus/controls/controls_menu.tscn" id="8_oh00c"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="Options" type="MarginContainer"]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,13 +24,14 @@ script = ExtResource("1_kx632")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" parent="OptionsMenu" instance=ExtResource("2_m456g")]
+[node name="Background" type="Panel" parent="OptionsMenu"]
 layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-texture = ExtResource("3_hdl5g")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_3leyp")
 
 [node name="Options" type="MarginContainer" parent="OptionsMenu"]
 layout_mode = 1
@@ -35,168 +40,69 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 400
 theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Options"]
+[node name="PanelContainer" type="PanelContainer" parent="OptionsMenu/Options"]
 layout_mode = 2
-theme_override_constants/separation = 150
+theme_override_styles/panel = ExtResource("3_hdl5g")
 
-[node name="Label" type="Label" parent="OptionsMenu/Options/VBoxContainer"]
+[node name="SubMenuContainer" parent="OptionsMenu/Options/PanelContainer" instance=ExtResource("4_s0lbc")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Options/PanelContainer/SubMenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Label" type="Label" parent="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 64
 text = "OPCIONES"
 horizontal_alignment = 1
 
-[node name="GeneralOptions" type="VBoxContainer" parent="OptionsMenu/Options/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 44
-
-[node name="VolumeButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
+[node name="VolumeButton" type="Button" parent="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer" groups=["ButtonUI"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("5_oh00c")
+theme_override_styles/pressed = ExtResource("6_s0lbc")
+theme_override_styles/hover = ExtResource("7_5u4ya")
+theme_override_styles/hover_mirrored = ExtResource("7_5u4ya")
+theme_override_styles/hover_pressed = ExtResource("7_5u4ya")
 text = "Volumen
 "
 
-[node name="ControlsButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
+[node name="ControlsButton" type="Button" parent="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer" groups=["ButtonUI"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("5_oh00c")
+theme_override_styles/pressed = ExtResource("6_s0lbc")
+theme_override_styles/hover = ExtResource("7_5u4ya")
+theme_override_styles/hover_mirrored = ExtResource("7_5u4ya")
+theme_override_styles/hover_pressed = ExtResource("7_5u4ya")
 text = "Controles
 "
 
-[node name="ExitButton" type="Button" parent="OptionsMenu/Options/VBoxContainer/GeneralOptions" groups=["ButtonUI"]]
+[node name="ExitButton" type="Button" parent="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer" groups=["ButtonUI"]]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_cxws0")
 theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("5_oh00c")
+theme_override_styles/hover = ExtResource("7_5u4ya")
+theme_override_styles/hover_pressed = ExtResource("6_s0lbc")
 text = "Atras
 "
 
-[node name="Controls" type="MarginContainer" parent="OptionsMenu"]
+[node name="ControlsMenu" parent="OptionsMenu" instance=ExtResource("8_oh00c")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 100
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="OptionsMenu/Controls"]
-layout_mode = 2
-theme_override_constants/separation = 150
-
-[node name="Label" type="Label" parent="OptionsMenu/Controls/VBoxContainer2"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_cxws0")
-theme_override_font_sizes/font_size = 64
-text = "CONTROLES"
-horizontal_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="OptionsMenu/Controls/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 60
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(800, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-
-[node name="ActionInput" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("5_hdl5g")]
-layout_mode = 2
-
-[node name="ActionInput2" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("5_hdl5g")]
-layout_mode = 2
-action_name = "Dash"
-input_default_text = "Shift"
-
-[node name="ActionInput3" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("5_hdl5g")]
-layout_mode = 2
-action_name = "Izquierda"
-input_default_text = "A"
-
-[node name="ActionInput4" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("5_hdl5g")]
-layout_mode = 2
-action_name = "Derecha"
-input_default_text = "D"
-
-[node name="ControlBackButton" type="Button" parent="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2" groups=["ButtonUI"]]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_cxws0")
-theme_override_font_sizes/font_size = 29
-text = "Atras"
-
-[node name="Volume" type="MarginContainer" parent="OptionsMenu"]
+[node name="Volume" parent="OptionsMenu" instance=ExtResource("5_3leyp")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -281.0
-offset_top = -295.5
-offset_right = 281.0
-offset_bottom = 295.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 100
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="OptionsMenu/Volume"]
-layout_mode = 2
-theme_override_constants/separation = 150
-
-[node name="Label" type="Label" parent="OptionsMenu/Volume/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("4_cxws0")
-theme_override_font_sizes/font_size = 64
-text = "VOLUMEN"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="OptionsMenu/Volume/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 60
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="HSliderMaster" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("4_m456g")]
-layout_mode = 2
-text = "General"
-
-[node name="HSliderEnemies" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" instance=ExtResource("4_m456g")]
-visible = false
-layout_mode = 2
-text = "Enemigos"
-bus_name = "Enemies"
-
-[node name="HSliderUI" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" instance=ExtResource("4_m456g")]
-layout_mode = 2
-text = "Interfaz"
-bus_name = "UI"
-
-[node name="HSliderSFX" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("4_m456g")]
-layout_mode = 2
-text = "Efectos"
-bus_name = "SFX"
-
-[node name="HSliderMusic" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("4_m456g")]
-layout_mode = 2
-text = "Musica"
-bus_name = "Music"
-
-[node name="VolumeBackButton" type="Button" parent="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2" groups=["ButtonUI"]]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_cxws0")
-theme_override_font_sizes/font_size = 29
-text = "Atras"
-
-[connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/VolumeButton" to="." method="_on_volume_button_pressed"]
-[connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/ControlsButton" to="." method="_on_controls_button_pressed"]
-[connection signal="pressed" from="OptionsMenu/Options/VBoxContainer/GeneralOptions/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="OptionsMenu/Controls/VBoxContainer2/VBoxContainer2/ControlBackButton" to="." method="_on_control_back_button_pressed"]
-[connection signal="pressed" from="OptionsMenu/Volume/VBoxContainer2/VBoxContainer2/VolumeBackButton" to="." method="_on_volume_back_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer/VolumeButton" to="." method="_on_volume_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/Options/PanelContainer/SubMenuContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

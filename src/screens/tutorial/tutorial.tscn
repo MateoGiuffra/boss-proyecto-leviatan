@@ -7,63 +7,15 @@
 [ext_resource type="StyleBox" uid="uid://6i15xwt8beow" path="res://assets/utility/gradient.tres" id="4_152ie"]
 [ext_resource type="PackedScene" uid="uid://bt8hbslvj0sft" path="res://src/screens/tutorial/action_and_keys.tscn" id="4_ejcdf"]
 [ext_resource type="StyleBox" uid="uid://b1fp8xevt1iqh" path="res://assets/utility/rounded_card.tres" id="5_1cv8q"]
+[ext_resource type="StyleBox" uid="uid://b3aa8kfkg57s2" path="res://assets/utility/normal_button.tres" id="7_g73yu"]
+[ext_resource type="StyleBox" uid="uid://dk2380ptpabm8" path="res://assets/utility/pressed_button.tres" id="8_p72ht"]
+[ext_resource type="StyleBox" uid="uid://6t158asqvdsh" path="res://assets/utility/hover_button.tres" id="9_11df4"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ohlq4"]
 color = Color(0.10980392, 0.18431373, 0.2509804, 1)
 grow_begin = 2.0
 grow_end = 2.0
 thickness = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohlq4"]
-bg_color = Color(0.10980392, 0.18431373, 0.2509804, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 12.0
-expand_margin_top = 12.0
-expand_margin_right = 12.0
-expand_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cv8q"]
-bg_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 12.0
-expand_margin_top = 12.0
-expand_margin_right = 12.0
-expand_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_152ie"]
-bg_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 12.0
-expand_margin_top = 12.0
-expand_margin_right = 12.0
-expand_margin_bottom = 12.0
 
 [node name="Tutorial" type="Control"]
 layout_mode = 3
@@ -190,15 +142,15 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
 theme_override_fonts/font = ExtResource("2_ejcdf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_1cv8q")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_152ie")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ohlq4")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ohlq4")
+theme_override_styles/normal = ExtResource("7_g73yu")
+theme_override_styles/normal_mirrored = ExtResource("7_g73yu")
+theme_override_styles/pressed = ExtResource("8_p72ht")
+theme_override_styles/pressed_mirrored = ExtResource("7_g73yu")
+theme_override_styles/hover = ExtResource("9_11df4")
+theme_override_styles/hover_mirrored = ExtResource("7_g73yu")
+theme_override_styles/hover_pressed = ExtResource("7_g73yu")
+theme_override_styles/hover_pressed_mirrored = ExtResource("7_g73yu")
+theme_override_styles/focus = ExtResource("7_g73yu")
 text = "Comenzar Misión"
 script = ExtResource("3_ohlq4")
 

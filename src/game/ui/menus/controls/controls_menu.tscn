@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://dpjk7mn0ulwlf"]
+
+[ext_resource type="PackedScene" uid="uid://cel17mxuw63vn" path="res://assets/utility/menu_container.tscn" id="1_gqlsq"]
+[ext_resource type="Script" uid="uid://du8l1xbk1hnyw" path="res://src/game/ui/menus/controls/controls.gd" id="2_syp34"]
+[ext_resource type="PackedScene" uid="uid://bp7iy3pfhe2yq" path="res://src/game/ui/menus/action_input.tscn" id="3_syp34"]
+[ext_resource type="PackedScene" uid="uid://4xgcbtjeu8gu" path="res://assets/utility/sub_menu_container.tscn" id="4_ldtob"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="4_nvvws"]
+[ext_resource type="StyleBox" uid="uid://b3aa8kfkg57s2" path="res://assets/utility/normal_button.tres" id="6_ldtob"]
+[ext_resource type="StyleBox" uid="uid://6t158asqvdsh" path="res://assets/utility/hover_button.tres" id="7_bdg66"]
+[ext_resource type="StyleBox" uid="uid://dk2380ptpabm8" path="res://assets/utility/pressed_button.tres" id="8_sxkel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvvws"]
+bg_color = Color(0.043137256, 0.08627451, 0.12941177, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.10980392, 0.18431373, 0.2509804, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.105885886, 0.14416432, 0.18882978, 1)
+shadow_size = 4
+
+[node name="ControlsMenu" instance=ExtResource("1_gqlsq")]
+script = ExtResource("2_syp34")
+action_input_scene = ExtResource("3_syp34")
+
+[node name="PanelContainer" type="PanelContainer" parent="." index="0"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nvvws")
+
+[node name="SubMenuContainer" parent="PanelContainer" index="0" instance=ExtResource("4_ldtob")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/SubMenuContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/SubMenuContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_nvvws")
+theme_override_font_sizes/font_size = 64
+text = "Controles"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/SubMenuContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActionInputContainer" type="VBoxContainer" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionInput" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer/ActionInputContainer" index="0" instance=ExtResource("3_syp34")]
+visible = false
+layout_mode = 2
+action_name = "Derecha"
+input_default_text = "D"
+
+[node name="ActionInput2" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer/ActionInputContainer" index="1" instance=ExtResource("3_syp34")]
+visible = false
+layout_mode = 2
+action_name = "Izquierda"
+input_default_text = "A"
+
+[node name="ActionInput3" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer/ActionInputContainer" index="2" instance=ExtResource("3_syp34")]
+visible = false
+layout_mode = 2
+action_name = "Sacar foto"
+input_default_text = "E"
+
+[node name="ActionInput4" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer/ActionInputContainer" index="3" instance=ExtResource("3_syp34")]
+visible = false
+layout_mode = 2
+action_name = "Dash"
+input_default_text = "Shift"
+
+[node name="ActionInput5" parent="PanelContainer/SubMenuContainer/VBoxContainer/ScrollContainer/ActionInputContainer" index="4" instance=ExtResource("3_syp34")]
+visible = false
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="PanelContainer/SubMenuContainer/VBoxContainer" index="2" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_nvvws")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("6_ldtob")
+theme_override_styles/hover = ExtResource("7_bdg66")
+theme_override_styles/hover_pressed = ExtResource("8_sxkel")
+text = "Atras
+"
+
+[connection signal="pressed" from="PanelContainer/SubMenuContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

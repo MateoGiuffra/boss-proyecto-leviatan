@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0o8rrhjxqj4f"]
+
+[ext_resource type="Script" uid="uid://beotqsg3pyiwj" path="res://src/game/ui/menus/volume/volume.gd" id="1_qsfm4"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="1_ra8p8"]
+[ext_resource type="PackedScene" uid="uid://c1krst52fe87m" path="res://src/game/ui/sliders/slider.tscn" id="2_qsfm4"]
+[ext_resource type="StyleBox" uid="uid://b1fp8xevt1iqh" path="res://assets/utility/rounded_card.tres" id="2_vjpiv"]
+[ext_resource type="PackedScene" uid="uid://4xgcbtjeu8gu" path="res://assets/utility/sub_menu_container.tscn" id="3_dyhc7"]
+[ext_resource type="StyleBox" uid="uid://b3aa8kfkg57s2" path="res://assets/utility/normal_button.tres" id="6_cjhv8"]
+[ext_resource type="StyleBox" uid="uid://dk2380ptpabm8" path="res://assets/utility/pressed_button.tres" id="7_ji2sw"]
+[ext_resource type="StyleBox" uid="uid://6t158asqvdsh" path="res://assets/utility/hover_button.tres" id="8_1d1ql"]
+
+[node name="Volume" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 100
+script = ExtResource("1_qsfm4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_vjpiv")
+
+[node name="SubMenuContainer" parent="PanelContainer" instance=ExtResource("3_dyhc7")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/SubMenuContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/SubMenuContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_ra8p8")
+theme_override_font_sizes/font_size = 64
+text = "VOLUMEN"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/SubMenuContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = 64
+
+[node name="HSliderMaster" parent="PanelContainer/SubMenuContainer/VBoxContainer/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("2_qsfm4")]
+layout_mode = 2
+text = "General"
+
+[node name="HSliderEnemies" parent="PanelContainer/SubMenuContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_qsfm4")]
+visible = false
+layout_mode = 2
+
+[node name="HSliderUI" parent="PanelContainer/SubMenuContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_qsfm4")]
+layout_mode = 2
+text = "UI"
+
+[node name="HSliderSFX" parent="PanelContainer/SubMenuContainer/VBoxContainer/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("2_qsfm4")]
+layout_mode = 2
+text = "Efectos"
+
+[node name="HSliderMusic" parent="PanelContainer/SubMenuContainer/VBoxContainer/VBoxContainer" groups=["ButtonUI"] instance=ExtResource("2_qsfm4")]
+layout_mode = 2
+text = "Música"
+
+[node name="VolumeBackButton" type="Button" parent="PanelContainer/SubMenuContainer/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_ra8p8")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("6_cjhv8")
+theme_override_styles/pressed = ExtResource("7_ji2sw")
+theme_override_styles/hover = ExtResource("8_1d1ql")
+text = "Atras"
+
+[connection signal="pressed" from="PanelContainer/SubMenuContainer/VBoxContainer/VolumeBackButton" to="." method="_on_volume_back_button_pressed"]

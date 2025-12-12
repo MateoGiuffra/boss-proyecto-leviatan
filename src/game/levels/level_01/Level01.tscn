@@ -57,7 +57,9 @@ position_smoothing_speed = 7.0
 [node name="MYTailMap" parent="Map" index="0" instance=ExtResource("3_5rfnw")]
 
 [node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
-position = Vector2(8, 238)
+position = Vector2(8, 242)
+min_items_amount = 10
+min_documentables_amount = 5
 level = NodePath("..")
 boss = NodePath("../Boss")
 
@@ -822,7 +824,7 @@ range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
 [node name="Player" parent="." index="8" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(3268, -1443)
+position = Vector2(187, 207)
 scale = Vector2(0.6, 0.6)
 movement_speed_limit = 350.0
 dash_speed = 400.0
@@ -833,7 +835,6 @@ goal = NodePath("../Goal")
 oxygen_damage = 20.0
 
 [node name="Boss" parent="." index="9" instance=ExtResource("9_ctuea")]
-visible = false
 position = Vector2(200, 109)
 
 [connection signal="can_win_level" from="." to="." method="_on_can_win_level"]

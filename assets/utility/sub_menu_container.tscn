@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://4xgcbtjeu8gu"]
+
+[node name="SubMenuContainer" type="MarginContainer"]
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
