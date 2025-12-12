@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://b5s2xjtsrnukx"]
+[gd_scene load_steps=66 format=3 uid="uid://b5s2xjtsrnukx"]
 
 [ext_resource type="Script" uid="uid://w3nb76ktx1jr" path="res://src/game/entities/player/player.gd" id="1_4ohmj"]
 [ext_resource type="Texture2D" uid="uid://vu10a0th7ncl" path="res://assets/textures/player/walk/walk_00.png" id="2_3d7ta"]
@@ -26,7 +26,10 @@
 [ext_resource type="Texture2D" uid="uid://cyohupgn5f1i7" path="res://assets/textures/player/walk/walk_09.png" id="11_vf103"]
 [ext_resource type="Texture2D" uid="uid://b2dabngvxsw0h" path="res://assets/textures/player/walk/walk_10.png" id="12_2x24p"]
 [ext_resource type="Texture2D" uid="uid://cotanv146878g" path="res://assets/textures/player/walk/walk_11.png" id="13_f0kc4"]
+[ext_resource type="Texture2D" uid="uid://dvofto553hs2x" path="res://assets/textures/player/idle/new/idle_01.png" id="13_joydf"]
+[ext_resource type="Texture2D" uid="uid://qof7xsf6p4d4" path="res://assets/textures/player/idle/new/idle_02.png" id="14_aj3dm"]
 [ext_resource type="Texture2D" uid="uid://c3dsvr2tpvhd0" path="res://assets/textures/player/shoot_camera/shoot_camera_01.png" id="14_gccwp"]
+[ext_resource type="Texture2D" uid="uid://db40lporvbbpm" path="res://assets/textures/player/idle/new/idle_03.png" id="15_m10yg"]
 [ext_resource type="Texture2D" uid="uid://d03lwny5bqdyb" path="res://assets/textures/player/shoot_camera/shoot_camera_02.png" id="15_vnsak"]
 [ext_resource type="Texture2D" uid="uid://hvj8jrsvi1g3" path="res://assets/textures/player/shoot_camera/shoot_camera_03.png" id="16_42kpb"]
 [ext_resource type="Script" uid="uid://bnelajanpbmfr" path="res://src/game/entities/player/state_machine.gd" id="17_753ju"]
@@ -140,7 +143,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_3d7ta")
+"texture": ExtResource("13_joydf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_aj3dm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_m10yg")
 }],
 "loop": true,
 "name": &"idle",
@@ -306,9 +315,9 @@ texture_filter = 1
 position = Vector2(2, -62)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_cd5ud")
-animation = &"shoot_camera"
-frame = 8
-frame_progress = 1.0
+animation = &"idle"
+frame = 2
+frame_progress = 0.54133314
 
 [node name="CameraPointLight" parent="Pivot" instance=ExtResource("19_7ruc6")]
 position = Vector2(-24, -40)
@@ -408,7 +417,7 @@ parameters/looping = true
 
 [node name="HardBreathingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("43_gccwp")
-volume_db = -9.541
+volume_db = -31.057
 bus = &"SFX"
 parameters/looping = true
 

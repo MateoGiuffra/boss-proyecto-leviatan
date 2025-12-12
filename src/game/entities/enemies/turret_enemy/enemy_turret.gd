@@ -5,7 +5,7 @@ class_name EnemyTurret
 @onready var animated_sprite: AnimatedSprite2D = $Pivot/AnimatedSprite2D
 @onready var origin_zone: CollisionShape2D = $Pivot/OriginZone
 @onready var ray_cast_2d: RayCast2D = $Pivot/OriginZone/RayCast2D
-
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @export var ray_vertical_offset: float = -40.0
 var target_player: Player
 
@@ -20,9 +20,13 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	animated_sprite.play("idle")
-	if target_player: 
+	if target_player:
 		aim_to_player()
+	else:
+		if is_shooting: 
+			_play_animation("shoot")
+		else:
+			_play_animation("idle")
 
 func _play_animation(animation_name: StringName)-> void:
 	if animated_sprite.sprite_frames.has_animation(animation_name):
@@ -32,8 +36,8 @@ func aim_to_player() -> void:
 	var target_global = target_player.global_position + Vector2(0.0, ray_vertical_offset)
 	ray_cast_2d.target_position = ray_cast_2d.to_local(target_global)
 	if can_shoot():
+		is_shooting = true
 		shoot()
-		_play_animation("shoot")
 		
 func can_shoot() -> bool:
 	if ray_cast_2d.is_colliding():
@@ -44,7 +48,7 @@ func can_shoot() -> bool:
 func shoot() -> void: 
 	if not projectile_scene:
 		return
-
+	audio_stream_player_2d.play()
 	var projectile_instance = projectile_scene.instantiate()
 	get_parent().add_child(projectile_instance)
 	projectile_instance.global_position = origin_zone.global_position
@@ -63,9 +67,5 @@ func _on_body_exited(_body: Node2D) -> void:
 func _on_shoot_timer_timeout() -> void:
 	is_shooting = false
 
-func _on_animated_sprite_animation_finished() -> void:
-	match animated_sprite.animation: 
-		"shoot": 
-			if target_player: 
-				shoot()
-		
+func _on_personal_area_2d_body_entered(body: Player) -> void:
+	body.damage_player(1, true)

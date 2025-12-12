@@ -9,8 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwfjn40kj3jiv" path="res://assets/textures/enemies/verrugoso_squid/estirado_completamente.png" id="7_gjra1"]
 [ext_resource type="Texture2D" uid="uid://d0xivuki83eo8" path="res://assets/textures/enemies/verrugoso_squid/idle_03.png" id="8_sei1t"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i77eh"]
-radius = 4.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_i77eh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0qoyv"]
 animations = [{
@@ -91,7 +90,7 @@ script = ExtResource("1_0qoyv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_i77eh")
+shape = SubResource("CircleShape2D_i77eh")
 
 [node name="Pivot" type="Node2D" parent="."]
 
