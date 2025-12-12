@@ -2,19 +2,14 @@ extends Control
 @onready var music_history: AudioStreamPlayer = $MusicHistory
 @onready var monster_sea: AudioStreamPlayer = $MonsterSea
 @export var level_manager_scene: PackedScene
-@onready var tutorial: Control = $Tutorial
-@onready var jump_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer2/JumpKey
-@onready var dash_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer3/DashKey
-@onready var left_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/LeftKey
-@onready var right_key: Label = $Tutorial/MarginTutorial/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/RightKey
 @onready var story_image: Sprite2D = $StoryImage
 const STORY_FIRST_IMAGE = preload("uid://ck8lx3g0527a5")
 const STORY_SECOND_IMAGE = preload("uid://dwlqg7sx7rukj")
 const STORY_THIRD_IMAGE = preload("uid://citg5j5o6461o")
 const STOTY_FOURTH_IMAGE = preload("uid://cdqa4d2xua8lj")
+@onready var tutorial: Control = $Tutorial
 
 var images: Array[Resource] = [STORY_FIRST_IMAGE, STORY_SECOND_IMAGE, STORY_THIRD_IMAGE, STOTY_FOURTH_IMAGE]
-var keys: Array[Label] = [jump_key, dash_key, left_key, right_key]
 
 var fragments = []
 var current_index = 0
@@ -28,14 +23,6 @@ func _enter_tree():
 
 func _ready():
 	show_fragment(0)
-	set_current_key("dash", dash_key)
-	set_current_key("saltar", jump_key)
-	set_current_movement_key("derecha", right_key)
-	set_current_movement_key("izquierda", left_key)
-
-func _physics_process(_delta: float) -> void:
-	for label_key in keys: 
-		_update_text(label_key)
 	
 
 func _update_text(label: Label) -> void:

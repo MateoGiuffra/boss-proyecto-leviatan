@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0fekwxnxgc7o" path="res://src/screens/v_box_texts.gd" id="1_5teb0"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_qdagw"]
-[ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/next_scene.gd" id="3_ay0eq"]
+[ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/tutorial/next_scene.gd" id="3_ay0eq"]
 
 [node name="HistoryScreen" type="VBoxContainer"]
 size_flags_vertical = 8
