@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bk2ii7xjcq01n"]
+[gd_scene load_steps=11 format=3 uid="uid://bk2ii7xjcq01n"]
 
 [ext_resource type="Script" uid="uid://dxwiigtp6wjnm" path="res://src/screens/pre_game.gd" id="1_3nts4"]
 [ext_resource type="Script" uid="uid://b0fekwxnxgc7o" path="res://src/screens/v_box_texts.gd" id="1_i5wu5"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dnfjbb28dmq2p" path="res://assets/sound/soundtracks/ambiental.mp3" id="3_f3au3"]
 [ext_resource type="Texture2D" uid="uid://ck8lx3g0527a5" path="res://assets/textures/images/story/story_first_image.png" id="3_o2i82"]
 [ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/tutorial/next_scene.gd" id="4_0mrxt"]
+[ext_resource type="Script" uid="uid://cwpqlv2qou0i3" path="res://src/screens/story_image.gd" id="4_o2i82"]
 [ext_resource type="AudioStream" uid="uid://bvp6jbpfq66cv" path="res://assets/sound/soundtracks/horror-sound-monster-breath-189934.mp3" id="5_ncgvx"]
 [ext_resource type="PackedScene" uid="uid://do518bgl3jbe" path="res://src/screens/tutorial/tutorial.tscn" id="7_qqrla"]
 
@@ -29,10 +30,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="StoryImage" type="Sprite2D" parent="."]
-position = Vector2(654, 391.50003)
-scale = Vector2(1.041, 1.2)
+[node name="StoryImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_o2i82")
+script = ExtResource("4_o2i82")
 
 [node name="SkipStoryLabel" type="Label" parent="."]
 layout_mode = 1
@@ -104,6 +110,7 @@ theme_override_font_sizes/font_size = 29
 text = "Siguiente"
 
 [node name="VBoxFragmentHistory2" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 200
@@ -144,6 +151,7 @@ theme_override_font_sizes/font_size = 29
 text = "Siguiente"
 
 [node name="VBoxFragmentHistory3" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 200
@@ -190,6 +198,7 @@ theme_override_font_sizes/font_size = 29
 text = "Siguiente"
 
 [node name="VBoxFragmentHistory4" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 200
