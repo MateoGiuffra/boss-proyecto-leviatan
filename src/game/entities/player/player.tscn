@@ -317,6 +317,7 @@ position = Vector2(5.000025, -20.500008)
 scale = Vector2(2.7, 2.7)
 color = Color(0.8324709, 0.8887561, 1, 1)
 energy = 1.0
+shadow_enabled = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
