@@ -24,6 +24,7 @@ signal can_win_level()
 func _ready() -> void:
 	randomize()
 	pause_menu.restart_requested.connect(on_restart_requested)
+	pause_menu.return_selected.connect(_on_return_requested)
 	cine_cam.enabled = true
 	
 func _process(_delta: float) -> void:
