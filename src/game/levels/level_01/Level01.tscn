@@ -59,6 +59,8 @@ position_smoothing_speed = 7.0
 
 [node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
 position = Vector2(8, 242)
+min_items_amount = 10
+min_documentables_amount = 5
 level = NodePath("..")
 boss = NodePath("../Boss")
 
