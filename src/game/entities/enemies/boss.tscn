@@ -1,0 +1,104 @@
+[gd_scene load_steps=14 format=3 uid="uid://du5h20jsf0svy"]
+
+[ext_resource type="Texture2D" uid="uid://bedargd7t4lsn" path="res://assets/textures/enemies/boss/idle/idle1.png" id="1_3ckac"]
+[ext_resource type="Script" uid="uid://beylk53qjewu1" path="res://src/game/entities/enemies/boss.gd" id="1_oaedp"]
+[ext_resource type="Texture2D" uid="uid://38hfti6wa1p6" path="res://assets/textures/enemies/boss/idle/idle2.png" id="2_oaedp"]
+[ext_resource type="Texture2D" uid="uid://olo0lely30md" path="res://assets/textures/enemies/boss/idle/idle3.png" id="3_nkwy1"]
+[ext_resource type="Texture2D" uid="uid://cvrwsl6uqgfp2" path="res://assets/textures/enemies/boss/idle/idle4.png" id="4_851k4"]
+[ext_resource type="AudioStream" uid="uid://dkqpfu0r6mkq8" path="res://assets/sound/enemy/deep-sea-monster-roar-329857.mp3" id="6_nkwy1"]
+[ext_resource type="AudioStream" uid="uid://gykqlkkyuu15" path="res://assets/sound/enemy/leviatan/leviatan_01.mp3" id="7_h1alv"]
+[ext_resource type="AudioStream" uid="uid://iv5bh1vbbb26" path="res://assets/sound/enemy/leviatan/leviatan_02.mp3" id="8_i7nke"]
+[ext_resource type="AudioStream" uid="uid://dnp7b7ekyerru" path="res://assets/sound/enemy/leviatan/leviatan_03.mp3" id="9_ywrh1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6pnuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3ckac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_oaedp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nkwy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_851k4")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_oaedp"]
+offsets = PackedFloat32Array(0.045045044, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nkwy1"]
+gradient = SubResource("Gradient_oaedp")
+fill = 1
+fill_from = Vector2(0.5220126, 0.4874214)
+fill_to = Vector2(0.9433962, 0.30503145)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oaedp"]
+radius = 2433.2502
+
+[node name="Boss" type="Area2D"]
+scale = Vector2(3.5, 3.5)
+collision_layer = 8
+collision_mask = 13
+script = ExtResource("1_oaedp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6pnuj")
+animation = &"move"
+frame = 3
+frame_progress = 0.08478053
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(22.75, 1.75)
+scale = Vector2(1.6484375, 1.4179688)
+texture = SubResource("GradientTexture2D_nkwy1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oaedp")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 9
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(4.5, 15.5, 9.25, 12.75, 12.75, 10.75, 14.5, 17.25, 24, 23.75, 33.25, 27.5, 38.25, 28.5, 46.75, 29, 47.25, 26, 47.25, 23, 28, 19, 23.75, 12.5, 23, 7.25, 27.25, 6.25, 34.25, 10, 39.5, 13, 43, 7.25, 46, -3.25, 43.75, -10, 41.5, -13.25, 29.5, -18.75, 18, -22.5, 7.25, -21.25, -4.25, -20.25, -11, -14, -22.25, -8, -28, -1.5, -36.75, 4.75, -39.25, 9.25, -47.5, 7, -51, 7.75, -51.25, 4, -53.25, -1, -57.5, 2, -54.75, 14.5, -39.5, 15.5, -36.75, 17.75, -30.5, 14.75, -20.5, 9.25, -21, 18.75, -14.5, 24.5, -4.25, 25, 1.5, 23, 5, 23, 5, 18.75)
+
+[node name="RoarMonster" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_nkwy1")
+volume_db = -6.75
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="01" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("7_h1alv")
+autoplay = true
+parameters/looping = true
+
+[node name="02" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("8_i7nke")
+volume_db = -4.039
+autoplay = true
+parameters/looping = true
+
+[node name="03" type="AudioStreamPlayer2D" parent="Sounds"]
+scale = Vector2(3.5, 3.5)
+stream = ExtResource("9_ywrh1")
+volume_db = -4.039
+autoplay = true
+parameters/looping = true
+
+[node name="SoundTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]

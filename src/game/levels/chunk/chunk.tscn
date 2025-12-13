@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvmo3x0lj3fqv"]
+
+[ext_resource type="Script" uid="uid://bbvwlj0pko4cb" path="res://src/game/levels/chunk/chunk.gd" id="1_dvfqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvfqy"]
+size = Vector2(3912, 808)
+
+[node name="Chunk" type="Area2D"]
+collision_layer = 8
+collision_mask = 86
+script = ExtResource("1_dvfqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(226.5, -176)
+shape = SubResource("RectangleShape2D_dvfqy")
+
+[node name="EntitiesContainer" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -4,6 +4,10 @@ var items: Dictionary[String, ItemData] = {} # Key: Item ID (String)
 @export var inventory_size: int = 10
 
 signal inventory_changed
+signal document_registered
+
+func register_documentable(_documentable_id: String) -> void:
+	document_registered.emit()
 
 func pick_up_item(world_item_data: ItemData) -> bool:
 	var item_id: String = world_item_data.id
@@ -19,7 +23,6 @@ func pick_up_item(world_item_data: ItemData) -> bool:
 		items[item_id] = new_item_copy
 		inventory_changed.emit()
 		return true
-		
 	return false
 
 func _can_add_new_type() -> bool:
@@ -30,6 +33,6 @@ func get_items() -> Array[ItemData]:
 
 func items_amount() -> int:
 	var result = 0
-	for val in  items.values():
+	for val in items.values():
 		result += val.actual_amount
 	return result 

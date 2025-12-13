@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://biachfyf1mrx0"]
+
+[sub_resource type="Gradient" id="Gradient_76raa"]
+offsets = PackedFloat32Array(0.1953125, 0.2890625)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_grd08"]
+gradient = SubResource("Gradient_76raa")
+fill = 1
+fill_from = Vector2(0.48433048, 0.43589744)
+
+[sub_resource type="GDScript" id="GDScript_okomc"]
+script/source = "extends PointLight2D
+
+func _ready():
+	start_blinking()
+
+func start_blinking():
+	var tween = create_tween().set_loops() # set_loops() hace que sea infinito
+	
+	# Bajar la energía a 0 en 0.5 segundos
+	tween.tween_property(self, \"energy\", 0.0, 0.5)
+	
+	# Subir la energía a 1 en 0.5 segundos
+	tween.tween_property(self, \"energy\", 3.0, 0.5)
+"
+
+[node name="PointLight2D" type="PointLight2D"]
+scale = Vector2(0.39843768, 0.3828125)
+color = Color(1, 0, 0, 1)
+energy = 16.0
+texture = SubResource("GradientTexture2D_grd08")
+script = SubResource("GDScript_okomc")

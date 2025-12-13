@@ -1,21 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp7iy3pfhe2yq"]
+[gd_scene load_steps=4 format=3 uid="uid://bp7iy3pfhe2yq"]
 
-[ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://ui/ui/action_input.gd" id="1_oyij3"]
+[ext_resource type="Script" uid="uid://c8y45pjaf2m66" path="res://src/game/ui/menus/action_input.gd" id="1_oyij3"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_8jd1k"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jd1k"]
+bg_color = Color(0.93333334, 0.94509804, 0.99607843, 0.24313726)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
-[node name="ActionInput" type="PanelContainer"]
+[node name="ActionInput" type="Button"]
+z_index = 4096
+custom_minimum_size = Vector2(0, 55)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+focus_mode = 0
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8jd1k")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_8jd1k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8jd1k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_8jd1k")
 script = ExtResource("1_oyij3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(20, 10)
+[node name="ActionLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_8jd1k")
+text = "asdasd "
 
-[node name="Input" type="Label" parent="HBoxContainer/Panel"]
+[node name="InputLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-horizontal_alignment = 1
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_8jd1k")
+text = "asdasdas"
 
-[node name="Action" type="Label" parent="HBoxContainer"]
-layout_mode = 2
+[connection signal="pressed" from="." to="." method="_on_pressed"]

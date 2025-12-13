@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1krst52fe87m"]
 
 [ext_resource type="Script" uid="uid://bpkesfcqx741r" path="res://src/game/ui/sliders/slider.gd" id="1_n43bu"]
-[ext_resource type="FontFile" uid="uid://i1qus13x2d0u" path="res://assets/fonts/Roboto-Bold.ttf" id="1_ujbsg"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="2_n43bu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g74my"]
 bg_color = Color(0.004688624, 0.054141253, 0.14072299, 1)
@@ -14,26 +14,46 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-expand_margin_left = 80.0
+expand_margin_left = 90.0
 expand_margin_top = 8.0
-expand_margin_right = 7.0
+expand_margin_right = 15.0
 expand_margin_bottom = 8.0
 
-[node name="HSlider" type="HSlider"]
-offset_right = 252.0
-offset_bottom = 16.0
+[node name="Slider" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n43bu")
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 91.0
+offset_top = -8.0
+offset_right = -16.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+size_flags_stretch_ratio = 3.73
 theme_override_constants/center_grabber = 1
 theme_override_styles/slider = SubResource("StyleBoxFlat_g74my")
 value = 100.0
-script = ExtResource("1_n43bu")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="HSlider"]
 layout_mode = 0
-offset_left = -68.0
+offset_left = -81.0
 offset_top = -2.0
-offset_right = 2.0
-offset_bottom = 28.0
+offset_right = -18.0
+offset_bottom = 24.0
 theme_override_colors/font_color = Color(0.87246186, 0.8841633, 0.9781366, 1)
-theme_override_fonts/font = ExtResource("1_ujbsg")
+theme_override_fonts/font = ExtResource("2_n43bu")
 theme_override_font_sizes/font_size = 16
 text = "Effects"

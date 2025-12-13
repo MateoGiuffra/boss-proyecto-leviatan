@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx0xmqw1tn3eh"]
+
+[ext_resource type="Script" uid="uid://ynedpstcq26h" path="res://src/game/entities/enemies/ammo/ammo.gd" id="1_23jqi"]
+[ext_resource type="Texture2D" uid="uid://b5fercgx5kg21" path="res://assets/textures/enemies/turret_enemy/ammo/idle.png" id="2_1cikp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfn4i"]
+radius = 2.236068
+
+[node name="Ammo" type="Area2D"]
+scale = Vector2(4, 4)
+collision_mask = 5
+script = ExtResource("1_23jqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lfn4i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1cikp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

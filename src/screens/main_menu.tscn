@@ -1,0 +1,146 @@
+[gd_scene load_steps=12 format=3 uid="uid://daovg62hm8gdh"]
+
+[ext_resource type="Script" uid="uid://by5gg2oq0holr" path="res://src/screens/main_menu.gd" id="1_dsrv8"]
+[ext_resource type="PackedScene" uid="uid://bk2ii7xjcq01n" path="res://src/screens/pre_game.tscn" id="2_kdc2m"]
+[ext_resource type="Script" uid="uid://cw03618pq75iu" path="res://src/screens/init_menu.gd" id="3_5avgn"]
+[ext_resource type="PackedScene" uid="uid://c44oruvbbfvul" path="res://assets/utility/main_image.tscn" id="3_472iq"]
+[ext_resource type="FontFile" uid="uid://co7cfveh1blbm" path="res://assets/fonts/needleteehh/Needleteeth Regular.ttf" id="4_qdkrd"]
+[ext_resource type="PackedScene" uid="uid://dfu7j5cxfdtli" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_xif3j"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="5_b73ir"]
+[ext_resource type="VideoStream" uid="uid://cd7ctdbpemas0" path="res://assets/textures/background/main-video-1.ogv" id="5_kdc2m"]
+[ext_resource type="AudioStream" uid="uid://ck7ngcpkj17nv" path="res://assets/sound/enemy/menu.mp3" id="7_b73ir"]
+[ext_resource type="StyleBox" uid="uid://q0u882okyqfw" path="res://assets/utility/default_pressed_button.tres" id="8_5aiqe"]
+[ext_resource type="AudioStream" uid="uid://c2j28rs0482to" path="res://assets/sound/soundtracks/hover-button-287656.mp3" id="9_5avgn"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_dsrv8")
+level_manager_scene = ExtResource("2_kdc2m")
+
+[node name="Menus" type="Node" parent="."]
+
+[node name="InitMenu" type="CanvasLayer" parent="Menus"]
+script = ExtResource("3_5avgn")
+
+[node name="Container" type="Control" parent="Menus/InitMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" parent="Menus/InitMenu/Container" instance=ExtResource("3_472iq")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="ZoomEffect" type="Control" parent="Menus/InitMenu/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Menus/InitMenu/Container/ZoomEffect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("5_kdc2m")
+autoplay = true
+expand = true
+loop = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/InitMenu/Container"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -202.5
+offset_right = 676.0
+offset_bottom = 202.5
+grow_vertical = 2
+theme_override_constants/separation = 70
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/InitMenu/Container/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 120
+
+[node name="Title" type="Label" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qdkrd")
+theme_override_font_sizes/font_size = 107
+text = "Proyecto Leviatan"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Menus/InitMenu/Container/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 44
+
+[node name="StartButton" type="Button" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons" groups=["ButtonUI"]]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("5_b73ir")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Jugar "
+
+[node name="OptionsButton" type="Button" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons" groups=["ButtonUI"]]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("5_b73ir")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Opciones "
+
+[node name="ExitButton" type="Button" parent="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons" groups=["ButtonUI"]]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("5_b73ir")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/pressed = ExtResource("8_5aiqe")
+theme_override_styles/pressed_mirrored = ExtResource("8_5aiqe")
+text = " Salir "
+
+[node name="FadeRect" type="ColorRect" parent="Menus/InitMenu/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="OptionsMenu" parent="Menus/InitMenu" instance=ExtResource("4_xif3j")]
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sound"]
+autoplay = true
+
+[node name="AudioBackgroundMenu" type="AudioStreamPlayer" parent="Sound"]
+process_mode = 3
+stream = ExtResource("7_b73ir")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="HoverButton" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("9_5avgn")
+
+[connection signal="pressed" from="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons/OptionsButton" to="Menus/InitMenu/OptionsMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Menus/InitMenu/Container/VBoxContainer/MarginContainer2/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]

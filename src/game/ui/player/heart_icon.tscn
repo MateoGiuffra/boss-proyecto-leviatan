@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://smt757c4nakb"]
+
+[ext_resource type="Script" uid="uid://cxbunio3hvmb" path="res://src/game/ui/player/heart_icon.gd" id="1_tngas"]
+[ext_resource type="Texture2D" uid="uid://gcsnqdan1blm" path="res://assets/textures/inventory/life/full_life.png" id="2_airwt"]
+[ext_resource type="Texture2D" uid="uid://dontqiryfafae" path="res://assets/textures/inventory/life/half_life.png" id="3_kfu83"]
+[ext_resource type="Texture2D" uid="uid://c4qxmv2wvj3j2" path="res://assets/textures/inventory/life/outline.png" id="5_kfu83"]
+
+[node name="HeartIcon" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tngas")
+full_texture = ExtResource("2_airwt")
+half_texture = ExtResource("3_kfu83")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_airwt")
+expand_mode = 1
+
+[node name="Outline" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_kfu83")
+expand_mode = 1

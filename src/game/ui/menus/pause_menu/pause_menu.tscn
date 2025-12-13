@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0wl53hsyfl8g"]
+
+[ext_resource type="Script" uid="uid://dn3fkdp1t71m6" path="res://src/game/ui/menus/pause_menu/pause_menu.gd" id="1"]
+[ext_resource type="Theme" uid="uid://btc130konr2b" path="res://assets/themes/my_theme.tres" id="2_mkjft"]
+[ext_resource type="PackedScene" uid="uid://daovg62hm8gdh" path="res://src/screens/main_menu.tscn" id="2_t8g1l"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="3_5a146"]
+[ext_resource type="StyleBox" uid="uid://6i15xwt8beow" path="res://assets/utility/gradient.tres" id="3_hyfj2"]
+[ext_resource type="PackedScene" uid="uid://dfu7j5cxfdtli" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_rabgt"]
+[ext_resource type="PackedScene" uid="uid://cel17mxuw63vn" path="res://assets/utility/menu_container.tscn" id="4_t8g1l"]
+[ext_resource type="StyleBox" uid="uid://b1fp8xevt1iqh" path="res://assets/utility/rounded_card.tres" id="5_b1xie"]
+[ext_resource type="AudioStream" uid="uid://c2j28rs0482to" path="res://assets/sound/soundtracks/hover-button-287656.mp3" id="5_luajn"]
+[ext_resource type="PackedScene" uid="uid://4xgcbtjeu8gu" path="res://assets/utility/sub_menu_container.tscn" id="6_4q27u"]
+[ext_resource type="StyleBox" uid="uid://b3aa8kfkg57s2" path="res://assets/utility/normal_button.tres" id="8_8vab3"]
+[ext_resource type="StyleBox" uid="uid://dk2380ptpabm8" path="res://assets/utility/pressed_button.tres" id="9_64ovo"]
+[ext_resource type="StyleBox" uid="uid://6t158asqvdsh" path="res://assets/utility/hover_button.tres" id="10_cou1w"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1")
+scene_menu = ExtResource("2_t8g1l")
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_mkjft")
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_hyfj2")
+
+[node name="MenuPause" parent="PauseMenu" instance=ExtResource("4_t8g1l")]
+layout_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/MenuPause"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_b1xie")
+
+[node name="SubMenuContainer" parent="PauseMenu/MenuPause/PanelContainer" instance=ExtResource("6_4q27u")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 64
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 44
+
+[node name="OptionsButton" type="Button" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("8_8vab3")
+theme_override_styles/normal_mirrored = ExtResource("8_8vab3")
+theme_override_styles/pressed = ExtResource("9_64ovo")
+theme_override_styles/pressed_mirrored = ExtResource("9_64ovo")
+theme_override_styles/hover = ExtResource("10_cou1w")
+theme_override_styles/hover_mirrored = ExtResource("10_cou1w")
+theme_override_styles/hover_pressed = ExtResource("10_cou1w")
+text = "Opciones"
+
+[node name="RestartLevelButton" type="Button" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("8_8vab3")
+theme_override_styles/normal_mirrored = ExtResource("8_8vab3")
+theme_override_styles/pressed = ExtResource("9_64ovo")
+theme_override_styles/pressed_mirrored = ExtResource("9_64ovo")
+theme_override_styles/hover = ExtResource("10_cou1w")
+theme_override_styles/hover_mirrored = ExtResource("10_cou1w")
+theme_override_styles/hover_pressed = ExtResource("10_cou1w")
+text = "Reiniciar Nivel"
+
+[node name="ReturnButton" type="Button" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("8_8vab3")
+theme_override_styles/normal_mirrored = ExtResource("8_8vab3")
+theme_override_styles/pressed = ExtResource("9_64ovo")
+theme_override_styles/pressed_mirrored = ExtResource("9_64ovo")
+theme_override_styles/hover = ExtResource("10_cou1w")
+theme_override_styles/hover_mirrored = ExtResource("10_cou1w")
+theme_override_styles/hover_pressed = ExtResource("10_cou1w")
+text = "Volver a Menu"
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer" groups=["ButtonUI"]]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5a146")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = ExtResource("8_8vab3")
+theme_override_styles/normal_mirrored = ExtResource("8_8vab3")
+theme_override_styles/pressed = ExtResource("9_64ovo")
+theme_override_styles/pressed_mirrored = ExtResource("9_64ovo")
+theme_override_styles/hover = ExtResource("10_cou1w")
+theme_override_styles/hover_mirrored = ExtResource("10_cou1w")
+theme_override_styles/hover_pressed = ExtResource("10_cou1w")
+text = "Atras"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("4_rabgt")]
+visible = false
+z_index = 100
+
+[node name="HoverButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_luajn")
+
+[connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/RestartLevelButton" to="." method="_on_restart_level_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
