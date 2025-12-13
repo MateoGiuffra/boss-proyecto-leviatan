@@ -18,7 +18,6 @@
 process_mode = 3
 layer = 100
 script = ExtResource("1")
-scene_menu = ExtResource("2_t8g1l")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3

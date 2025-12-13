@@ -19,8 +19,6 @@ collision_layer = 1
 [node name="UILayerMenu" type="CanvasLayer" parent="."]
 layer = 101
 
-[node name="PauseMenu" parent="UILayerMenu" instance=ExtResource("2_xh6xx")]
-
 [node name="DefeatMenu" parent="UILayerMenu" instance=ExtResource("3_qnwyr")]
 z_index = 200
 
