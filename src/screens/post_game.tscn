@@ -1,0 +1,174 @@
+[gd_scene load_steps=9 format=3 uid="uid://bk5fyf68mlbi5"]
+
+[ext_resource type="Script" uid="uid://cdd1fejmbmrra" path="res://src/screens/post_game.gd" id="1_kwx11"]
+[ext_resource type="Texture2D" uid="uid://ck8lx3g0527a5" path="res://assets/textures/images/story/story_first_image.png" id="3_4owwb"]
+[ext_resource type="Script" uid="uid://cwpqlv2qou0i3" path="res://src/screens/story_image.gd" id="4_5u73a"]
+[ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="5_cmydw"]
+[ext_resource type="Script" uid="uid://b0fekwxnxgc7o" path="res://src/screens/v_box_texts.gd" id="6_v7nkj"]
+[ext_resource type="Script" uid="uid://crulf3v6bgps0" path="res://src/screens/tutorial/next_scene.gd" id="7_boulh"]
+[ext_resource type="AudioStream" uid="uid://dnfjbb28dmq2p" path="res://assets/sound/soundtracks/ambiental.mp3" id="9_7p6qu"]
+[ext_resource type="AudioStream" uid="uid://bvp6jbpfq66cv" path="res://assets/sound/soundtracks/horror-sound-monster-breath-189934.mp3" id="10_loh1e"]
+
+[node name="PostGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kwx11")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="StoryImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4owwb")
+script = ExtResource("4_5u73a")
+
+[node name="SupColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.34901962)
+
+[node name="SkipStoryLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -402.0
+offset_top = -130.0
+offset_right = -45.0
+offset_bottom = -99.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_cmydw")
+theme_override_font_sizes/font_size = 22
+text = "Enter para saltear la historia"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 90
+
+[node name="VBoxFragmentHistory" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="VBoxTexts" type="VBoxContainer" parent="MarginContainer/VBoxFragmentHistory"]
+layout_mode = 2
+theme_override_constants/separation = 30
+script = ExtResource("6_v7nkj")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxFragmentHistory/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "En las profundidades de la base, el investigador consiguió documentar lo que aun permanece en pie."
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxFragmentHistory/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "Cada muestra e imagen revela espacios diseñados para estudiar algo que nunca debió existir."
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxFragmentHistory/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "Entre luces debiles, el investigador alcanza la puerta de escape."
+autowrap_mode = 2
+
+[node name="NextScene" type="Button" parent="MarginContainer/VBoxFragmentHistory"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_cmydw")
+theme_override_font_sizes/font_size = 29
+text = "Siguiente"
+
+[node name="VBoxFragmentHistory2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="VBoxTexts" type="VBoxContainer" parent="MarginContainer/VBoxFragmentHistory2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+script = ExtResource("6_v7nkj")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxFragmentHistory2/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "La compuerta se cierra, la presión disminuye y la superficie vuelve a existir."
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxFragmentHistory2/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "El investigador escapa con vida, pero ahora el mundo está a punto de descubrir lo que duerme en las profundidades."
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxFragmentHistory2/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "Los experimentos nunca fueron cancelados… fueron abandonados."
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxFragmentHistory2/VBoxTexts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_cmydw")
+text = "Cada imagen obtenida es una verdad que alguien quiso enterrar bajo kilómetros de agua."
+autowrap_mode = 2
+
+[node name="NextScene" type="Button" parent="MarginContainer/VBoxFragmentHistory2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_cmydw")
+theme_override_font_sizes/font_size = 29
+text = "Siguiente"
+script = ExtResource("7_boulh")
+
+[node name="MusicHistory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_7p6qu")
+volume_db = -8.0
+autoplay = true
+parameters/looping = true
+
+[node name="MonsterSea" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_loh1e")
+
+[connection signal="pressed" from="MarginContainer/VBoxFragmentHistory/NextScene" to="." method="_on_next_scene_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxFragmentHistory2/NextScene" to="." method="_on_last_scene_pressed"]

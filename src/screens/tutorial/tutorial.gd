@@ -52,4 +52,7 @@ func set_current_movement_key(key_binding: String ) -> void:
 	set_current_key(key_binding)
 		
 func _on_new_scene_pressed() -> void:
-	get_tree().change_scene_to_packed(level_manager_scene)
+	print("click")
+	
+	if level_manager_scene:
+		get_tree().change_scene_to_packed(level_manager_scene)

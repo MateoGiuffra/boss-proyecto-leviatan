@@ -25,7 +25,7 @@ func _on_body_entered(_body: Node) -> void:
 		return
 	if can_win():
 		won = true
-		GameState.notify_level_won()
+		GameState.notify_level_won_history()
 		#_play_animation("open")
 
 

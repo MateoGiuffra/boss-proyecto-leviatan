@@ -17,9 +17,9 @@ func _on_level_won() -> void:
 
 
 func _on_return_button_pressed() -> void:
-	print("clciked")
 	return_selected.emit()
 
 
 func _on_play_again_pressed() -> void:
+	get_tree().paused = false
 	next_selected.emit()

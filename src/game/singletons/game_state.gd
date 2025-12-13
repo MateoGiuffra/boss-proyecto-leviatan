@@ -32,6 +32,7 @@ func set_current_player(player: Player) -> void:
 ## Señal genérica que avisa del cumplimiento de la condición
 ## de victoria a todos los interesados.
 signal level_won()
+signal level_won_history()
 signal level_lost()
 
 func notify_level_lost() -> void:
@@ -39,10 +40,14 @@ func notify_level_lost() -> void:
 	zones_id = []
 	level_lost.emit() 
 
-func notify_level_won() -> void:
+func notify_level_won_history() -> void: 
 	zones_stash.append_array(zones_id)
 	zones_id = []
 	current_player.win()
+	level_won_history.emit()
+
+func notify_level_won() -> void:
+	print("Se emitio la señal")
 	level_won.emit()
 	
 	

@@ -2,6 +2,7 @@ extends VBoxContainer
 
 func play_fade() -> void:
 	var tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	for label in self.get_children():
 		if label is Label:
 			label.visible = true
@@ -10,5 +11,6 @@ func play_fade() -> void:
 
 func play_fade_out() -> Signal: 
 	var tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
 	return tween.finished

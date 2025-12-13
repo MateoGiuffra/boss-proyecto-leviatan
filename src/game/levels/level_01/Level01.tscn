@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d3fee2hrrhiq8"]
+[gd_scene load_steps=29 format=3 uid="uid://d3fee2hrrhiq8"]
 
 [ext_resource type="PackedScene" uid="uid://0j7qne8c1m10" path="res://src/game/levels/level_template/level_template.tscn" id="1_f30rv"]
 [ext_resource type="PackedScene" uid="uid://c1dkmd6hm8y05" path="res://assets/utility/camera_2d.tscn" id="2_i53je"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bldqwktb618w7" path="res://src/game/inventory/ui/inventory_ui.tscn" id="3_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://bvmo3x0lj3fqv" path="res://src/game/levels/chunk/chunk.tscn" id="3_yrqp0"]
 [ext_resource type="PackedScene" uid="uid://c3lxbj2vtqg0h" path="res://src/game/inventory/ui/slot/Slot.tscn" id="4_e2p1h"]
+[ext_resource type="PackedScene" uid="uid://bk5fyf68mlbi5" path="res://src/screens/post_game.tscn" id="4_xlpe6"]
 [ext_resource type="PackedScene" uid="uid://cey4wuep5drty" path="res://src/game/entities/enemies/Enemy.tscn" id="6_i5t0w"]
 [ext_resource type="PackedScene" uid="uid://htsk5dw51nj6" path="res://src/game/inventory/world_item/world_item.tscn" id="7_5rfnw"]
 [ext_resource type="PackedScene" uid="uid://dxyrmjtfkamqu" path="res://src/game/ui/player/ui_life.tscn" id="7_bat37"]
@@ -63,6 +64,11 @@ min_items_amount = 10
 min_documentables_amount = 5
 level = NodePath("..")
 boss = NodePath("../Boss")
+
+[node name="PostGame" parent="UILayerMenu" index="2" instance=ExtResource("4_xlpe6")]
+
+[node name="VictoryMenu" parent="UILayerMenu" index="3"]
+process_mode = 3
 
 [node name="CanvasModulate" parent="." index="4"]
 color = Color(0.016668597, 0.027919319, 0.119134136, 1)
