@@ -441,7 +441,6 @@ offset_right = 133.5
 offset_bottom = 50.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "¡Tenés que recolectar diez muestras!"
 
 [node name="ComeBackLabel" type="Label" parent="Message"]
 anchors_preset = 5
@@ -453,7 +452,6 @@ offset_right = 114.0
 offset_bottom = 62.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "¡Volvé al principio!"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -483,7 +481,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="H20Timer" type="Timer" parent="Timers"]
-wait_time = 15.0
+wait_time = 12.0
 autostart = true
 
 [node name="DieTimer" type="Timer" parent="Timers"]

@@ -23,6 +23,9 @@ func turn_all(node, active: bool) -> void:
 			if child.energy == 5:
 				child.energy = 3
 			child.enabled = active
+		if child.is_in_group("ammo") and active == false:
+			child.queue_free()
+			return
 		child.process_mode = final_process_mode
 		turn_all(child, active)
 	
