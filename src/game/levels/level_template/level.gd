@@ -7,6 +7,8 @@ var lights: Array[Light2D] = []
 @onready var cine_cam: Camera2D = $CineCam
 var in_cinematic: bool = false
 @onready var boss: Boss = $Boss
+@onready var goal: Goal = $Goal
+@onready var pause_menu: CanvasLayer = $UILayerMenu/PauseMenu
 
 func start(_player: Player) -> void:
 	_player.activate(true)
@@ -21,6 +23,7 @@ signal can_win_level()
 
 func _ready() -> void:
 	randomize()
+	pause_menu.restart_requested.connect(on_restart_requested)
 	cine_cam.enabled = true
 	
 func _process(_delta: float) -> void:
@@ -37,6 +40,9 @@ func on_level_won() -> void:
 func on_return_requested() -> void:
 	return_requested.emit()
 
+func on_restart_requested() -> void:
+	restart_requested.emit()
+
 func _on_defeat_menu_retry_selected() -> void:
 	next_level_requested.emit()
 
@@ -44,7 +50,6 @@ func _on_defeat_menu_return_selected() -> void:
 	return_requested.emit()
 	
 func _on_can_win_level() -> void: 
-	print("me llamaron _on_can_win_level")
 	start_boss_intro()
 	
 func cinematic_move(camera: Camera2D, from: Vector2, to: Vector2, duration: float = 2.0, pause: float = 1.5) -> void:

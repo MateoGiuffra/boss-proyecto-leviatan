@@ -34,15 +34,16 @@ func can_win() -> bool:
 		return  target_player.inventory.get_items().size() >= min_items_amount and \
 				target_player.zones.size() >= min_documentables_amount and \
 				target_player.animated_player.animation != "shoot_camera" and \
-				level and not trying_to_win
+				level
 	target_player = GameState.current_player
 	return false
 	
 func verify_win() -> void: 
 	if can_win():
+		boss._activate()
+		if  not trying_to_win:
+			level.can_win_level.emit()
 		trying_to_win = true
-		boss._activate()	
-		level.can_win_level.emit()
 
 func _on_portal_animation_finished() -> void:
 	if portal.animation == "open":

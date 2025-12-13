@@ -6,6 +6,7 @@ extends Control
 
 signal retry_selected()
 signal return_selected()
+
 var message_show: bool = false
 
 func _ready() -> void:

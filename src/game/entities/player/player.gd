@@ -23,7 +23,7 @@ var hp: float = max_hp
 var oxygen: float = 100
 @onready var oxygen_bar: ProgressBar = $Pivot/OxygenBar
 @export var oxygen_damage: float = 10
-
+@export var oxygen_wait_time: float = 15
 # visual
 @onready var pivot: Node2D = $Pivot
 @onready var animated_player: AnimatedSprite2D = $Pivot/AnimatedPlayer
@@ -99,6 +99,7 @@ func activate(restart_level: bool = false):
 	set_physics_process(true)
 	set_process_input(true)
 	show()
+	h20_timer.wait_time = oxygen_wait_time
 
 	if inventory_ui == null:
 		var ui_nodes: Array = get_tree().get_nodes_in_group("ui_layer")

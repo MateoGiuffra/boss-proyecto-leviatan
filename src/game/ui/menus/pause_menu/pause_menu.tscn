@@ -127,7 +127,6 @@ z_index = 100
 stream = ExtResource("5_luajn")
 
 [connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/RestartLevelButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/RestartLevelButton" to="." method="_on_restart_level_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuPause/PanelContainer/SubMenuContainer/VBoxContainer2/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

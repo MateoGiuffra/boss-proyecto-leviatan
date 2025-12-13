@@ -49,6 +49,7 @@ size = Vector2(3660, 1214.875)
 size = Vector2(1716, 866)
 
 [node name="Level01" instance=ExtResource("1_f30rv")]
+enable_distance = null
 
 [node name="CineCam" parent="." index="0" instance=ExtResource("2_i53je")]
 offset = Vector2(0, -100)
@@ -58,13 +59,11 @@ position_smoothing_speed = 7.0
 
 [node name="Goal" parent="." index="2" node_paths=PackedStringArray("level", "boss")]
 position = Vector2(8, 242)
-min_items_amount = 10
-min_documentables_amount = 5
 level = NodePath("..")
 boss = NodePath("../Boss")
 
 [node name="CanvasModulate" parent="." index="4"]
-color = Color(0.101960786, 0.10980392, 0.19215687, 1)
+color = Color(0.016668597, 0.027919319, 0.119134136, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
 

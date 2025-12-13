@@ -38,7 +38,7 @@ func _setup_level(id: int) -> void:
 		level_instance.return_requested.connect(_return_called)
 		level_instance.restart_requested.connect(_restart_called)
 		level_instance.next_level_requested.connect(_next_called)
-
+	
 
 # Callback de regreso al MainMenu.
 func _return_called() -> void:
@@ -48,6 +48,7 @@ func _return_called() -> void:
 
 # Callback de reinicio del nivel.
 func _restart_called() -> void:
+	print("me llamaron!!")
 	_setup_level(level)
 
 
