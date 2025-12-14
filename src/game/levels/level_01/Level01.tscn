@@ -833,7 +833,7 @@ range_z_max = 4096
 texture = SubResource("GradientTexture2D_djtrt")
 
 [node name="Player" parent="." index="8" node_paths=PackedStringArray("inventory_ui", "goal") instance=ExtResource("7_e2p1h")]
-position = Vector2(3634, -1535)
+position = Vector2(205, 208)
 scale = Vector2(0.6, 0.6)
 movement_speed_limit = 350.0
 dash_speed = 400.0
