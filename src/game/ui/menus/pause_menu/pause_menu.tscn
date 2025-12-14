@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0wl53hsyfl8g"]
+[gd_scene load_steps=13 format=3 uid="uid://d0wl53hsyfl8g"]
 
 [ext_resource type="Script" uid="uid://dn3fkdp1t71m6" path="res://src/game/ui/menus/pause_menu/pause_menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://btc130konr2b" path="res://assets/themes/my_theme.tres" id="2_mkjft"]
-[ext_resource type="PackedScene" uid="uid://daovg62hm8gdh" path="res://src/screens/main_menu.tscn" id="2_t8g1l"]
 [ext_resource type="FontFile" uid="uid://bv44481q4ecxo" path="res://assets/fonts/Cinzel-VariableFont_wght.ttf" id="3_5a146"]
 [ext_resource type="StyleBox" uid="uid://6i15xwt8beow" path="res://assets/utility/gradient.tres" id="3_hyfj2"]
 [ext_resource type="PackedScene" uid="uid://dfu7j5cxfdtli" path="res://src/game/ui/menus/options_menu/options_menu.tscn" id="4_rabgt"]
@@ -18,7 +17,6 @@
 process_mode = 3
 layer = 100
 script = ExtResource("1")
-scene_menu = ExtResource("2_t8g1l")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3

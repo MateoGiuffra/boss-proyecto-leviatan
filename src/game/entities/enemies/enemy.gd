@@ -5,6 +5,9 @@ class_name Enemy
 @onready var damage_timer: Timer = $Timers/DamageTimer
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 
+@onready var collision_area: Area2D = $CollisionArea 
+@export var guaranteed_attack_distance: float = 14.0  
+
 var on_ceiling = false
 @export var movement_speed: float = 150.0
 @export var friction_weight: float = 6.25
@@ -29,7 +32,7 @@ var facing_direction: int = 1
 var player_target: Player = null
 
 @export var min_view_distance_when_close: float = 120.0
-@export var ray_vertical_offset: float = -20.0
+@export var ray_vertical_offset: float = -40.0
 @export var close_speed_factor: float = 0.1
 
 
@@ -57,6 +60,9 @@ func _physics_process(delta: float) -> void:
 			_follow_player(delta)
 		else:
 			_idle(delta)
+
+	# Opción A: si está pegado o solapando y por algún motivo no entró el evento, igual ataca con cooldown
+	_try_attack_if_stuck_close()
 
 	_update_animation()
 	move_and_slide()
@@ -111,6 +117,28 @@ func _update_animation() -> void:
 		animated_enemy_2d.play("idle")
 
 	animated_enemy_2d.flip_h = facing_direction < 0
+
+
+func _try_attack_if_stuck_close() -> void:
+	if player_target == null:
+		return
+
+	# si el cooldown (timer) está corriendo, no atacamos
+	if not damage_timer.is_stopped():
+		return
+
+	# 1) distancia mínima: caso "pegado"
+	var close_enough := global_position.distance_to(player_target.global_position) <= guaranteed_attack_distance
+
+	# 2) overlap real del Area2D (por si la distancia no alcanza o el shape es raro)
+	var overlapping := false
+	if collision_area != null:
+		overlapping = collision_area.overlaps_body(player_target)
+
+	if close_enough or overlapping:
+		player_target.damage_player()
+		apply_knockback_from(player_target.global_position)
+		damage_timer.start()
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:

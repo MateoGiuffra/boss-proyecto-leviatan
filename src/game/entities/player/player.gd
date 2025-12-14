@@ -71,6 +71,9 @@ var _is_hard_breathing_target: bool = false
 @onready var oxygen_overlay: ColorRect = $CanvasLayer/ColorRectOxygenMark
 @onready var damage_overlay: ColorRect = $CanvasLayer/ColorRectDamage
 
+var _come_back_tween: Tween = null
+
+
 # Variables para la logica del dash y swim boost
 var movement_direction: int
 var count_swim_boost = swim_boost
@@ -93,14 +96,29 @@ signal hp_changed(current_hp: float, max_hp: float)
 func _ready():
 	activate()
 
-
 func activate(restart_level: bool = false):
 	set_process(true)
 	set_physics_process(true)
 	set_process_input(true)
 	show()
+
 	h20_timer.wait_time = oxygen_wait_time
 
+	# --- RESET CRÍTICO AL REINTENTAR ---
+	_reset_come_back_label()
+
+	if restart_level:
+		# oxígeno / vida
+		oxygen = max_oxygen
+		hp = max_hp
+
+		# documentables (esto afecta can_win)
+		zones.clear()
+		can_take_photo = false
+		is_taking_photo = false
+		current_photo_zone = null
+
+	# UI / inventario / goal
 	if inventory_ui == null:
 		var ui_nodes: Array = get_tree().get_nodes_in_group("ui_layer")
 		if !ui_nodes.is_empty():
@@ -110,21 +128,27 @@ func activate(restart_level: bool = false):
 		goal.initialize(inventory)
 		inventory_ui.initialize(inventory)
 
-	hide_label(come_back_label)
 	oxygen_bar.show()
 	animated_player.scale = Vector2(4, 4)
 	particles.emitting = false
 	message.modulate.a = 1.0
-	come_back_label.modulate.a = 0.0
 
-	set_oxygen_bar_initial_values(restart_level)
+	set_oxygen_bar_initial_values(true)
 	_reset_shaders()
-
-	_reset_breathing_audio() # NEW: arranca idle suave y deja hard preparado
+	_reset_breathing_audio()
 
 	if camera:
 		camera.enabled = true
+
 	GameState.set_current_player(self)
+
+func _reset_come_back_label() -> void:
+	if _come_back_tween and _come_back_tween.is_running():
+		_come_back_tween.kill()
+	_come_back_tween = null
+	come_back_label.text = ""
+	come_back_label.hide()
+	come_back_label.modulate.a = 0.0
 
 
 func set_oxygen_bar_initial_values(restart_level: bool = false) -> void:
@@ -167,6 +191,7 @@ func _physics_process(_delta: float) -> void:
 	_update_photo_zone_state()
 
 	if goal.can_win():
+		print("can_win TRUE - inv=", inventory, " hp=", hp, " oxy=", oxygen)
 		show_come_back_message()
 
 	move_and_slide()
@@ -421,13 +446,21 @@ func _on_message_timer_timeout() -> void:
 
 
 func show_come_back_message() -> void:
-	var tween = create_tween()
-	tween.tween_property(come_back_label, "modulate:a", 1.0, 0.5)
+	if come_back_label.visible:
+		return
+	come_back_label.show()
+
+	if _come_back_tween and _come_back_tween.is_running():
+		_come_back_tween.kill()
+
+	_come_back_tween = create_tween()
+	_come_back_tween.tween_property(come_back_label, "modulate:a", 1.0, 0.5)
+
 
 
 # funciones claves como win, lost, damage_player etc
 func win() -> void:
-	hide_label(come_back_label)
+	_reset_come_back_label()
 	hide()
 
 
@@ -468,8 +501,7 @@ func die_finish() -> void:
 	oxygen = 0
 	oxygen_bar.hide()
 	animated_player.scale = Vector2(8, 8)
-	hide_label(come_back_label)
-
+	come_back_label.hide()
 	die_timer.start()
 
 	# NEW: cortar tween antes de apagar sonidos
