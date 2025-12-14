@@ -6,7 +6,6 @@ class_name Ammo
 var direction: Vector2 = Vector2.ZERO
 
 func set_shoot_direction(new_direction: Vector2) -> void:
-	print("new direction")
 	direction = new_direction.normalized()
 	rotation = direction.angle()  # para que la bala “mire” hacia donde va
 

@@ -94,6 +94,7 @@ signal hp_changed(current_hp: float, max_hp: float)
 
 
 func _ready():
+	
 	activate()
 
 func activate(restart_level: bool = false):
@@ -191,7 +192,6 @@ func _physics_process(_delta: float) -> void:
 	_update_photo_zone_state()
 
 	if goal.can_win():
-		print("can_win TRUE - inv=", inventory, " hp=", hp, " oxy=", oxygen)
 		show_come_back_message()
 
 	move_and_slide()

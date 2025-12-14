@@ -31,7 +31,7 @@ func _on_body_entered(_body: Node) -> void:
 
 func can_win() -> bool:
 	if target_player: 
-		return  target_player.inventory.get_items().size() >= min_items_amount and \
+		return  target_player.inventory.items_amount() >= min_items_amount and \
 				target_player.zones.size() >= min_documentables_amount and \
 				target_player.animated_player.animation != "shoot_camera" and \
 				level
@@ -41,7 +41,7 @@ func can_win() -> bool:
 func verify_win() -> void: 
 	if can_win():
 		boss._activate()
-		if  not trying_to_win:
+		if not trying_to_win:
 			level.can_win_level.emit()
 		trying_to_win = true
 
